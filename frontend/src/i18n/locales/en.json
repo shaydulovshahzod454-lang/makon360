@@ -50,7 +50,8 @@
   },
   "favoritesPage": {
     "title": "Favorite listings",
-    "empty": "You haven't added anything to favorites yet."
+    "empty": "You haven't added anything to favorites yet.",
+    "loginRequired": "You're not signed in yet. Please log in first to view your favorites."
   },
   "catalog": {
     "title": "Catalog"

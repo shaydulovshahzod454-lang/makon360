@@ -59,6 +59,12 @@ function HomePage() {
   const handleToggleFavorite = async (e, listingId) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!authenticated) {
+      navigate('/login');
+      return;
+    }
+
     try {
       const res = await api.post(`/listings/${listingId}/toggle_favorite/`);
       setListings((prev) =>

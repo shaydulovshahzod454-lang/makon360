@@ -50,7 +50,8 @@
   },
   "favoritesPage": {
     "title": "Sevimli e'lonlar",
-    "empty": "Hali sevimlilarga hech narsa qo'shilmagan."
+    "empty": "Hali sevimlilarga hech narsa qo'shilmagan.",
+    "loginRequired": "Siz hali tizimga kirmagansiz. Sevimlilar ro'yxatini ko'rish uchun oldin tizimga kiring."
   },
   "catalog": {
     "title": "Katalog"

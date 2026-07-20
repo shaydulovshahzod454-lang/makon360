@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ function CatalogPage() {
   const { authenticated } = useAuth();
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [listings, setListings] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -47,6 +48,12 @@ function CatalogPage() {
   const handleToggleFavorite = async (e, listingId) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!authenticated) {
+      navigate('/login');
+      return;
+    }
+
     try {
       const res = await api.post(`/listings/${listingId}/toggle_favorite/`);
       setListings((prev) =>

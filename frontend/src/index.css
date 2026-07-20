@@ -688,6 +688,28 @@ input:focus, select:focus, textarea:focus {
   white-space: nowrap;
 }
 
+/* ---------- Auth required alert (e.g. Favorites page) ---------- */
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--gold-soft);
+  border: 1px solid rgba(212, 160, 84, 0.4);
+  color: #6b4e1f;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.auth-alert a {
+  color: var(--accent-dark);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 .added-rooms-list {
   list-style: none;
   padding: 0;

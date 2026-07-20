@@ -12,15 +12,13 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
     <div className={`listing-grid ${staggerAnim ? 'stagger' : ''}`}>
       {listings.map((listing) => (
         <Link key={listing.id} to={`/listing/${listing.id}`} className="listing-card card">
-          {authenticated && (
-            <button
-              className="favorite-btn"
-              onClick={(e) => onToggleFavorite(e, listing.id)}
-              title={listing.is_favorited ? t('home.removeFromFavorites') : t('home.addToFavorites')}
-            >
-              {listing.is_favorited ? '❤️' : '🤍'}
-            </button>
-          )}
+          <button
+            className="favorite-btn"
+            onClick={(e) => onToggleFavorite(e, listing.id)}
+            title={listing.is_favorited ? t('home.removeFromFavorites') : t('home.addToFavorites')}
+          >
+            {listing.is_favorited ? '❤️' : '🤍'}
+          </button>
           <div className="image-wrap">
             {listing.main_image && <img src={listing.main_image} alt={listing.title} />}
             <span className="badge-360">360°</span>

@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
 
 function FavoritesPage() {
   const { t } = useTranslation();
+  const { authenticated } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,8 +19,12 @@ function FavoritesPage() {
   };
 
   useEffect(() => {
-    loadFavorites();
-  }, []);
+    if (authenticated) {
+      loadFavorites();
+    } else {
+      setLoading(false);
+    }
+  }, [authenticated]);
 
   const handleRemove = async (e, listingId) => {
     e.preventDefault();
@@ -31,6 +37,18 @@ function FavoritesPage() {
       console.error(err);
     }
   };
+
+  if (!authenticated) {
+    return (
+      <div className="page-container" style={{ paddingTop: '40px' }}>
+        <h1 className="fade-up">{t('favoritesPage.title')}</h1>
+        <div className="auth-alert fade-up">
+          <span>⚠️ {t('favoritesPage.loginRequired')}</span>
+          <Link to="/login">{t('listingDetail.login')}</Link>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) return <p>{t('home.loading')}</p>;
 
