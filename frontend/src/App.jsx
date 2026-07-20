@@ -1,0 +1,37 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import HomePage from './pages/HomePage';
+import ListingDetailPage from './pages/ListingDetailPage';
+import LoginPage from './pages/LoginPage';
+import Header from './components/Header';
+import CreateListingPage from './pages/CreateListingPage';
+import AddRoomPage from './pages/AddRoomPage';
+import RegisterPage from './pages/RegisterPage';
+import ManageHotspotsPage from './pages/ManageHotspotsPage';
+import FavoritesPage from './pages/FavoritesPage';
+import CatalogPage from './pages/CatalogPage';
+
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+      <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/listing/:id" element={<ListingDetailPage />} />
+          <Route path="/listing/:id/edit" element={<CreateListingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/create-listing" element={<CreateListingPage />} />
+          <Route path="/listing/:id/add-room" element={<AddRoomPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/listing/:id/hotspots" element={<ManageHotspotsPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;
