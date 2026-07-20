@@ -230,23 +230,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 .site-header .brand {
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--text);
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
-.site-header .brand::before {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--gold);
-  display: inline-block;
+.site-header .brand img {
+  height: 34px;
+  width: auto;
+  display: block;
 }
 
 .site-header nav {

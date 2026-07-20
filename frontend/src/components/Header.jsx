@@ -21,7 +21,9 @@ function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link to="/" className="brand">{t('header.brand')}</Link>
+        <Link to="/" className="brand">
+          <img src="/logo-header.png" alt="Makon360" />
+        </Link>
         <nav>
           <Link to="/catalog">{t('header.catalog')}</Link>
           <Link to="/favorites">{t('header.favorites')}</Link>
