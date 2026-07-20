@@ -46,7 +46,13 @@
     "documentsReady": "Hujjatlar tayyor",
     "gas": "Gaz",
     "electricity": "Svet",
-    "internet": "Internet"
+    "internet": "Internet",
+    "roomCount": "Xonalar",
+    "area": "Maydoni",
+    "sqm": "kv.m",
+    "floorPlanTitle": "Xonadon rejasi",
+    "floorPlanCaption": "Sxematik chizma — har bir xona maydoni umumiy maydondan mutanosib ravishda hisoblangan. Maydoni:",
+    "floorPlanPerRoom": "har bir xona"
   },
   "favoritesPage": {
     "title": "Sevimli e'lonlar",
@@ -85,6 +91,8 @@
     "error": "Xatolik yuz berdi. Barcha maydonlarni tekshiring.",
     "amenities": "Qulayliklar",
     "additionalInfo": "Qo'shimcha ma'lumot",
+    "roomCount": "Xonalar soni",
+    "area": "Maydoni (kv.m)",
     "floor": "Qavat",
     "totalFloors": "Jami qavatlar",
     "yearBuilt": "Qurilgan yili",

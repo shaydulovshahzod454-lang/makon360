@@ -73,6 +73,7 @@ class ListingDetailSerializer(serializers.ModelSerializer):
             'category', 'contact_phone', 'rooms', 'created_at', 'is_favorited', 'created_by',
             'amenities', 'floor', 'total_floors', 'year_built',
             'has_documents', 'has_gas', 'has_electricity', 'has_internet',
+            'room_count', 'area',
         ]
         extra_kwargs = {
             'created_by': {'read_only': True},

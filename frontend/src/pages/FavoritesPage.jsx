@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
+import FilterBar from '../components/FilterBar';
 
 function FavoritesPage() {
   const { t } = useTranslation();
   const { authenticated } = useAuth();
   const [favorites, setFavorites] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [filters, setFilters] = useState({
+    search: '', category: '', minPrice: '', maxPrice: '', ordering: '',
+  });
 
   const loadFavorites = () => {
     setLoading(true);
@@ -21,6 +27,7 @@ function FavoritesPage() {
   useEffect(() => {
     if (authenticated) {
       loadFavorites();
+      api.get('/categories/').then((res) => setCategories(res.data));
     } else {
       setLoading(false);
     }
@@ -37,6 +44,38 @@ function FavoritesPage() {
       console.error(err);
     }
   };
+
+  // Sevimlilar ro'yxati kichik bo'lgani uchun, filtrlashni backend'ga
+  // qayta so'rov yubormasdan, to'g'ridan-to'g'ri shu yerda (frontendda) qilamiz
+  const filteredFavorites = useMemo(() => {
+    let result = [...favorites];
+
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      result = result.filter((f) =>
+        f.listing_detail.title.toLowerCase().includes(q) ||
+        f.listing_detail.address.toLowerCase().includes(q)
+      );
+    }
+    if (filters.category) {
+      result = result.filter((f) => f.listing_detail.category?.id === Number(filters.category));
+    }
+    if (filters.minPrice) {
+      result = result.filter((f) => Number(f.listing_detail.price) >= Number(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      result = result.filter((f) => Number(f.listing_detail.price) <= Number(filters.maxPrice));
+    }
+    if (filters.ordering === 'price') {
+      result.sort((a, b) => Number(a.listing_detail.price) - Number(b.listing_detail.price));
+    } else if (filters.ordering === '-price') {
+      result.sort((a, b) => Number(b.listing_detail.price) - Number(a.listing_detail.price));
+    } else if (filters.ordering === '-created_at') {
+      result.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    return result;
+  }, [favorites, filters]);
 
   if (!authenticated) {
     return (
@@ -56,11 +95,19 @@ function FavoritesPage() {
     <div className="page-container" style={{ paddingTop: '40px' }}>
       <h1 className="fade-up">{t('favoritesPage.title')}</h1>
 
+      {favorites.length > 0 && (
+        <div className="fade-up" style={{ animationDelay: '0.08s' }}>
+          <FilterBar filters={filters} setFilters={setFilters} categories={categories} />
+        </div>
+      )}
+
       {favorites.length === 0 ? (
         <p className="fade-up" style={{ animationDelay: '0.1s' }}>{t('favoritesPage.empty')}</p>
+      ) : filteredFavorites.length === 0 ? (
+        <p>{t('home.noResults')}</p>
       ) : (
         <div className="listing-grid stagger">
-          {favorites.map((fav) => (
+          {filteredFavorites.map((fav) => (
             <Link key={fav.id} to={`/listing/${fav.listing_detail.id}`} className="listing-card card">
               <button
                 className="favorite-btn"

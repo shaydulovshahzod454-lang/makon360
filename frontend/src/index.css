@@ -710,6 +710,43 @@ input:focus, select:focus, textarea:focus {
   text-decoration: underline;
 }
 
+/* ---------- Floor plan schematic ---------- */
+
+.floor-plan-wrap {
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.floor-plan-svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  display: block;
+}
+
+.floor-plan-cell {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 0.6;
+}
+
+.floor-plan-cell-label {
+  font-size: 6px;
+  font-weight: 700;
+  fill: var(--accent-dark);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.floor-plan-caption {
+  margin-top: 10px;
+  font-size: 13.5px;
+}
+
 .added-rooms-list {
   list-style: none;
   padding: 0;
@@ -1078,4 +1115,29 @@ input:focus, select:focus, textarea:focus {
     align-items: flex-start;
     gap: 8px;
   }
+}
+
+/* ==================== FON — SHAFFOF RANGLAR ARALASHMASI ==================== */
+/* Sahifa orqasida bilinar-bilinmas, turli rangli shaffof dog'lar.
+   position: fixed orqali skroll qilinganda ham joyida turadi,
+   z-index: -1 orqali butun mazmunning orqasida qoladi. */
+
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(650px circle at 8% 12%, rgba(15, 93, 76, 0.12), transparent 60%),
+    radial-gradient(550px circle at 88% 8%, rgba(212, 160, 84, 0.12), transparent 60%),
+    radial-gradient(700px circle at 50% 95%, rgba(88, 111, 199, 0.08), transparent 60%),
+    radial-gradient(500px circle at 95% 75%, rgba(196, 92, 140, 0.07), transparent 60%),
+    radial-gradient(600px circle at 5% 80%, rgba(96, 165, 158, 0.08), transparent 60%);
+  filter: blur(60px);
 }

@@ -13,6 +13,7 @@ function CreateListingPage() {
   const [form, setForm] = useState({
     title: '', description: '', price: '', address: '',
     contact_phone: '', category: '',
+    room_count: '', area: '',
     amenities: [],
     floor: '', total_floors: '', year_built: '',
     has_documents: false, has_gas: false, has_electricity: false, has_internet: false,
@@ -38,6 +39,8 @@ function CreateListingPage() {
           address: data.address,
           contact_phone: data.contact_phone,
           category: data.category?.id || '',
+          room_count: data.room_count ?? '',
+          area: data.area ?? '',
           amenities: data.amenities.map((a) => a.id),
           floor: data.floor ?? '',
           total_floors: data.total_floors ?? '',
@@ -79,6 +82,8 @@ function CreateListingPage() {
     // Bo'sh qoldirilgan raqamli maydonlarni backend uchun null qilib yuboramiz
     const payload = {
       ...form,
+      room_count: form.room_count === '' ? null : form.room_count,
+      area: form.area === '' ? null : form.area,
       floor: form.floor === '' ? null : form.floor,
       total_floors: form.total_floors === '' ? null : form.total_floors,
       year_built: form.year_built === '' ? null : form.year_built,
@@ -125,6 +130,17 @@ function CreateListingPage() {
             <label className="field-label">{t('createListing.contactPhone')}</label>
             <input name="contact_phone" value={form.contact_phone} onChange={handleChange} required />
           </div>
+          <div className="form-row">
+            <div className="form-field">
+              <label className="field-label">{t('createListing.roomCount')}</label>
+              <input type="number" name="room_count" value={form.room_count} onChange={handleChange} />
+            </div>
+            <div className="form-field">
+              <label className="field-label">{t('createListing.area')}</label>
+              <input type="number" step="0.1" name="area" value={form.area} onChange={handleChange} />
+            </div>
+          </div>
+
           <div className="form-field">
             <label className="field-label">{t('createListing.category')}</label>
             <select name="category" value={form.category} onChange={handleChange} required>

@@ -46,7 +46,13 @@
     "documentsReady": "Documents ready",
     "gas": "Gas",
     "electricity": "Electricity",
-    "internet": "Internet"
+    "internet": "Internet",
+    "roomCount": "Rooms",
+    "area": "Area",
+    "sqm": "sq.m",
+    "floorPlanTitle": "Floor plan",
+    "floorPlanCaption": "Schematic diagram — each room's area is calculated proportionally from the total area. Area:",
+    "floorPlanPerRoom": "per room"
   },
   "favoritesPage": {
     "title": "Favorite listings",
@@ -85,6 +91,8 @@
     "error": "Something went wrong. Please check all fields.",
     "amenities": "Amenities",
     "additionalInfo": "Additional information",
+    "roomCount": "Number of rooms",
+    "area": "Area (sq.m)",
     "floor": "Floor",
     "totalFloors": "Total floors",
     "yearBuilt": "Year built",

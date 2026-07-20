@@ -26,6 +26,9 @@ class Listing(models.Model):
     address = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='listings')
 
+    room_count = models.PositiveIntegerField(null=True, blank=True)  # Xonalar soni
+    area = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True)  # Maydoni, kv.m
+    
     amenities = models.ManyToManyField(Amenity, blank=True, related_name='listings')
 
     # Qo'shimcha ma'lumot

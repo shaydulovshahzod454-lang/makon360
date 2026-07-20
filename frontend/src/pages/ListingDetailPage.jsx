@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
+import FloorPlanSchematic from '../components/FloorPlanschematic';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
@@ -74,6 +75,18 @@ function ListingDetailPage() {
           <div className="label">{t('listingDetail.price')}</div>
           <div className="value price">${listing.price}</div>
         </div>
+        {listing.room_count && (
+          <div className="meta-item">
+            <div className="label">{t('listingDetail.roomCount')}</div>
+            <div className="value">{listing.room_count}</div>
+          </div>
+        )}
+        {listing.area && (
+          <div className="meta-item">
+            <div className="label">{t('listingDetail.area')}</div>
+            <div className="value">{listing.area} {t('listingDetail.sqm')}</div>
+          </div>
+        )}
         <div className="meta-item">
           <div className="label">{t('listingDetail.contact')}</div>
           <div className="value">{listing.contact_phone}</div>
@@ -151,6 +164,8 @@ function ListingDetailPage() {
           </div>
         </div>
       )}
+
+      <FloorPlanSchematic roomCount={listing.room_count} area={listing.area} />
 
       {show360 && currentRoom && (
         <div className="fullscreen-360">
