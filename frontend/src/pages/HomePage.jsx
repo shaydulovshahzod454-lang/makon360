@@ -54,7 +54,7 @@ function HomePage() {
       .then((res) => setListings(res.data.slice(0, LATEST_COUNT)))
       .catch((err) => console.error('Xatolik:', err))
       .finally(() => setLoading(false));
-  }, [filters]);
+  }, [filters, authenticated]);
 
   const handleToggleFavorite = async (e, listingId) => {
     e.preventDefault();

@@ -43,7 +43,7 @@ function CatalogPage() {
       .then((res) => setListings(res.data))
       .catch((err) => console.error('Xatolik:', err))
       .finally(() => setLoading(false));
-  }, [filters]);
+  }, [filters, authenticated]);
 
   const handleToggleFavorite = async (e, listingId) => {
     e.preventDefault();
