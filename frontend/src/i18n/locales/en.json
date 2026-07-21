@@ -99,7 +99,9 @@
     "hasDocuments": "Documents ready",
     "hasGas": "Gas",
     "hasElectricity": "Electricity",
-    "hasInternet": "Internet"
+    "hasInternet": "Internet",
+    "optional": "optional",
+    "currentFile": "Current image on file"
   },
   "addRoom": {
     "title": "Add rooms",

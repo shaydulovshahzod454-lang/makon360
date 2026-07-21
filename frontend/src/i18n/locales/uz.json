@@ -99,7 +99,9 @@
     "hasDocuments": "Hujjatlar tayyor",
     "hasGas": "Gaz",
     "hasElectricity": "Svet",
-    "hasInternet": "Internet"
+    "hasInternet": "Internet",
+    "optional": "ixtiyoriy",
+    "currentFile": "Joriy rasm mavjud"
   },
   "addRoom": {
     "title": "Xonalarni qo'shish",

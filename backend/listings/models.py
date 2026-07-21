@@ -28,6 +28,7 @@ class Listing(models.Model):
 
     room_count = models.PositiveIntegerField(null=True, blank=True)  # Xonalar soni
     area = models.DecimalField(max_digits=8, decimal_places=1, null=True, blank=True)  # Maydoni, kv.m
+    floor_plan_image = models.ImageField(upload_to='floorplans/', null=True, blank=True)  # Qo'lda yuklangan xonadon rejasi (ixtiyoriy)
     
     amenities = models.ManyToManyField(Amenity, blank=True, related_name='listings')
 

@@ -72,24 +72,36 @@ function ListingDetailPage() {
 
       <div className="detail-meta fade-up" style={{ animationDelay: '0.1s' }}>
         <div className="meta-item">
-          <div className="label">{t('listingDetail.price')}</div>
-          <div className="value price">${listing.price}</div>
+          <div className="meta-icon">💰</div>
+          <div className="meta-text">
+            <div className="label">{t('listingDetail.price')}</div>
+            <div className="value price">${listing.price}</div>
+          </div>
         </div>
         {listing.room_count && (
           <div className="meta-item">
-            <div className="label">{t('listingDetail.roomCount')}</div>
-            <div className="value">{listing.room_count}</div>
+            <div className="meta-icon">🛏️</div>
+            <div className="meta-text">
+              <div className="label">{t('listingDetail.roomCount')}</div>
+              <div className="value">{listing.room_count}</div>
+            </div>
           </div>
         )}
         {listing.area && (
           <div className="meta-item">
-            <div className="label">{t('listingDetail.area')}</div>
-            <div className="value">{listing.area} {t('listingDetail.sqm')}</div>
+            <div className="meta-icon">📐</div>
+            <div className="meta-text">
+              <div className="label">{t('listingDetail.area')}</div>
+              <div className="value">{listing.area} {t('listingDetail.sqm')}</div>
+            </div>
           </div>
         )}
         <div className="meta-item">
-          <div className="label">{t('listingDetail.contact')}</div>
-          <div className="value">{listing.contact_phone}</div>
+          <div className="meta-icon">📞</div>
+          <div className="meta-text">
+            <div className="label">{t('listingDetail.contact')}</div>
+            <div className="value">{listing.contact_phone}</div>
+          </div>
         </div>
       </div>
 
@@ -165,7 +177,16 @@ function ListingDetailPage() {
         </div>
       )}
 
-      <FloorPlanSchematic roomCount={listing.room_count} area={listing.area} />
+      {listing.floor_plan_image ? (
+        <div className="detail-section fade-up">
+          <h4>{t('listingDetail.floorPlanTitle')}</h4>
+          <div className="floor-plan-wrap">
+            <img src={listing.floor_plan_image} alt="floor plan" className="floor-plan-uploaded-img" />
+          </div>
+        </div>
+      ) : (
+        <FloorPlanSchematic roomCount={listing.room_count} area={listing.area} />
+      )}
 
       {show360 && currentRoom && (
         <div className="fullscreen-360">

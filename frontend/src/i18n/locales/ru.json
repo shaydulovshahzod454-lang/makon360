@@ -99,7 +99,9 @@
     "hasDocuments": "Документы готовы",
     "hasGas": "Газ",
     "hasElectricity": "Свет",
-    "hasInternet": "Интернет"
+    "hasInternet": "Интернет",
+    "optional": "необязательно",
+    "currentFile": "Текущее изображение загружено"
   },
   "addRoom": {
     "title": "Добавление комнат",

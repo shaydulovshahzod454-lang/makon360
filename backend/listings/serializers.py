@@ -61,7 +61,6 @@ class ListingListSerializer(serializers.ModelSerializer):
 
 class ListingDetailSerializer(serializers.ModelSerializer):
     """Bitta e'lon sahifasi uchun - to'liq ma'lumot, barcha xonalar bilan"""
-    category = CategorySerializer(read_only=True)
     rooms = RoomSerializer(many=True, read_only=True)
     is_favorited = serializers.SerializerMethodField()
     amenities = serializers.PrimaryKeyRelatedField(many=True, queryset=Amenity.objects.all(), required=False)
@@ -73,7 +72,7 @@ class ListingDetailSerializer(serializers.ModelSerializer):
             'category', 'contact_phone', 'rooms', 'created_at', 'is_favorited', 'created_by',
             'amenities', 'floor', 'total_floors', 'year_built',
             'has_documents', 'has_gas', 'has_electricity', 'has_internet',
-            'room_count', 'area',
+            'room_count', 'area', 'floor_plan_image',
         ]
         extra_kwargs = {
             'created_by': {'read_only': True},
@@ -87,8 +86,8 @@ class ListingDetailSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        # amenities'ni ID ro'yxati o'rniga to'liq obyekt (id + nom) sifatida qaytaramiz
         representation['amenities'] = AmenitySerializer(instance.amenities.all(), many=True).data
+        representation['category'] = CategorySerializer(instance.category).data if instance.category else None
         return representation
 
 class RegisterSerializer(serializers.ModelSerializer):
