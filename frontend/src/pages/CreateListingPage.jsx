@@ -18,7 +18,6 @@ function CreateListingPage() {
     floor: '', total_floors: '', year_built: '',
     has_documents: false, has_gas: false, has_electricity: false, has_internet: false,
   });
-  const [floorPlanFile, setFloorPlanFile] = useState(null);
   const [floorPlanImage, setFloorPlanImage] = useState(null);
   const [existingFloorPlanUrl, setExistingFloorPlanUrl] = useState(null);
   const [error, setError] = useState('');
@@ -79,9 +78,6 @@ function CreateListingPage() {
     });
   };
 
-  const handleFloorPlanChange = (e) => {
-    setFloorPlanFile(e.target.files[0] || null);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,8 +102,8 @@ function CreateListingPage() {
         formData.append(key, value);
       }
     });
-    if (floorPlanFile) {
-      formData.append('floor_plan_image', floorPlanFile);
+    if (floorPlanImage) {
+      formData.append('floor_plan_image', floorPlanImage);
     }
 
     try {
