@@ -101,7 +101,9 @@
     "hasElectricity": "Svet",
     "hasInternet": "Internet",
     "optional": "ixtiyoriy",
-    "currentFile": "Joriy rasm mavjud"
+    "currentFile": "Joriy rasm mavjud",
+    "floorPlanImage": "Xonadon sxemasi (rasm)",
+    "floorPlanImageHint": "Uy yoki xonadon rejasini rasm ko'rinishida yuklashingiz mumkin. Bu ixtiyoriy."
   },
   "addRoom": {
     "title": "Xonalarni qo'shish",

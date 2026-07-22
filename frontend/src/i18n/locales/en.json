@@ -101,7 +101,9 @@
     "hasElectricity": "Electricity",
     "hasInternet": "Internet",
     "optional": "optional",
-    "currentFile": "Current image on file"
+    "currentFile": "Current image on file",
+    "floorPlanImage": "Floor plan (image)",
+    "floorPlanImageHint": "You can upload a photo of the property's layout. This is optional."
   },
   "addRoom": {
     "title": "Add rooms",

@@ -19,6 +19,7 @@ function CreateListingPage() {
     has_documents: false, has_gas: false, has_electricity: false, has_internet: false,
   });
   const [floorPlanFile, setFloorPlanFile] = useState(null);
+  const [floorPlanImage, setFloorPlanImage] = useState(null);
   const [existingFloorPlanUrl, setExistingFloorPlanUrl] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(isEditMode);
@@ -228,16 +229,33 @@ function CreateListingPage() {
             </label>
           </div>
 
-          {/* Xonadon rejasi (sxema) - ixtiyoriy */}
+          {/* Xonadon rejasi rasmi - ixtiyoriy, qo'lda yuklanadi */}
           <div className="form-field">
-            <label className="field-label">{t('createListing.floorPlanImage')}</label>
-            {existingFloorPlanUrl && !floorPlanFile && (
-              <div className="floor-plan-existing-preview">
-                <img src={existingFloorPlanUrl} alt="floor plan" />
-              </div>
+            <label className="field-label">
+              {t('createListing.floorPlanImage')}
+            </label>
+            <p className="file-upload-hint">{t('createListing.floorPlanImageHint')}</p>
+
+            <label className="file-upload" htmlFor="floor-plan-file">
+              <span className="file-upload-btn">📁 {t('addRoom.chooseFile')}</span>
+              <span className="file-upload-name">
+                {floorPlanImage
+                  ? floorPlanImage.name
+                  : existingFloorPlanUrl
+                    ? t('createListing.currentFile')
+                    : t('addRoom.noFileChosen')}
+              </span>
+            </label>
+            <input
+              id="floor-plan-file"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFloorPlanImage(e.target.files[0])}
+              className="file-upload-input"
+            />
+            {existingFloorPlanUrl && !floorPlanImage && (
+              <img src={existingFloorPlanUrl} alt="floor plan" className="floor-plan-current-preview" />
             )}
-            <input type="file" accept="image/*" onChange={handleFloorPlanChange} />
-            <p className="field-hint">{t('createListing.floorPlanImageHint')}</p>
           </div>
 
           {error && <p className="error-text">{error}</p>}

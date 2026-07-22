@@ -739,6 +739,12 @@ input:focus, select:focus, textarea:focus {
   white-space: nowrap;
 }
 
+.file-upload-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 2px 0 10px;
+}
+
 /* ---------- Auth required alert (e.g. Favorites page) ---------- */
 
 .auth-alert {
