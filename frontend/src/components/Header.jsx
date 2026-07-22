@@ -40,7 +40,10 @@ function Header() {
           </select>
 
           {authenticated ? (
-            <button className="btn btn-secondary" onClick={handleLogout}>{t('header.logout')}</button>
+            <div className="nav-user">
+              <span className="nav-username">👤 {user?.username}</span>
+              <button className="btn btn-secondary" onClick={handleLogout}>{t('header.logout')}</button>
+            </div>
           ) : (
             <>
               <Link to="/login">{t('header.login')}</Link>

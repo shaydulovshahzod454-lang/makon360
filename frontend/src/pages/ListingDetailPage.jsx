@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
-import FloorPlanSchematic from '../components/FloorPlanschematic';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
@@ -72,36 +71,24 @@ function ListingDetailPage() {
 
       <div className="detail-meta fade-up" style={{ animationDelay: '0.1s' }}>
         <div className="meta-item">
-          <div className="meta-icon">💰</div>
-          <div className="meta-text">
-            <div className="label">{t('listingDetail.price')}</div>
-            <div className="value price">${listing.price}</div>
-          </div>
+          <div className="label">{t('listingDetail.price')}</div>
+          <div className="value price">${listing.price}</div>
         </div>
         {listing.room_count && (
           <div className="meta-item">
-            <div className="meta-icon">🛏️</div>
-            <div className="meta-text">
-              <div className="label">{t('listingDetail.roomCount')}</div>
-              <div className="value">{listing.room_count}</div>
-            </div>
+            <div className="label">{t('listingDetail.roomCount')}</div>
+            <div className="value">{listing.room_count}</div>
           </div>
         )}
         {listing.area && (
           <div className="meta-item">
-            <div className="meta-icon">📐</div>
-            <div className="meta-text">
-              <div className="label">{t('listingDetail.area')}</div>
-              <div className="value">{listing.area} {t('listingDetail.sqm')}</div>
-            </div>
+            <div className="label">{t('listingDetail.area')}</div>
+            <div className="value">{listing.area} {t('listingDetail.sqm')}</div>
           </div>
         )}
         <div className="meta-item">
-          <div className="meta-icon">📞</div>
-          <div className="meta-text">
-            <div className="label">{t('listingDetail.contact')}</div>
-            <div className="value">{listing.contact_phone}</div>
-          </div>
+          <div className="label">{t('listingDetail.contact')}</div>
+          <div className="value">{listing.contact_phone}</div>
         </div>
       </div>
 
@@ -177,15 +164,13 @@ function ListingDetailPage() {
         </div>
       )}
 
-      {listing.floor_plan_image ? (
+      {listing.floor_plan_image && (
         <div className="detail-section fade-up">
           <h4>{t('listingDetail.floorPlanTitle')}</h4>
-          <div className="floor-plan-wrap">
-            <img src={listing.floor_plan_image} alt="floor plan" className="floor-plan-uploaded-img" />
+          <div className="floor-plan-uploaded">
+            <img src={listing.floor_plan_image} alt={t('listingDetail.floorPlanTitle')} />
           </div>
         </div>
-      ) : (
-        <FloorPlanSchematic roomCount={listing.room_count} area={listing.area} />
       )}
 
       {show360 && currentRoom && (

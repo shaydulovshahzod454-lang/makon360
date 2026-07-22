@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
@@ -18,11 +18,10 @@ function CreateListingPage() {
     floor: '', total_floors: '', year_built: '',
     has_documents: false, has_gas: false, has_electricity: false, has_internet: false,
   });
+  const [floorPlanFile, setFloorPlanFile] = useState(null);
+  const [existingFloorPlanUrl, setExistingFloorPlanUrl] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(isEditMode);
-  const [floorPlanImage, setFloorPlanImage] = useState(null); // yangi tanlangan fayl
-  const [existingFloorPlanUrl, setExistingFloorPlanUrl] = useState(null); // tahrirlashda mavjud rasm
-  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,36 +78,35 @@ function CreateListingPage() {
     });
   };
 
+  const handleFloorPlanChange = (e) => {
+    setFloorPlanFile(e.target.files[0] || null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    // Fayl (floor_plan_image) borligi uchun FormData ishlatamiz
+    // Bo'sh qoldirilgan raqamli maydonlarni backend uchun null qilib yuboramiz
+    const payload = {
+      ...form,
+      room_count: form.room_count === '' ? null : form.room_count,
+      area: form.area === '' ? null : form.area,
+      floor: form.floor === '' ? null : form.floor,
+      total_floors: form.total_floors === '' ? null : form.total_floors,
+      year_built: form.year_built === '' ? null : form.year_built,
+    };
+
+    // Fayl (sxema) yuklanadigan bo'lsa, FormData orqali multipart so'rov yuboramiz
     const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('description', form.description);
-    formData.append('price', form.price);
-    formData.append('address', form.address);
-    formData.append('contact_phone', form.contact_phone);
-    formData.append('category', form.category);
-
-    formData.append('room_count', form.room_count === '' ? '' : form.room_count);
-    formData.append('area', form.area === '' ? '' : form.area);
-    formData.append('floor', form.floor === '' ? '' : form.floor);
-    formData.append('total_floors', form.total_floors === '' ? '' : form.total_floors);
-    formData.append('year_built', form.year_built === '' ? '' : form.year_built);
-
-    formData.append('has_documents', form.has_documents);
-    formData.append('has_gas', form.has_gas);
-    formData.append('has_electricity', form.has_electricity);
-    formData.append('has_internet', form.has_internet);
-
-    // Ko'p qiymatli maydon - har bir amenity alohida qo'shiladi
-    form.amenities.forEach((a) => formData.append('amenities', a));
-
-    // Sxema rasmi faqat foydalanuvchi yangi fayl tanlagandagina yuboriladi (ixtiyoriy)
-    if (floorPlanImage) {
-      formData.append('floor_plan_image', floorPlanImage);
+    Object.entries(payload).forEach(([key, value]) => {
+      if (key === 'amenities') {
+        value.forEach((amenityId) => formData.append('amenities', amenityId));
+      } else if (value !== null && value !== undefined) {
+        formData.append(key, value);
+      }
+    });
+    if (floorPlanFile) {
+      formData.append('floor_plan_image', floorPlanFile);
     }
 
     try {
@@ -230,32 +228,16 @@ function CreateListingPage() {
             </label>
           </div>
 
-          {/* Xonadon rejasi rasmi - ixtiyoriy, qo'lda yuklanadi */}
+          {/* Xonadon rejasi (sxema) - ixtiyoriy */}
           <div className="form-field">
-            <label className="field-label">
-              {t('listingDetail.floorPlanTitle')} <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>({t('createListing.optional')})</span>
-            </label>
-            <label className="file-upload" htmlFor="floor-plan-file">
-              <span className="file-upload-btn">📁 {t('addRoom.chooseFile')}</span>
-              <span className="file-upload-name">
-                {floorPlanImage
-                  ? floorPlanImage.name
-                  : existingFloorPlanUrl
-                    ? t('createListing.currentFile')
-                    : t('addRoom.noFileChosen')}
-              </span>
-            </label>
-            <input
-              id="floor-plan-file"
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={(e) => setFloorPlanImage(e.target.files[0])}
-              className="file-upload-input"
-            />
-            {existingFloorPlanUrl && !floorPlanImage && (
-              <img src={existingFloorPlanUrl} alt="floor plan" className="floor-plan-current-preview" />
+            <label className="field-label">{t('createListing.floorPlanImage')}</label>
+            {existingFloorPlanUrl && !floorPlanFile && (
+              <div className="floor-plan-existing-preview">
+                <img src={existingFloorPlanUrl} alt="floor plan" />
+              </div>
             )}
+            <input type="file" accept="image/*" onChange={handleFloorPlanChange} />
+            <p className="field-hint">{t('createListing.floorPlanImageHint')}</p>
           </div>
 
           {error && <p className="error-text">{error}</p>}
