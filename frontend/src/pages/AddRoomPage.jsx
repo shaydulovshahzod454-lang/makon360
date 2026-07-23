@@ -82,7 +82,10 @@ function AddRoomPage() {
             <label htmlFor="entry-point">{t('addRoom.entryPoint')}</label>
           </div>
           {error && <p className="error-text">{error}</p>}
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>{t('addRoom.addRoomButton')}</button>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={isSubmitting}>
+            {isSubmitting && <span className="btn-spinner" />}
+            {t('addRoom.addRoomButton')}
+          </button>
         </form>
 
         {rooms.length > 0 && (
@@ -96,8 +99,7 @@ function AddRoomPage() {
           </>
         )}
 
-        <button onClick={() => navigate(`/listing/${id}/hotspots`)} className="btn btn-secondary" style={{ width: '100%' }} disabled={isSubmitting}>
-          {isSubmitting && <span className="btn-spinner" />}
+        <button onClick={() => navigate(`/listing/${id}/hotspots`)} className="btn btn-secondary" style={{ width: '100%' }} >
           {t('addRoom.nextStep')}
         </button>
       </div>
