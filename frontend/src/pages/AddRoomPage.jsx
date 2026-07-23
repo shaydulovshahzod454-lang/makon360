@@ -13,8 +13,10 @@ function AddRoomPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
+    setIsSubmitting(true);
     e.preventDefault();
     setError('');
 
@@ -94,7 +96,8 @@ function AddRoomPage() {
           </>
         )}
 
-        <button onClick={() => navigate(`/listing/${id}/hotspots`)} className="btn btn-secondary" style={{ width: '100%' }}>
+        <button onClick={() => navigate(`/listing/${id}/hotspots`)} className="btn btn-secondary" style={{ width: '100%' }} disabled={isSubmitting}>
+          {isSubmitting && <span className="btn-spinner" />}
           {t('addRoom.nextStep')}
         </button>
       </div>

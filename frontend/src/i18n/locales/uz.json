@@ -137,5 +137,8 @@
     "unknownRoom": "Noma'lum xona",
     "selectPointError": "Iltimos, avval panorama ustida joy belgilang va qaysi xonaga o'tishini tanlang.",
     "createError": "Hotspot yaratishda xatolik yuz berdi."
+  },
+  "panorama": {
+    "rotateHint": "Yaxshiroq ko'rish uchun telefoningizni gorizontal qiling"
   }
 }

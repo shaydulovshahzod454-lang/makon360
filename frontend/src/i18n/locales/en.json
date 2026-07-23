@@ -137,5 +137,8 @@
     "unknownRoom": "Unknown room",
     "selectPointError": "Please mark a point on the panorama and choose a target room first.",
     "createError": "Something went wrong while creating the hotspot."
+  },
+  "panorama": {
+    "rotateHint": "Rotate your phone for a better view"
   }
 }

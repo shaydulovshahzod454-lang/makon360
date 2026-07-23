@@ -22,6 +22,7 @@ function CreateListingPage() {
   const [existingFloorPlanUrl, setExistingFloorPlanUrl] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(isEditMode);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,6 +83,7 @@ function CreateListingPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
 
     // Bo'sh qoldirilgan raqamli maydonlarni backend uchun null qilib yuboramiz
     const payload = {
@@ -121,6 +123,8 @@ function CreateListingPage() {
     } catch (err) {
       console.error(err);
       setError(t('createListing.error'));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -255,7 +259,8 @@ function CreateListingPage() {
           </div>
 
           {error && <p className="error-text">{error}</p>}
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }}>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }} disabled={isSubmitting}>
+            {isSubmitting && <span className="btn-spinner" />}
             {isEditMode ? t('createListing.save') : t('createListing.nextStep')}
           </button>
         </form>

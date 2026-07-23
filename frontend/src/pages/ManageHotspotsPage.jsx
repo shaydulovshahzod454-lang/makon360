@@ -13,6 +13,7 @@ function ManageHotspotsPage() {
   const [targetRoomId, setTargetRoomId] = useState('');
   const [label, setLabel] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const loadListing = () => {
     api.get(`/listings/${id}/`).then((res) => {
@@ -41,6 +42,7 @@ function ManageHotspotsPage() {
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
 
   const handleCreateHotspot = async (e) => {
+    setIsSubmitting(true);
     e.preventDefault();
     if (!pendingCoords || !targetRoomId) {
       setError(t('hotspots.selectPointError'));
@@ -66,6 +68,7 @@ function ManageHotspotsPage() {
   };
 
   const handleDeleteHotspot = async (hotspotId) => {
+    setIsSubmitting(true);
     try {
       await api.delete(`/hotspots/${hotspotId}/`);
       loadListing();
@@ -116,7 +119,10 @@ function ManageHotspotsPage() {
             <input value={label} onChange={(e) => setLabel(e.target.value)} />
           </div>
           {error && <p className="error-text">{error}</p>}
-          <button type="submit" className="btn btn-primary">{t('hotspots.createButton')}</button>
+          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            {isSubmitting && <span className="btn-spinner" />}
+            {t('hotspots.createButton')}
+          </button>
         </form>
       )}
 

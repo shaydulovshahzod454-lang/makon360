@@ -1224,3 +1224,44 @@ body::before {
     radial-gradient(600px circle at 5% 80%, rgba(96, 165, 158, 0.08), transparent 60%);
   filter: blur(60px);
 }
+
+.rotate-hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  z-index: 1002;
+  text-align: center;
+  animation: fadeOutHint 3.5s forwards;
+}
+
+@keyframes fadeOutHint {
+  0%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

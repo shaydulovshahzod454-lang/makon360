@@ -1,12 +1,50 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import 'pannellum/build/pannellum.css';
 import 'pannellum/build/pannellum.js';
 
 function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = false, onPanoramaClick, height = '500px', roomNames = {} }) {
   const viewerRef = useRef(null);
+  const wrapperRef = useRef(null);
   const containerId = 'panorama-container';
   const { t } = useTranslation();
+  const [showRotateHint, setShowRotateHint] = useState(false);
+
+  // Fullscreen 360 rejimida (height==='100vh'), mobil qurilmada ekranni
+  // avtomatik gorizontalga aylantirishga harakat qilamiz. Bu faqat ba'zi
+  // Android brauzerlarda ishlaydi (iOS Safari bunga ruxsat bermaydi),
+  // shuning uchun ishlamasa ham xatoga uchramaydi va foydalanuvchiga
+  // "telefonni aylantiring" degan maslahat ko'rsatamiz.
+  useEffect(() => {
+    const isFullscreenMode = height === '100vh';
+    const isPortraitMobile = window.matchMedia('(max-width: 900px) and (orientation: portrait)').matches;
+
+    if (isFullscreenMode && isPortraitMobile) {
+      setShowRotateHint(true);
+      const hintTimer = setTimeout(() => setShowRotateHint(false), 3500);
+
+      const tryLockLandscape = async () => {
+        try {
+          if (wrapperRef.current?.requestFullscreen) {
+            await wrapperRef.current.requestFullscreen();
+          }
+          if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock('landscape');
+          }
+        } catch (e) {
+          // Qo'llab-quvvatlanmasa (masalan iOS) - jimgina o'tkazib yuboramiz
+        }
+      };
+      tryLockLandscape();
+
+      return () => {
+        clearTimeout(hintTimer);
+        if (screen.orientation && screen.orientation.unlock) {
+          try { screen.orientation.unlock(); } catch (e) { /* ignore */ }
+        }
+      };
+    }
+  }, [height]);
 
   useEffect(() => {
     if (!imageUrl) return;
@@ -98,11 +136,16 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
  const mobileSafeHeight = height === '100vh' ? '100dvh' : height;
 
   return (
-    <div>
+    <div ref={wrapperRef}>
       {editMode && (
         <p className="hotspot-hint">
           {t('hotspots.editModeHint')}
         </p>
+      )}
+      {showRotateHint && (
+        <div className="rotate-hint">
+          🔄 {t('panorama.rotateHint')}
+        </div>
       )}
       <div id={containerId} style={{ width: '100%', height: mobileSafeHeight }} />
     </div>
