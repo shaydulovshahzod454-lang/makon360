@@ -74,7 +74,9 @@
     "registerError": "Something went wrong during sign up",
     "haveAccount": "Already have an account?",
     "noAccount": "Don't have an account?",
-    "registerLink": "Sign up"
+    "registerLink": "Sign up",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "createListing": {
     "createTitle": "Add a new listing",

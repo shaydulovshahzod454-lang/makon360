@@ -74,7 +74,9 @@
     "registerError": "Ошибка при регистрации",
     "haveAccount": "Уже есть аккаунт?",
     "noAccount": "Нет аккаунта?",
-    "registerLink": "Зарегистрироваться"
+    "registerLink": "Зарегистрироваться",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль"
   },
   "createListing": {
     "createTitle": "Добавить новое объявление",

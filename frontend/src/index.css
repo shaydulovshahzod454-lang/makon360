@@ -671,6 +671,33 @@ input:focus, select:focus, textarea:focus {
   resize: vertical;
 }
 
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  padding: 4px 6px;
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.password-toggle-btn:hover {
+  color: var(--text);
+}
+
 .form-footer-note {
   margin-top: 20px;
   font-size: 14px;

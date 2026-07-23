@@ -74,7 +74,9 @@
     "registerError": "Ro'yxatdan o'tishda xatolik yuz berdi",
     "haveAccount": "Akkountingiz bormi?",
     "noAccount": "Akkountingiz yo'qmi?",
-    "registerLink": "Ro'yxatdan o'ting"
+    "registerLink": "Ro'yxatdan o'ting",
+    "showPassword": "Parolni ko'rsatish",
+    "hidePassword": "Parolni yashirish"
   },
   "createListing": {
     "createTitle": "Yangi e'lon qo'shish",
