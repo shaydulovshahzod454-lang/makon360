@@ -38,8 +38,19 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
       type: 'equirectangular',
       panorama: imageUrl,
       autoLoad: true,
+      crossOrigin: 'anonymous',
       hotSpots: pannellumHotspots,
     });
+
+    // Mobil brauzerda manzil paneli chiqib/kirib turgani sababli, ekran
+    // o'lchami o'zgarganda pannellumga o'zini qayta o'lchashni aytamiz
+    const handleResize = () => {
+      if (viewerRef.current) {
+        viewerRef.current.resize();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
 
     if (editMode && onPanoramaClick) {
       let downX = 0;
@@ -73,6 +84,8 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
     }
 
     return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
       if (viewerRef.current) {
         if (viewerRef.current._cleanupClickHandlers) {
           viewerRef.current._cleanupClickHandlers();
@@ -82,6 +95,8 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
     };
   }, [imageUrl, hotspots, onHotspotClick, editMode, onPanoramaClick, roomNames]);
 
+ const mobileSafeHeight = height === '100vh' ? '100dvh' : height;
+
   return (
     <div>
       {editMode && (
@@ -89,7 +104,7 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
           {t('hotspots.editModeHint')}
         </p>
       )}
-      <div id={containerId} style={{ width: '100%', height }} />
+      <div id={containerId} style={{ width: '100%', height: mobileSafeHeight }} />
     </div>
   );
 }
