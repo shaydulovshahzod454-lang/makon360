@@ -607,10 +607,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 .fullscreen-360 .close-btn {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 1001;
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: calc(env(safe-area-inset-right, 0px) + 14px);
+  z-index: 2147483647;
   font-size: 20px;
   background: rgba(255, 255, 255, 0.92);
   border: none;
@@ -618,6 +618,9 @@ input:focus, select:focus, textarea:focus {
   width: 42px;
   height: 42px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .detail-actions {

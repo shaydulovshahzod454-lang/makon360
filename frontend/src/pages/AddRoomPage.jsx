@@ -11,12 +11,11 @@ function AddRoomPage() {
   const [isEntryPoint, setIsEntryPoint] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
-    setIsSubmitting(true);
     e.preventDefault();
     setError('');
 
@@ -24,6 +23,8 @@ function AddRoomPage() {
       setError(t('addRoom.imageRequired'));
       return;
     }
+
+    setIsSubmitting(true);
 
     const formData = new FormData();
     formData.append('listing', id);
@@ -45,6 +46,8 @@ function AddRoomPage() {
     } catch (err) {
       console.error(err);
       setError(t('addRoom.uploadError'));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

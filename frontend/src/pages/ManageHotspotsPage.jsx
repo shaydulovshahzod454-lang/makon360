@@ -42,13 +42,13 @@ function ManageHotspotsPage() {
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
 
   const handleCreateHotspot = async (e) => {
-    setIsSubmitting(true);
     e.preventDefault();
     if (!pendingCoords || !targetRoomId) {
       setError(t('hotspots.selectPointError'));
       return;
     }
 
+    setIsSubmitting(true);
     try {
       await api.post('/hotspots/', {
         room: currentRoomId,
@@ -64,6 +64,8 @@ function ManageHotspotsPage() {
     } catch (err) {
       console.error(err);
       setError(t('hotspots.createError'));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
