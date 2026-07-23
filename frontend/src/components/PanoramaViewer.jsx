@@ -10,11 +10,11 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
   const { t } = useTranslation();
   const [showRotateHint, setShowRotateHint] = useState(false);
 
-  // Fullscreen 360 rejimida (height==='100vh'), mobil qurilmada ekranni
-  // avtomatik gorizontalga aylantirishga harakat qilamiz. Bu faqat ba'zi
-  // Android brauzerlarda ishlaydi (iOS Safari bunga ruxsat bermaydi),
-  // shuning uchun ishlamasa ham xatoga uchramaydi va foydalanuvchiga
-  // "telefonni aylantiring" degan maslahat ko'rsatamiz.
+  // Fullscreen 360 rejimida (height==='100vh'), mobil-portret holatda
+  // foydalanuvchiga "telefonni aylantiring" maslahatini ko'rsatamiz.
+  // Haqiqiy fullscreen+orientation so'rovi endi ListingDetailPage'da,
+  // .fullscreen-360 konteyneri darajasida amalga oshiriladi (shunda
+  // yopish tugmasi ham fullscreen ichida qolib, yo'qolib ketmaydi).
   useEffect(() => {
     const isFullscreenMode = height === '100vh';
     const isPortraitMobile = window.matchMedia('(max-width: 900px) and (orientation: portrait)').matches;
@@ -22,27 +22,7 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
     if (isFullscreenMode && isPortraitMobile) {
       setShowRotateHint(true);
       const hintTimer = setTimeout(() => setShowRotateHint(false), 3500);
-
-      const tryLockLandscape = async () => {
-        try {
-          if (wrapperRef.current?.requestFullscreen) {
-            await wrapperRef.current.requestFullscreen();
-          }
-          if (screen.orientation && screen.orientation.lock) {
-            await screen.orientation.lock('landscape');
-          }
-        } catch (e) {
-          // Qo'llab-quvvatlanmasa (masalan iOS) - jimgina o'tkazib yuboramiz
-        }
-      };
-      tryLockLandscape();
-
-      return () => {
-        clearTimeout(hintTimer);
-        if (screen.orientation && screen.orientation.unlock) {
-          try { screen.orientation.unlock(); } catch (e) { /* ignore */ }
-        }
-      };
+      return () => clearTimeout(hintTimer);
     }
   }, [height]);
 
@@ -136,7 +116,7 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
  const mobileSafeHeight = height === '100vh' ? '100dvh' : height;
 
   return (
-    <div ref={wrapperRef}>
+    <div>
       {editMode && (
         <p className="hotspot-hint">
           {t('hotspots.editModeHint')}

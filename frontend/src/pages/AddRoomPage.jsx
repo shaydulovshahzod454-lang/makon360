@@ -76,7 +76,6 @@ function AddRoomPage() {
               accept="image/*"
               ref={fileInputRef}
               onChange={(e) => setImage(e.target.files[0])}
-              required
               className="file-upload-input"
             />
           </div>

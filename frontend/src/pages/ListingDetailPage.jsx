@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
@@ -14,6 +14,40 @@ function ListingDetailPage() {
   const [currentRoomId, setCurrentRoomId] = useState(null);
   const [deleteError, setDeleteError] = useState('');
   const [show360, setShow360] = useState(false);
+  const fullscreenRef = useRef(null);
+
+  // 360 rejimi ochilganda, mobil-portret holatda haqiqiy Fullscreen API'ni
+  // ✕ tugmasi HAM ichida bo'lgan konteynerda so'raymiz (shu tufayli tugma
+  // fullscreen paytida yo'qolib ketmaydi) va gorizontalga aylantirishga
+  // harakat qilamiz. Qo'llab-quvvatlanmasa (masalan iOS) - jimgina o'tkazib yuboriladi.
+  useEffect(() => {
+    if (!show360) return;
+    const isPortraitMobile = window.matchMedia('(max-width: 900px) and (orientation: portrait)').matches;
+    if (!isPortraitMobile) return;
+
+    const tryLockLandscape = async () => {
+      try {
+        if (fullscreenRef.current?.requestFullscreen) {
+          await fullscreenRef.current.requestFullscreen();
+        }
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock('landscape');
+        }
+      } catch (e) {
+        // Qo'llab-quvvatlanmasa - jimgina o'tkazib yuboramiz
+      }
+    };
+    tryLockLandscape();
+
+    return () => {
+      if (screen.orientation && screen.orientation.unlock) {
+        try { screen.orientation.unlock(); } catch (e) { /* ignore */ }
+      }
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    };
+  }, [show360]);
 
   useEffect(() => {
     api.get(`/listings/${id}/`).then((res) => {
@@ -174,7 +208,7 @@ function ListingDetailPage() {
       )}
 
       {show360 && currentRoom && (
-        <div className="fullscreen-360">
+        <div className="fullscreen-360" ref={fullscreenRef}>
           <button className="close-btn" onClick={() => setShow360(false)}>✕</button>
           <PanoramaViewer
             imageUrl={currentRoom.panorama_image}
