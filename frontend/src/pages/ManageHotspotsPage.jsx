@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
 import { useTranslation } from 'react-i18next';
+import PageSpinner from '../components/PageSpinner';
 
 function ManageHotspotsPage() {
   const { id } = useParams(); // listing id
@@ -35,7 +36,7 @@ function ManageHotspotsPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  if (!listing) return <p>{t('home.loading')}</p>;
+  if (!listing) return <PageSpinner />;
 
   const currentRoom = listing.rooms.find((r) => r.id === currentRoomId);
   const otherRooms = listing.rooms.filter((r) => r.id !== currentRoomId);

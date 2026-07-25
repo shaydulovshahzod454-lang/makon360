@@ -4,6 +4,8 @@ import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import PageSpinner from '../components/PageSpinner';
+
 
 function ListingDetailPage() {
   const { id } = useParams();
@@ -79,7 +81,7 @@ function ListingDetailPage() {
     }
   };
 
-  if (!listing) return <p>{t('home.loading')}</p>;
+  if (!listing) return <PageSpinner />;
 
   const currentRoom = listing.rooms.find((r) => r.id === currentRoomId);
   const canManage = user?.is_agent && listing.created_by === user?.id;

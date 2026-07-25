@@ -1,22 +1,30 @@
 :root {
-  --bg: #F7F8FB;
+  --bg: #161616;
   --surface: #FFFFFF;
-  --text: #14152B;
-  --text-muted: #676B84;
-  --border: #E5E7F0;
+  --text: #D4AF37;
+  --text-muted: #A89968;
+  --border: rgba(192, 192, 192, 0.22);
 
-  --accent: #4F46E5;
-  --accent-dark: #3E36C4;
-  --accent-soft: rgba(79, 70, 229, 0.08);
+  --accent: #D4AF37;
+  --accent-dark: #B8952C;
+  --accent-soft: rgba(212, 175, 55, 0.10);
 
-  --gold: #FF6B57;
-  --gold-soft: rgba(255, 107, 87, 0.10);
+  --gold: #D4AF37;
+  --gold-soft: rgba(212, 175, 55, 0.12);
 
-  --danger: #E23E4E;
+  --silver: #FFFFFF;
+  --silver-dark: #E4E4E4;
 
-  --shadow-sm: 0 1px 2px rgba(20, 21, 43, 0.05), 0 1px 3px rgba(20, 21, 43, 0.04);
-  --shadow-md: 0 10px 28px rgba(20, 21, 43, 0.08), 0 2px 8px rgba(20, 21, 43, 0.05);
-  --shadow-lg: 0 24px 56px rgba(20, 21, 43, 0.14);
+  /* Kumush boxlar ichida matn uchun - tilla ustidan o'qish qiyin
+     bo'lgani sababli, box ichida to'q rang ishlatamiz (kontrast uchun) */
+  --text-on-surface: #1A1A1A;
+  --text-on-surface-muted: #4A4A4A;
+
+  --danger: #C0392B;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 56px rgba(0, 0, 0, 0.55);
 
   --display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -80,7 +88,7 @@ button {
 input, select, textarea {
   font-family: var(--sans);
   font-size: 15px;
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
   border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--text);
@@ -89,8 +97,8 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18), 0 0 16px rgba(212, 175, 55, 0.15);
 }
 
 /* ---------- Reusable primitives ---------- */
@@ -123,26 +131,32 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.28);
+  background: var(--silver);
+  color: var(--gold);
+  border: 1px solid var(--silver-dark);
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.36);
+  background: var(--gold);
+  color: var(--silver);
+  border-color: var(--accent-dark);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: var(--silver);
+  color: var(--gold);
+  border: 1px solid var(--silver-dark);
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--gold);
+  color: var(--silver);
+  border-color: var(--accent-dark);
 }
 
 .btn-danger {
@@ -152,12 +166,12 @@ input:focus, select:focus, textarea:focus {
 
 .field-label {
   display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-on-surface-muted);
+  margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.09em;
 }
 
 .card {
@@ -217,9 +231,9 @@ input:focus, select:focus, textarea:focus {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250, 250, 248, 0.88);
+  background: var(--bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .header-inner {
@@ -249,15 +263,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 .site-header nav a {
-  font-size: 14.5px;
-  font-weight: 500;
-  color: var(--text-muted);
+  color: var(--silver);
   text-decoration: none;
-  transition: color 0.15s ease;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .site-header nav a:hover {
-  color: var(--accent);
+  color: var(--gold);
 }
 
 .nav-user {
@@ -324,8 +337,9 @@ input:focus, select:focus, textarea:focus {
   height: 320px;
   right: -80px;
   top: 10vh;
-  background: radial-gradient(circle at 60% 40%, var(--gold), transparent 70%);
+  background: radial-gradient(circle at 60% 40%, #FFFFFF, transparent 70%);
   animation: blobFloat2 22s ease-in-out infinite;
+  opacity: 0.10;
 }
 
 .blob-3 {
@@ -342,8 +356,9 @@ input:focus, select:focus, textarea:focus {
   height: 340px;
   right: 10%;
   top: 90vh;
-  background: radial-gradient(circle at 40% 60%, var(--accent), transparent 70%);
+  background: radial-gradient(circle at 40% 60%, #FFFFFF, transparent 70%);
   animation: blobFloat2 24s ease-in-out infinite reverse;
+  opacity: 0.10;
 }
 
 @keyframes blobFloat1 {
@@ -725,14 +740,27 @@ input:focus, select:focus, textarea:focus {
 
 .form-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--gold);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: 36px 32px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.08);
+  padding: 40px 36px;
 }
 
 .form-card h2 {
   margin-bottom: 6px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.form-card h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 52px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
 }
 
 .form-card .subtitle {
@@ -1163,13 +1191,7 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--shadow-sm);
 }
 
-/* Header'dagi "Ro'yxatdan o'tish" tugmasi doim oq matn bilan ko'rinishi kerak */
-.site-header nav a.btn-primary,
-.site-header nav a.btn-primary:hover,
-.site-header nav a.btn-primary:visited {
-  color: #FFFFFF !important;
-  font-weight: 700;
-}
+
 
 /* ==================== MOBIL MOSLASHUV ==================== */
 
@@ -1201,7 +1223,12 @@ input:focus, select:focus, textarea:focus {
     height: 100dvh;
     gap: 14px;
     padding: 24px;
-    background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 100%);
+    background:
+      radial-gradient(480px circle at 15% 15%, rgba(212, 175, 55, 0.35), transparent 60%),
+      radial-gradient(420px circle at 90% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
+      radial-gradient(520px circle at 20% 90%, rgba(212, 175, 55, 0.22), transparent 60%),
+      radial-gradient(400px circle at 85% 85%, rgba(255, 255, 255, 0.08), transparent 60%),
+      #0d0d0d;
     animation: overlayFadeIn 0.25s ease;
   }
 
@@ -1588,4 +1615,73 @@ body::before {
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+}
+
+/* Kumush fonli boxlar ichidagi matnlarni o'qish uchun to'q rangga o'tkazamiz */
+.form-card,
+.listing-card,
+.detail-meta .meta-item,
+.info-grid .info-item,
+.filter-bar,
+.amenity-chip {
+  color: var(--text-on-surface);
+}
+
+.form-card .label,
+.form-card .field-label,
+.listing-card .label,
+.detail-meta .label,
+.info-grid .label,
+.text-muted,
+.form-card .subtitle,
+.form-card p {
+  color: var(--text-on-surface-muted) !important;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select,
+.filter-bar input,
+.filter-bar select {
+  color: var(--text-on-surface);
+  background: #fff;
+}
+
+/* ==================== TILLA CHEGARALAR (boxlar va tugmalar) ==================== */
+
+.form-card,
+.listing-card,
+.detail-meta .meta-item,
+.info-grid .info-item,
+.filter-bar,
+.hotspot-form,
+.hotspot-list li,
+.floor-plan-uploaded,
+.added-rooms-list li {
+  border: 1.5px solid var(--gold) !important;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+}
+
+/* Kartalar/tugmalar ustiga sichqoncha kelganda, chegara biroz yorqinlashadi */
+.listing-card:hover,
+.form-card:hover {
+  border-color: rgba(212, 175, 55, 0.6) !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  border-color: var(--accent-dark) !important;
+}
+
+/* Navbardagi "Ro'yxatdan o'tish" tugmasi - .btn-primary rangi ustunlik qilishi kerak */
+.site-header nav a.btn-primary {
+  color: var(--gold) !important;
+}
+
+.site-header nav a.btn-primary:hover {
+  color: var(--silver) !important;
 }

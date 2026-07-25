@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
+import PageSpinner from '../components/PageSpinner';
 
 function CreateListingPage() {
   const { id } = useParams(); // agar id bo'lsa - tahrirlash rejimi
@@ -128,7 +129,7 @@ function CreateListingPage() {
     }
   };
 
-  if (loading) return <p>{t('home.loading')}</p>;
+ if (loading) return <PageSpinner />;
 
   return (
     <div className="form-page wide fade-up">
