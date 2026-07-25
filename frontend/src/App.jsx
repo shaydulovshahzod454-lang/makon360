@@ -11,11 +11,22 @@ import ManageHotspotsPage from './pages/ManageHotspotsPage';
 import FavoritesPage from './pages/FavoritesPage';
 import CatalogPage from './pages/CatalogPage';
 
+function GlobalBackground() {
+  return (
+    <div className="global-blobs" aria-hidden="true">
+      <span className="blob blob-1" />
+      <span className="blob blob-2" />
+      <span className="blob blob-3" />
+      <span className="blob blob-4" />
+    </div>
+  );
+}
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <GlobalBackground />
       <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />

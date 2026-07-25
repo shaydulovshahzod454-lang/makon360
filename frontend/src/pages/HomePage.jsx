@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import FilterBar from '../components/FilterBar';
 import ListingGrid from '../components/ListingGrid';
+import PageSpinner from '../components/PageSpinner';
 
 function AnimatedHeading({ text }) {
   const words = text.split(' ');
@@ -104,7 +105,7 @@ function HomePage() {
         </div>
 
         {loading ? (
-          <p>{t('home.loading')}</p>
+          <PageSpinner />
         ) : (
           <ListingGrid listings={listings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} />
         )}

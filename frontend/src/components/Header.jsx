@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,11 @@ function Header() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   const handleLogout = () => {
     logout();
@@ -46,10 +51,13 @@ return (
           </button>
         </div>
 
-        <nav className={menuOpen ? 'nav-open' : ''}>
-          <Link to="/catalog" onClick={closeMenu}>{t('header.catalog')}</Link>
-          <Link to="/favorites" onClick={closeMenu}>{t('header.favorites')}</Link>
-          {user?.is_agent && <Link to="/create-listing" onClick={closeMenu}>{t('header.addListing')}</Link>}
+        <nav className={menuOpen ? 'nav-open mobile-nav-overlay' : ''}>
+          {menuOpen && (
+            <button className="mobile-nav-close" onClick={closeMenu} aria-label="close">✕</button>
+          )}
+          <Link to="/catalog" onClick={closeMenu} style={{ '--i': 0 }}>{t('header.catalog')}</Link>
+          <Link to="/favorites" onClick={closeMenu} style={{ '--i': 1 }}>{t('header.favorites')}</Link>
+          {user?.is_agent && <Link to="/create-listing" onClick={closeMenu} style={{ '--i': 2 }}>{t('header.addListing')}</Link>}
 
           <select
             className="lang-select"
@@ -63,13 +71,13 @@ return (
 
           {authenticated ? (
             <>
-              <span className="nav-username">👤 {user?.username}</span>
-              <button className="btn btn-secondary" onClick={handleLogout}>{t('header.logout')}</button>
+              <span className="nav-username" style={{ '--i': 3 }}>👤 {user?.username}</span>
+              <button className="btn btn-secondary" onClick={handleLogout} style={{ '--i': 4 }}>{t('header.logout')}</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="desktop-only-login" onClick={closeMenu}>{t('header.login')}</Link>
-              <Link to="/register" className="btn btn-primary" onClick={closeMenu}>{t('header.register')}</Link>
+              <Link to="/login" className="desktop-only-login" onClick={closeMenu} style={{ '--i': 3 }}>{t('header.login')}</Link>
+              <Link to="/register" className="btn btn-primary" onClick={closeMenu} style={{ '--i': 4 }}>{t('header.register')}</Link>
             </>
           )}
         </nav>

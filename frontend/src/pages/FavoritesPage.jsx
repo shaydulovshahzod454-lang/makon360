@@ -4,6 +4,7 @@ import api from '../services/api';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import FilterBar from '../components/FilterBar';
+import PageSpinner from '../components/PageSpinner';
 
 function FavoritesPage() {
   const { t } = useTranslation();
@@ -89,7 +90,7 @@ function FavoritesPage() {
     );
   }
 
-  if (loading) return <p>{t('home.loading')}</p>;
+  if (loading) return <PageSpinner />;
 
   return (
     <div className="page-container" style={{ paddingTop: '40px' }}>
