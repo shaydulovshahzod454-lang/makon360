@@ -4,6 +4,7 @@
   --text: #D4AF37;
   --text-muted: #A89968;
   --border: rgba(192, 192, 192, 0.22);
+  --nav-link: #FFFFFF;
 
   --accent: #D4AF37;
   --accent-dark: #B8952C;
@@ -40,6 +41,36 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== KUNDUZGI REJIM ==================== */
+[data-theme="light"] {
+  --bg: #FAF7F0;
+  --surface: #FFFFFF;
+  --text: #241F14;
+  --text-muted: #7A7364;
+  --border: rgba(184, 149, 44, 0.35);
+
+  --accent: #B8952C;
+  --accent-dark: #94781F;
+  --accent-soft: rgba(184, 149, 44, 0.10);
+
+  --gold: #B8952C;
+  --gold-soft: rgba(184, 149, 44, 0.12);
+
+  --silver: #FFFFFF;
+  --silver-dark: #E4E4E4;
+
+  --text-on-surface: #241F14;
+  --text-on-surface-muted: #6B6455;
+
+  --danger: #C0392B;
+
+  --shadow-sm: 0 1px 3px rgba(36, 31, 20, 0.08);
+  --shadow-md: 0 10px 28px rgba(36, 31, 20, 0.10);
+  --shadow-lg: 0 24px 56px rgba(36, 31, 20, 0.14);
+
+  --nav-link: #241F14;
 }
 
 * {
@@ -263,7 +294,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .site-header nav a {
-  color: var(--silver);
+  color: var(--nav-link);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -1684,4 +1715,33 @@ body::before {
 
 .site-header nav a.btn-primary:hover {
   color: var(--silver) !important;
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: transparent;
+  color: var(--nav-link);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--gold-soft);
+  color: var(--gold);
+  transform: rotate(15deg);
+}
+
+/* Mobil to'liq ekranli menyuda oq rangda ko'rinishi kerak */
+.site-header nav.mobile-nav-overlay .theme-toggle-btn {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.4);
+  width: auto;
+  height: auto;
+  padding: 10px;
 }

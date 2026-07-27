@@ -6,7 +6,9 @@
     "addListing": "+ Новое объявление",
     "logout": "Выйти",
     "login": "Войти",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "switchToLight": "Включить светлый режим",
+    "switchToDark": "Включить тёмный режим"
   },
   "home": {
     "title": "Makon360 — Список домов",

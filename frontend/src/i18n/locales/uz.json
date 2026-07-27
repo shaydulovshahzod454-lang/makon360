@@ -6,7 +6,9 @@
     "addListing": "+ Yangi e'lon",
     "logout": "Chiqish",
     "login": "Kirish",
-    "register": "Ro'yxatdan o'tish"
+    "register": "Ro'yxatdan o'tish",
+    "switchToLight": "Kunduzgi rejimga o'tish",
+    "switchToDark": "Tungi rejimga o'tish"
   },
   "home": {
     "title": "Makon360 — Uylar ro'yxati",

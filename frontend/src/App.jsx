@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import HomePage from './pages/HomePage';
 import ListingDetailPage from './pages/ListingDetailPage';
 import LoginPage from './pages/LoginPage';
@@ -24,11 +25,12 @@ function GlobalBackground() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-      <GlobalBackground />
-      <Header />
-        <Routes>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+        <GlobalBackground />
+        <Header />
+          <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/listing/:id" element={<ListingDetailPage />} />
@@ -42,6 +44,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 

@@ -6,7 +6,9 @@
     "addListing": "+ New listing",
     "logout": "Logout",
     "login": "Log in",
-    "register": "Sign up"
+    "register": "Sign up",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
   },
   "home": {
     "title": "Makon360 — Property listings",
