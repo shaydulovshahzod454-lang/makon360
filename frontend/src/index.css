@@ -1254,13 +1254,37 @@ input:focus, select:focus, textarea:focus {
     height: 100dvh;
     gap: 14px;
     padding: 24px;
-    background:
+    background: var(--overlay-bg);
+    animation: overlayFadeIn 0.25s ease;
+  }
+
+  [data-theme="dark"] .site-header nav.nav-open.mobile-nav-overlay {
+    --overlay-bg:
       radial-gradient(480px circle at 15% 15%, rgba(212, 175, 55, 0.35), transparent 60%),
       radial-gradient(420px circle at 90% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
       radial-gradient(520px circle at 20% 90%, rgba(212, 175, 55, 0.22), transparent 60%),
       radial-gradient(400px circle at 85% 85%, rgba(255, 255, 255, 0.08), transparent 60%),
       #0d0d0d;
-    animation: overlayFadeIn 0.25s ease;
+  }
+
+  [data-theme="light"] .site-header nav.nav-open.mobile-nav-overlay {
+    --overlay-bg:
+      radial-gradient(480px circle at 15% 15%, rgba(184, 149, 44, 0.20), transparent 60%),
+      radial-gradient(420px circle at 90% 20%, rgba(184, 149, 44, 0.12), transparent 60%),
+      radial-gradient(520px circle at 20% 90%, rgba(184, 149, 44, 0.15), transparent 60%),
+      #FAF7F0;
+  }
+
+  /* Kunduzgi rejimda overlay matni to'q rangda ko'rinishi kerak (fon och bo'lgani uchun) */
+  [data-theme="light"] .site-header nav.mobile-nav-overlay a,
+  [data-theme="light"] .site-header nav.mobile-nav-overlay button,
+  [data-theme="light"] .site-header nav.mobile-nav-overlay span {
+    color: #241F14 !important;
+  }
+
+  [data-theme="light"] .mobile-nav-close {
+    background: rgba(36, 31, 20, 0.10);
+    color: #241F14 !important;
   }
 
   .mobile-nav-close {
@@ -1744,4 +1768,32 @@ body::before {
   width: auto;
   height: auto;
   padding: 10px;
+}
+
+/* Desktop: nav ichidagi versiyasi ko'rinadi, mobil-tashqarisi yashirin */
+.mobile-only-control {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  /* Mobilda: nav ICHIDAGI (eski) tema/til tugmalari yashiriladi,
+     chunki ular endi tashqarida, mobile-header-actions ichida */
+  .site-header nav .desktop-only-control {
+    display: none;
+  }
+
+  .mobile-header-actions .mobile-only-control {
+    display: flex;
+  }
+
+  .mobile-header-actions .lang-select.mobile-only-control {
+    max-width: 78px;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  .mobile-header-actions .theme-toggle-btn.mobile-only-control {
+    width: 34px;
+    height: 34px;
+  }
 }
