@@ -93,8 +93,9 @@ return (
             <button className="mobile-nav-close" onClick={closeMenu} aria-label="close">✕</button>
           )}
           <Link to="/catalog" onClick={closeMenu} style={{ '--i': 0 }}>{t('header.catalog')}</Link>
-          <Link to="/favorites" onClick={closeMenu} style={{ '--i': 1 }}>{t('header.favorites')}</Link>
-          {user?.is_agent && <Link to="/create-listing" onClick={closeMenu} style={{ '--i': 2 }}>{t('header.addListing')}</Link>}
+          <Link to="/calculator" onClick={closeMenu} style={{ '--i': 1 }}>{t('header.calculator')}</Link>
+          <Link to="/favorites" onClick={closeMenu} style={{ '--i': 2 }}>{t('header.favorites')}</Link>
+          {user?.is_agent && <Link to="/create-listing" onClick={closeMenu} style={{ '--i': 3 }}>{t('header.addListing')}</Link>}
 
           {/* Desktopda shu yerda ko'rinadi (mobilda CSS orqali yashiriladi,
               chunki mobil versiyasi mobile-header-actions ichida, pastda) */}
@@ -135,13 +136,13 @@ return (
 
           {authenticated ? (
             <>
-              <span className="nav-username" style={{ '--i': 3 }}>👤 {user?.username}</span>
-              <button className="btn btn-secondary" onClick={handleLogout} style={{ '--i': 4 }}>{t('header.logout')}</button>
+              <span className="nav-username" style={{ '--i': 4 }}>👤 {user?.username}</span>
+              <button className="btn btn-secondary" onClick={handleLogout} style={{ '--i': 5 }}>{t('header.logout')}</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="desktop-only-login" onClick={closeMenu} style={{ '--i': 3 }}>{t('header.login')}</Link>
-              <Link to="/register" className="btn btn-primary" onClick={closeMenu} style={{ '--i': 4 }}>{t('header.register')}</Link>
+              <Link to="/login" className="desktop-only-login" onClick={closeMenu} style={{ '--i': 4 }}>{t('header.login')}</Link>
+              <Link to="/register" className="btn btn-primary" onClick={closeMenu} style={{ '--i': 5 }}>{t('header.register')}</Link>
             </>
           )}
         </nav>
