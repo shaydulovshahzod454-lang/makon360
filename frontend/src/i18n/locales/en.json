@@ -11,6 +11,16 @@
     "switchToLight": "Switch to light mode",
     "switchToDark": "Switch to dark mode"
   },
+  "feedback": {
+    "title": "Your feedback matters to us",
+    "subtitle": "The site is currently in test mode — let us know what works, what doesn't, and how we can improve.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "messagePlaceholder": "Write your feedback here...",
+    "submitButton": "Send",
+    "successMessage": "Thank you! Your feedback has been sent.",
+    "errorMessage": "Something went wrong, please try again shortly."
+  },
   "calculator": {
     "eyebrow": "Finance",
     "title": "Mortgage Calculator",

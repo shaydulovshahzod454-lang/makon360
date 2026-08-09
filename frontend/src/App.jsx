@@ -6,6 +6,7 @@ import CreditCalculatorPage from './pages/CreditCalculatorPage';
 import ListingDetailPage from './pages/ListingDetailPage';
 import LoginPage from './pages/LoginPage';
 import Header from './components/Header';
+import FeedbackForm from './components/FeedbackForm';
 import CreateListingPage from './pages/CreateListingPage';
 import AddRoomPage from './pages/AddRoomPage';
 import RegisterPage from './pages/RegisterPage';
@@ -44,6 +45,7 @@ function App() {
           <Route path="/listing/:id/hotspots" element={<ManageHotspotsPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
+        <FeedbackForm />
       </BrowserRouter>
     </AuthProvider>
     </ThemeProvider>

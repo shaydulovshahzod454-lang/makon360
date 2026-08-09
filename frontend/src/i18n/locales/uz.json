@@ -11,6 +11,16 @@
     "switchToLight": "Kunduzgi rejimga o'tish",
     "switchToDark": "Tungi rejimga o'tish"
   },
+  "feedback": {
+    "title": "Fikringiz biz uchun muhim",
+    "subtitle": "Sayt hozircha test rejimida ishlayapti — nima yaxshi, nima yomon, qanday yaxshilashimiz mumkinligi haqida fikringizni yozing.",
+    "namePlaceholder": "Ismingiz",
+    "emailPlaceholder": "Email manzilingiz",
+    "messagePlaceholder": "Fikringizni shu yerga yozing...",
+    "submitButton": "Yuborish",
+    "successMessage": "Rahmat! Fikringiz yuborildi.",
+    "errorMessage": "Xatolik yuz berdi, birozdan keyin qayta urinib ko'ring."
+  },
   "calculator": {
     "eyebrow": "Moliya",
     "title": "Kredit kalkulyatori",

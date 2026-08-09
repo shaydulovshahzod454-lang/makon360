@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .views import (
     CategoryViewSet, ListingViewSet, RoomViewSet, HotspotViewSet,
-    RegisterView, FavoriteViewSet, MeView, AmenityViewSet
+    RegisterView, FavoriteViewSet, MeView, AmenityViewSet, FeedbackCreateView
 )
 
 router = DefaultRouter()
@@ -17,4 +17,5 @@ router.register('amenities', AmenityViewSet)
 urlpatterns = router.urls + [
     path('register/', RegisterView.as_view(), name='register'),
     path('me/', MeView.as_view(), name='me'),
+    path('feedback/', FeedbackCreateView.as_view(), name='feedback'),
 ]

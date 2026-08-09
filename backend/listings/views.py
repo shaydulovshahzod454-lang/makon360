@@ -4,15 +4,20 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters as drf_filters
+from rest_framework import filters as drf_filters, status
+from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity
+from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity, Feedback
 from .serializers import (
-    CategorySerializer, ListingListSerializer,
-    ListingDetailSerializer, RoomSerializer, HotspotSerializer,
-    RegisterSerializer, FavoriteSerializer, MeSerializer, AmenitySerializer
+    CategorySerializer, ListingListSerializer, ListingDetailSerializer,
+    RoomSerializer, HotspotSerializer, FavoriteSerializer, AmenitySerializer,
+    FeedbackSerializer, RegisterSerializer, FavoriteSerializer, MeSerializer, 
+
 )
 from .filters import ListingFilter
+from django.core.mail import send_mail
+from django.conf import settings
+from rest_framework.permissions import AllowAny
 
 class IsAgentOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -105,3 +110,32 @@ class MeView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+class FeedbackCreateView(APIView):
+    """Foydalanuvchi fikr-mulohaza yuborishi uchun - login shart emas"""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = FeedbackSerializer(data=request.data)
+        if serializer.is_valid():
+            feedback = serializer.save()
+
+            # Emailga yuborishga harakat qilamiz - agar email sozlamalari
+            # ishlamasa ham, fikr baribir bazada saqlanib qoladi
+            try:
+                send_mail(
+                    subject=f"Makon360 - Yangi fikr-mulohaza: {feedback.name}",
+                    message=(
+                        f"Ism: {feedback.name}\n"
+                        f"Email: {feedback.email}\n\n"
+                        f"Xabar:\n{feedback.message}"
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.FEEDBACK_RECEIVER_EMAIL],
+                    fail_silently=True,
+                )
+            except Exception:
+                pass
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

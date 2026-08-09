@@ -96,3 +96,16 @@ class Hotspot(models.Model):
 
     def __str__(self):
         return f"{self.room.name} -> {self.target_room.name}"
+
+class Feedback(models.Model):
+    """Foydalanuvchilar tomonidan yuborilgan fikr-mulohazalar"""
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} ({self.email}) - {self.created_at.strftime('%Y-%m-%d')}"

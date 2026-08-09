@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity
+from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity, Feedback
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 
@@ -139,3 +139,11 @@ class MeSerializer(serializers.ModelSerializer):
     def get_is_agent(self, obj):
         profile = getattr(obj, 'profile', None)
         return profile.is_agent if profile else False
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ['id', 'name', 'email', 'message', 'created_at']
+        extra_kwargs = {
+            'created_at': {'read_only': True},
+        }
