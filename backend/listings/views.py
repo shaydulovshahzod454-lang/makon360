@@ -18,6 +18,7 @@ from .filters import ListingFilter
 from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.permissions import AllowAny
+import requests
 
 class IsAgentOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -120,19 +121,25 @@ class FeedbackCreateView(APIView):
         if serializer.is_valid():
             feedback = serializer.save()
 
-            # Emailga yuborishga harakat qilamiz - agar email sozlamalari
-            # ishlamasa ham, fikr baribir bazada saqlanib qoladi
+            # Emailga yuborishga harakat qilamiz - Resend HTTP API orqali
+            # (SMTP emas, chunki Render SMTP portini bloklaydi).
+            # timeout=5 - agar Resend javob bermasa, 5 soniyadan keyin
+            # to'xtaydi, server hech qachon "osilib qolmaydi".
             try:
-                send_mail(
-                    subject=f"Makon360 - Yangi fikr-mulohaza: {feedback.name}",
-                    message=(
-                        f"Ism: {feedback.name}\n"
-                        f"Email: {feedback.email}\n\n"
-                        f"Xabar:\n{feedback.message}"
-                    ),
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.FEEDBACK_RECEIVER_EMAIL],
-                    fail_silently=True,
+                requests.post(
+                    "https://api.resend.com/emails",
+                    headers={"Authorization": f"Bearer {settings.RESEND_API_KEY}"},
+                    json={
+                        "from": "Makon360 <onboarding@resend.dev>",
+                        "to": [settings.FEEDBACK_RECEIVER_EMAIL],
+                        "subject": f"Makon360 - Yangi fikr-mulohaza: {feedback.name}",
+                        "text": (
+                            f"Ism: {feedback.name}\n"
+                            f"Email: {feedback.email}\n\n"
+                            f"Xabar:\n{feedback.message}"
+                        ),
+                    },
+                    timeout=5,
                 )
             except Exception:
                 pass
