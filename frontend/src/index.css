@@ -2282,3 +2282,8 @@ body::before {
     padding: 40px 16px 24px;
   }
 }
+
+.site-header nav a.nav-link-active {
+  color: var(--gold) !important;
+  font-weight: 700;
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
@@ -92,10 +92,10 @@ return (
           {menuOpen && (
             <button className="mobile-nav-close" onClick={closeMenu} aria-label="close">✕</button>
           )}
-          <Link to="/catalog" onClick={closeMenu} style={{ '--i': 0 }}>{t('header.catalog')}</Link>
-          <Link to="/calculator" onClick={closeMenu} style={{ '--i': 1 }}>{t('header.calculator')}</Link>
-          <Link to="/favorites" onClick={closeMenu} style={{ '--i': 2 }}>{t('header.favorites')}</Link>
-          {user?.is_agent && <Link to="/create-listing" onClick={closeMenu} style={{ '--i': 3 }}>{t('header.addListing')}</Link>}
+          <NavLink to="/catalog" onClick={closeMenu} style={{ '--i': 0 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.catalog')}</NavLink>
+          <NavLink to="/calculator" onClick={closeMenu} style={{ '--i': 1 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.calculator')}</NavLink>
+          <NavLink to="/favorites" onClick={closeMenu} style={{ '--i': 2 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.favorites')}</NavLink>
+          {user?.is_agent && <NavLink to="/create-listing" onClick={closeMenu} style={{ '--i': 3 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.addListing')}</NavLink>}
 
           {/* Desktopda shu yerda ko'rinadi (mobilda CSS orqali yashiriladi,
               chunki mobil versiyasi mobile-header-actions ichida, pastda) */}
