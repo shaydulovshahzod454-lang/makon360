@@ -41,7 +41,7 @@ function CatalogPage() {
     if (filters.ordering) params.ordering = filters.ordering;
 
     api.get('/listings/', { params })
-      .then((res) => setListings(res.data))
+      .then((res) => setListings(res.data.results))
       .catch((err) => console.error('Xatolik:', err))
       .finally(() => setLoading(false));
   }, [filters, authenticated]);

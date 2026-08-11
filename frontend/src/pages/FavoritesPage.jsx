@@ -20,7 +20,7 @@ function FavoritesPage() {
   const loadFavorites = () => {
     setLoading(true);
     api.get('/favorites/')
-      .then((res) => setFavorites(res.data))
+      .then((res) => setFavorites(res.data.results))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   };

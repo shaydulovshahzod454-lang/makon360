@@ -52,7 +52,7 @@ function HomePage() {
     if (filters.maxPrice) params.max_price = filters.maxPrice;
 
     api.get('/listings/', { params })
-      .then((res) => setListings(res.data.slice(0, LATEST_COUNT)))
+      .then((res) => setListings(res.data.results.slice(0, LATEST_COUNT)))
       .catch((err) => console.error('Xatolik:', err))
       .finally(() => setLoading(false));
   }, [filters, authenticated]);
