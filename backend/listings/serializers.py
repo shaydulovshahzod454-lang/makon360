@@ -46,8 +46,14 @@ class ListingListSerializer(serializers.ModelSerializer):
     def get_main_image(self, obj):
         first_room = obj.rooms.first()
         if first_room and first_room.panorama_image:
+            url = first_room.panorama_image.url
+            # Cloudinary CDN orqali kelayotgan bo'lsa, kichik/optimallashtirilgan
+            # versiyasini so'raymiz - katalog kartochkasi uchun to'liq hajm shart emas
+            if 'res.cloudinary.com' in url:
+                url = url.replace('/upload/', '/upload/w_400,h_300,c_fill,q_auto,f_auto/')
+                return url
             request = self.context.get('request')
-            return request.build_absolute_uri(first_room.panorama_image.url)
+            return request.build_absolute_uri(url)
         return None
 
     def get_is_favorited(self, obj):

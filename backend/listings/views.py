@@ -41,7 +41,7 @@ class AmenityViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 class ListingViewSet(viewsets.ModelViewSet):
-    queryset = Listing.objects.all().order_by('-created_at')
+    queryset = Listing.objects.all().select_related('category', 'created_by').prefetch_related('rooms', 'amenities').order_by('-created_at')
     permission_classes = [IsAgentOrReadOnly]
 
     filter_backends = [DjangoFilterBackend, drf_filters.SearchFilter, drf_filters.OrderingFilter]

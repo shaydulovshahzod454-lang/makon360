@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
-import HomePage from './pages/HomePage';
-import CreditCalculatorPage from './pages/CreditCalculatorPage';
-import ListingDetailPage from './pages/ListingDetailPage';
-import LoginPage from './pages/LoginPage';
+import { lazy, Suspense } from 'react';
 import Header from './components/Header';
 import FeedbackForm from './components/FeedbackForm';
-import CreateListingPage from './pages/CreateListingPage';
-import AddRoomPage from './pages/AddRoomPage';
-import RegisterPage from './pages/RegisterPage';
-import ManageHotspotsPage from './pages/ManageHotspotsPage';
-import FavoritesPage from './pages/FavoritesPage';
-import CatalogPage from './pages/CatalogPage';
+import PageSpinner from './components/PageSpinner';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const CreditCalculatorPage = lazy(() => import('./pages/CreditCalculatorPage'));
+const ListingDetailPage = lazy(() => import('./pages/ListingDetailPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const CreateListingPage = lazy(() => import('./pages/CreateListingPage'));
+const AddRoomPage = lazy(() => import('./pages/AddRoomPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const ManageHotspotsPage = lazy(() => import('./pages/ManageHotspotsPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage'));
+const CatalogPage = lazy(() => import('./pages/CatalogPage'));
 
 function GlobalBackground() {
   return (
@@ -32,7 +35,8 @@ function App() {
         <BrowserRouter>
         <GlobalBackground />
         <Header />
-          <Routes>
+          <Suspense fallback={<PageSpinner />}>
+        <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/calculator" element={<CreditCalculatorPage />} />
           <Route path="/catalog" element={<CatalogPage />} />
@@ -45,6 +49,7 @@ function App() {
           <Route path="/listing/:id/hotspots" element={<ManageHotspotsPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
+        </Suspense>
         <FeedbackForm />
       </BrowserRouter>
     </AuthProvider>
