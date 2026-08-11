@@ -33,12 +33,14 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.AllowAny]
+    pagination_class = None
 
 class AmenityViewSet(viewsets.ReadOnlyModelViewSet):
     """Qulayliklar ro'yxati - faqat o'qish uchun, admin panel orqali boshqariladi"""
     queryset = Amenity.objects.all()
     serializer_class = AmenitySerializer
     permission_classes = [permissions.AllowAny]
+    pagination_class = None
 
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all().select_related('category', 'created_by').prefetch_related('rooms', 'amenities').order_by('-created_at')
