@@ -12,6 +12,7 @@
     "switchToDark": "Switch to dark mode"
   },
   "feedback": {
+    "testBadge": "TEST MODE",
     "title": "Your feedback matters to us",
     "subtitle": "The site is currently in test mode — let us know what works, what doesn't, and how we can improve.",
     "namePlaceholder": "Your name",

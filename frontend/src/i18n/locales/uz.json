@@ -12,6 +12,7 @@
     "switchToDark": "Tungi rejimga o'tish"
   },
   "feedback": {
+    "testBadge": "TEST REJIMI",
     "title": "Fikringiz biz uchun muhim",
     "subtitle": "Sayt hozircha test rejimida ishlayapti — nima yaxshi, nima yomon, qanday yaxshilashimiz mumkinligi haqida fikringizni yozing.",
     "namePlaceholder": "Ismingiz",

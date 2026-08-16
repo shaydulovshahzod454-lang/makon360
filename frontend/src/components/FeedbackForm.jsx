@@ -27,7 +27,7 @@ function FeedbackForm() {
   return (
     <footer className="feedback-footer">
       <div className="feedback-inner">
-        <div className="feedback-badge">TEST REJIMI</div>
+        <div className="feedback-badge">{t('feedback.testBadge')}</div>
         <h3>{t('feedback.title')}</h3>
         <p>{t('feedback.subtitle')}</p>
 

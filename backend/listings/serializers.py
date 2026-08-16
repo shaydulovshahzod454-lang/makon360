@@ -57,6 +57,9 @@ class ListingListSerializer(serializers.ModelSerializer):
         return None
 
     def get_is_favorited(self, obj):
+        # Agar view'da annotatsiya qilingan bo'lsa (tezroq, so'rovsiz) - shuni ishlatamiz
+        if hasattr(obj, 'is_favorited_db'):
+            return obj.is_favorited_db
         request = self.context.get('request')
         if request and request.user and request.user.is_authenticated:
             return obj.favorited_by.filter(user=request.user).exists()

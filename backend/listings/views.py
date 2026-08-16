@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters as drf_filters, status
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from django.db.models import Exists, OuterRef
 from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity, Feedback
 from .serializers import (
     CategorySerializer, ListingListSerializer, ListingDetailSerializer,
@@ -19,6 +20,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.permissions import AllowAny
 import requests
+import threading
 
 class IsAgentOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -50,6 +52,15 @@ class ListingViewSet(viewsets.ModelViewSet):
     filterset_class = ListingFilter
     search_fields = ['title', 'address', 'description']
     ordering_fields = ['price', 'created_at']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.user
+        if user and user.is_authenticated:
+            qs = qs.annotate(
+                is_favorited_db=Exists(Favorite.objects.filter(user=user, listing=OuterRef('pk')))
+            )
+        return qs
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -114,6 +125,30 @@ class MeView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+def _send_feedback_email(feedback_name, feedback_email, feedback_message):
+    """Email yuborishni asosiy so'rovdan ajratib, orqa fonda bajaradi -
+    shunda Resend sekinlashsa ham, foydalanuvchi va boshqa tashrif
+    buyuruvchilar kutib turishga majbur bo'lmaydi."""
+    try:
+        requests.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {settings.RESEND_API_KEY}"},
+            json={
+                "from": "Makon360 <onboarding@resend.dev>",
+                "to": [settings.FEEDBACK_RECEIVER_EMAIL],
+                "subject": f"Makon360 - Yangi fikr-mulohaza: {feedback_name}",
+                "text": (
+                    f"Ism: {feedback_name}\n"
+                    f"Email: {feedback_email}\n\n"
+                    f"Xabar:\n{feedback_message}"
+                ),
+            },
+            timeout=5,
+        )
+    except Exception:
+        pass
+
+
 class FeedbackCreateView(APIView):
     """Foydalanuvchi fikr-mulohaza yuborishi uchun - login shart emas"""
     permission_classes = [AllowAny]
@@ -123,28 +158,13 @@ class FeedbackCreateView(APIView):
         if serializer.is_valid():
             feedback = serializer.save()
 
-            # Emailga yuborishga harakat qilamiz - Resend HTTP API orqali
-            # (SMTP emas, chunki Render SMTP portini bloklaydi).
-            # timeout=5 - agar Resend javob bermasa, 5 soniyadan keyin
-            # to'xtaydi, server hech qachon "osilib qolmaydi".
-            try:
-                requests.post(
-                    "https://api.resend.com/emails",
-                    headers={"Authorization": f"Bearer {settings.RESEND_API_KEY}"},
-                    json={
-                        "from": "Makon360 <onboarding@resend.dev>",
-                        "to": [settings.FEEDBACK_RECEIVER_EMAIL],
-                        "subject": f"Makon360 - Yangi fikr-mulohaza: {feedback.name}",
-                        "text": (
-                            f"Ism: {feedback.name}\n"
-                            f"Email: {feedback.email}\n\n"
-                            f"Xabar:\n{feedback.message}"
-                        ),
-                    },
-                    timeout=5,
-                )
-            except Exception:
-                pass
+            # Email yuborishni orqa fon oqimiga topshiramiz va darhol javob
+            # qaytaramiz - foydalanuvchi Resend javobini kutib turmaydi
+            threading.Thread(
+                target=_send_feedback_email,
+                args=(feedback.name, feedback.email, feedback.message),
+                daemon=True,
+            ).start()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

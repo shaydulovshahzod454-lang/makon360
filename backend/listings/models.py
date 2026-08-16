@@ -22,7 +22,7 @@ class Amenity(models.Model):
 class Listing(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(max_digits=12, decimal_places=2, db_index=True)
     address = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='listings')
 
@@ -47,7 +47,7 @@ class Listing(models.Model):
     # Kim qo'shganini bilish uchun (admin/agent)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listings')
     
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
