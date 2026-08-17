@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import action
@@ -12,11 +11,9 @@ from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Ame
 from .serializers import (
     CategorySerializer, ListingListSerializer, ListingDetailSerializer,
     RoomSerializer, HotspotSerializer, FavoriteSerializer, AmenitySerializer,
-    FeedbackSerializer, RegisterSerializer, FavoriteSerializer, MeSerializer, 
-
+    FeedbackSerializer, RegisterSerializer, MeSerializer,
 )
 from .filters import ListingFilter
-from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.permissions import AllowAny
 import requests
@@ -91,13 +88,13 @@ class ListingViewSet(viewsets.ModelViewSet):
 
 
 class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
+    queryset = Room.objects.all().select_related('listing').prefetch_related('hotspots')
     serializer_class = RoomSerializer
     permission_classes = [IsAgentOrReadOnly]
 
 
 class HotspotViewSet(viewsets.ModelViewSet):
-    queryset = Hotspot.objects.all()
+    queryset = Hotspot.objects.all().select_related('room', 'target_room')
     serializer_class = HotspotSerializer
     permission_classes = [IsAgentOrReadOnly]
 
@@ -113,7 +110,14 @@ class FavoriteViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Har bir foydalanuvchi faqat o'zining sevimlilarini ko'radi
-        return Favorite.objects.filter(user=self.request.user).order_by('-created_at')
+        return Favorite.objects.filter(user=self.request.user).select_related('listing', 'listing__category').order_by('-created_at')
+
+    def get_serializer_context(self):
+        # Bu ro'yxatdagi har bir e'lon aynan "sevimli" bo'lgani uchun,
+        # is_favorited'ni so'rovsiz, to'g'ridan-to'g'ri True deb belgilaymiz
+        context = super().get_serializer_context()
+        context['force_favorited'] = True
+        return context
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

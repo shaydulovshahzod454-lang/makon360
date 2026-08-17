@@ -44,17 +44,21 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-    const params = { ordering: filters.ordering || '-created_at' };
-    if (filters.search) params.search = filters.search;
-    if (filters.category) params.category = filters.category;
-    if (filters.minPrice) params.min_price = filters.minPrice;
-    if (filters.maxPrice) params.max_price = filters.maxPrice;
+    const timer = setTimeout(() => {
+      setLoading(true);
+      const params = { ordering: filters.ordering || '-created_at', page_size: LATEST_COUNT };
+      if (filters.search) params.search = filters.search;
+      if (filters.category) params.category = filters.category;
+      if (filters.minPrice) params.min_price = filters.minPrice;
+      if (filters.maxPrice) params.max_price = filters.maxPrice;
 
-    api.get('/listings/', { params })
-      .then((res) => setListings(res.data.results.slice(0, LATEST_COUNT)))
-      .catch((err) => console.error('Xatolik:', err))
-      .finally(() => setLoading(false));
+      api.get('/listings/', { params })
+        .then((res) => setListings(res.data.results))
+        .catch((err) => console.error('Xatolik:', err))
+        .finally(() => setLoading(false));
+    }, 400);
+
+    return () => clearTimeout(timer);
   }, [filters, authenticated]);
 
   const handleToggleFavorite = async (e, listingId) => {

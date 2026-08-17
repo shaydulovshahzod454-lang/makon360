@@ -109,7 +109,8 @@
     "loginRequired": "Siz hali tizimga kirmagansiz. Sevimlilar ro'yxatini ko'rish uchun oldin tizimga kiring."
   },
   "catalog": {
-    "title": "Katalog"
+    "title": "Katalog",
+    "loadMore": "Yana yuklash"
   },
   "auth": {
     "loginTitle": "Tizimga kirish",

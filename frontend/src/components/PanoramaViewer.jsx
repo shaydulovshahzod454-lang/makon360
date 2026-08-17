@@ -5,7 +5,6 @@ import 'pannellum/build/pannellum.js';
 
 function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = false, onPanoramaClick, height = '500px', roomNames = {} }) {
   const viewerRef = useRef(null);
-  const wrapperRef = useRef(null);
   const containerId = 'panorama-container';
   const { t } = useTranslation();
   const [showRotateHint, setShowRotateHint] = useState(false);

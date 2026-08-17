@@ -57,6 +57,8 @@ class ListingListSerializer(serializers.ModelSerializer):
         return None
 
     def get_is_favorited(self, obj):
+        if self.context.get('force_favorited'):
+            return True
         # Agar view'da annotatsiya qilingan bo'lsa (tezroq, so'rovsiz) - shuni ishlatamiz
         if hasattr(obj, 'is_favorited_db'):
             return obj.is_favorited_db

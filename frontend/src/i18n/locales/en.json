@@ -109,7 +109,8 @@
     "loginRequired": "You're not signed in yet. Please log in first to view your favorites."
   },
   "catalog": {
-    "title": "Catalog"
+    "title": "Catalog",
+    "loadMore": "Load more"
   },
   "auth": {
     "loginTitle": "Log in",
