@@ -75,6 +75,7 @@ class ListingDetailSerializer(serializers.ModelSerializer):
     rooms = RoomSerializer(many=True, read_only=True)
     is_favorited = serializers.SerializerMethodField()
     amenities = serializers.PrimaryKeyRelatedField(many=True, queryset=Amenity.objects.all(), required=False)
+    main_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Listing
@@ -83,11 +84,23 @@ class ListingDetailSerializer(serializers.ModelSerializer):
             'category', 'contact_phone', 'rooms', 'created_at', 'is_favorited', 'created_by',
             'amenities', 'floor', 'total_floors', 'year_built',
             'has_documents', 'has_gas', 'has_electricity', 'has_internet',
-            'room_count', 'area', 'floor_plan_image',
+            'room_count', 'area', 'floor_plan_image', 'main_image',
         ]
         extra_kwargs = {
             'created_by': {'read_only': True},
         }
+
+    def get_main_image(self, obj):
+        # Kartochkalardagi kabi - hech kimga bog'liq bo'lmagan, ochiq preview rasm
+        # (ijtimoiy tarmoq preview'lari va qidiruv tizimlari uchun kerak)
+        first_room = obj.rooms.first()
+        if first_room and first_room.panorama_image:
+            url = first_room.panorama_image.url
+            if 'res.cloudinary.com' in url:
+                return url.replace('/upload/', '/upload/w_1200,h_630,c_fill,q_auto,f_auto/')
+            request = self.context.get('request')
+            return request.build_absolute_uri(url) if request else url
+        return None
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')

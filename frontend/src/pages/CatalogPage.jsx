@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -90,6 +91,11 @@ function CatalogPage() {
 
   return (
     <div className="page-container" style={{ paddingTop: '32px' }}>
+      <Helmet>
+        <title>Katalog — Barcha e'lonlar | Makon360</title>
+        <meta name="description" content="Makon360 katalogida barcha ko'chmas mulk e'lonlarini ko'ring, narx va toifa bo'yicha filtrlang." />
+        <link rel="canonical" href="https://makon360.online/catalog" />
+      </Helmet>
       <h1 className="fade-up">{t('catalog.title')}</h1>
 
       <div className="fade-up" style={{ animationDelay: '0.08s' }}>

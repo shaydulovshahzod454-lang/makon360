@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
@@ -94,6 +95,11 @@ function HomePage() {
 
   return (
     <div>
+      <Helmet>
+        <title>Makon360 — Ko'chmas mulkni 360° virtual tur orqali ko'ring</title>
+        <meta name="description" content="O'zbekistondagi uy, kvartira va ofislarni 360° virtual tur orqali uydan chiqmasdan ko'ring. Ishonchli agentliklar tomonidan joylashtirilgan e'lonlar." />
+        <link rel="canonical" href="https://makon360.online/" />
+      </Helmet>
       <div className="hero">
         <AnimatedHeading text={t('home.title')} />
         <p className="fade-up" style={{ animationDelay: '0.5s' }}>

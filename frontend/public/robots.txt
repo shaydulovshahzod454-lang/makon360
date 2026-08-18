@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Disallow: /login
+Disallow: /register
+Disallow: /favorites
+Disallow: /create-listing
+Disallow: /listing/*/edit
+Disallow: /listing/*/add-room
+Disallow: /listing/*/hotspots
+
+Sitemap: https://makon360.online/sitemap.xml

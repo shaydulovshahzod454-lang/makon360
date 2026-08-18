@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
 import { useAuth } from '../context/AuthContext';
@@ -87,8 +88,49 @@ function ListingDetailPage() {
   const canManage = user?.is_agent && listing.created_by === user?.id;
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
 
+  // SEO uchun: sarlavha, tavsif, va preview rasm (birinchi xona panoramasi,
+  // bo'lmasa xonadon rejasi, u ham bo'lmasa - saytning umumiy rasmi)
+  const seoTitle = `${listing.title} — ${listing.price}$ | Makon360`;
+  const seoDescription = (listing.description || '').slice(0, 155);
+  const seoImage = listing.main_image || listing.floor_plan_image || 'https://makon360.online/og-cover.jpg';
+  const seoUrl = `https://makon360.online/listing/${listing.id}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: listing.title,
+    description: listing.description,
+    image: seoImage,
+    offers: {
+      '@type': 'Offer',
+      price: listing.price,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: listing.address,
+      addressCountry: 'UZ',
+    },
+  };
+
   return (
     <div className="page-container" style={{ paddingTop: '32px' }}>
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={seoUrl} />
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:image" content={seoImage} />
+        <meta property="og:url" content={seoUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        <meta name="twitter:image" content={seoImage} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
       <div className="detail-header fade-up">
         <div>
           <h1>{listing.title}</h1>

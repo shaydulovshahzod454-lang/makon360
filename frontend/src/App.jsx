@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { lazy, Suspense } from 'react';
@@ -30,6 +31,7 @@ function GlobalBackground() {
 
 function App() {
   return (
+    <HelmetProvider>
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
@@ -54,6 +56,7 @@ function App() {
       </BrowserRouter>
     </AuthProvider>
     </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
