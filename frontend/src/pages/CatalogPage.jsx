@@ -22,19 +22,25 @@ function CatalogPage() {
 
   // Bosh sahifadan "Ko'proq ko'rish" orqali kelganda, URL query orqali
   // uzatilgan filter qiymatlarini boshlang'ich holat sifatida olamiz
-  const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState({
     search: searchParams.get('search') || '',
     category: searchParams.get('category') || '',
     minPrice: searchParams.get('minPrice') || '',
     maxPrice: searchParams.get('maxPrice') || '',
     ordering: searchParams.get('ordering') || '',
   });
+  const isFirstRun = useRef(true);
 
   useEffect(() => {
     api.get('/categories/').then((res) => setCategories(res.data));
   }, []);
 
   useEffect(() => {
+    // Sahifa birinchi ochilganda kutish (debounce) kerak emas - faqat
+    // foydalanuvchi filtr/qidiruvni o'zgartirganda kechikish qo'shamiz
+    const delay = isFirstRun.current ? 0 : 400;
+    isFirstRun.current = false;
+
     const timer = setTimeout(() => {
       setLoading(true);
       const params = {};
@@ -51,7 +57,7 @@ function CatalogPage() {
         })
         .catch((err) => console.error('Xatolik:', err))
         .finally(() => setLoading(false));
-    }, 400);
+    }, delay);
 
     return () => clearTimeout(timer);
   }, [filters, authenticated]);
