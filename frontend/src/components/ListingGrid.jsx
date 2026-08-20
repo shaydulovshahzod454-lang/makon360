@@ -20,7 +20,7 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
             {listing.is_favorited ? '❤️' : '🤍'}
           </button>
           <div className="image-wrap">
-            {listing.main_image && <img src={listing.main_image} alt={listing.title} loading="lazy" />}
+            {listing.main_image && <img src={listing.main_image} alt={listing.title} loading="lazy" width="400" height="300" />}
             <span className="badge-360">360°</span>
             <span className="badge-price">${listing.price}</span>
           </div>

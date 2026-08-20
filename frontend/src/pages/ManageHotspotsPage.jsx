@@ -86,7 +86,7 @@ function ManageHotspotsPage() {
 
       <div className="room-selector">
         <label className="field-label" style={{ marginBottom: 0 }}>{t('hotspots.currentRoom')}:</label>
-        <select value={currentRoomId || ''} onChange={(e) => { setCurrentRoomId(Number(e.target.value)); setPendingCoords(null); }}>
+        <select value={currentRoomId || ''} onChange={(e) => { setCurrentRoomId(Number(e.target.value)); setPendingCoords(null); }} aria-label="Room">
           {listing.rooms.map((r) => (
             <option key={r.id} value={r.id}>{r.name}</option>
           ))}
@@ -110,7 +110,7 @@ function ManageHotspotsPage() {
           <p style={{ fontSize: '14px' }}>{t('hotspots.markedPoint')}: pitch={pendingCoords.pitch.toFixed(2)}, yaw={pendingCoords.yaw.toFixed(2)}</p>
           <div className="form-field">
             <label className="field-label">{t('hotspots.targetRoom')}</label>
-            <select value={targetRoomId} onChange={(e) => setTargetRoomId(e.target.value)} required>
+                        <select value={targetRoomId} onChange={(e) => setTargetRoomId(e.target.value)} required aria-label="Target room">
               <option value="">{t('hotspots.chooseRoom')}</option>
               {otherRooms.map((r) => (
                 <option key={r.id} value={r.id}>{r.name}</option>

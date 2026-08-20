@@ -6,8 +6,9 @@
   --border: rgba(192, 192, 192, 0.22);
   --nav-link: #FFFFFF;
 
-  --accent: #D4AF37;
+    --accent: #D4AF37;
   --accent-dark: #B8952C;
+  --gold-text-safe: #8F6F22;
   --accent-soft: rgba(212, 175, 55, 0.10);
 
   --gold: #D4AF37;
@@ -163,7 +164,7 @@ input:focus, select:focus, textarea:focus {
 
 .btn-primary {
   background: var(--silver);
-  color: var(--gold);
+  color: var(--gold-text-safe);
   border: 1px solid var(--silver-dark);
   font-weight: 600;
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
@@ -178,7 +179,7 @@ input:focus, select:focus, textarea:focus {
 
 .btn-secondary {
   background: var(--silver);
-  color: var(--gold);
+  color: var(--gold-text-safe);
   border: 1px solid var(--silver-dark);
   font-weight: 600;
   transition: background 0.2s ease, color 0.2s ease;
@@ -1682,7 +1683,7 @@ body::before {
 
 /* Navbardagi "Ro'yxatdan o'tish" tugmasi - .btn-primary rangi ustunlik qilishi kerak */
 .site-header nav a.btn-primary {
-  color: var(--gold) !important;
+  color: var(--gold-text-safe) !important;
 }
 
 .site-header nav a.btn-primary:hover {

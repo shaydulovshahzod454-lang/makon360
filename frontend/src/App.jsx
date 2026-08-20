@@ -37,7 +37,8 @@ function App() {
         <BrowserRouter>
         <GlobalBackground />
         <Header />
-          <Suspense fallback={<PageSpinner />}>
+        <main>
+        <Suspense fallback={<PageSpinner />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/calculator" element={<CreditCalculatorPage />} />
@@ -50,8 +51,9 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/listing/:id/hotspots" element={<ManageHotspotsPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-        </Routes>
+                </Routes>
         </Suspense>
+        </main>
         <FeedbackForm />
       </BrowserRouter>
     </AuthProvider>

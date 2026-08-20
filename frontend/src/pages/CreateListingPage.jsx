@@ -169,7 +169,7 @@ function CreateListingPage() {
 
           <div className="form-field">
             <label className="field-label">{t('createListing.category')}</label>
-            <select name="category" value={form.category} onChange={handleChange} required>
+            <select name="category" value={form.category} onChange={handleChange} required aria-label={t('createListing.category')}>
               <option value="">{t('createListing.chooseCategory')}</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.name}</option>

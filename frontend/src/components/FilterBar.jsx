@@ -15,7 +15,7 @@ function FilterBar({ filters, setFilters, categories }) {
         value={search}
         onChange={(e) => update('search', e.target.value)}
       />
-      <select value={category} onChange={(e) => update('category', e.target.value)}>
+      <select value={category} onChange={(e) => update('category', e.target.value)} aria-label={t('createListing.category')}>
         <option value="">{t('home.allCategories')}</option>
         {categories.map((c) => (
           <option key={c.id} value={c.id}>{c.name}</option>
@@ -35,7 +35,7 @@ function FilterBar({ filters, setFilters, categories }) {
         value={maxPrice}
         onChange={(e) => update('maxPrice', e.target.value)}
       />
-      <select value={ordering} onChange={(e) => update('ordering', e.target.value)}>
+      <select value={ordering} onChange={(e) => update('ordering', e.target.value)} aria-label="Sort">
         <option value="">{t('home.sortLabel')}</option>
         <option value="price">{t('home.sortCheap')}</option>
         <option value="-price">{t('home.sortExpensive')}</option>

@@ -119,7 +119,7 @@ function FavoritesPage() {
               </button>
               <div className="image-wrap">
                 {fav.listing_detail.main_image && (
-                  <img src={fav.listing_detail.main_image} alt={fav.listing_detail.title} loading="lazy" />
+                  <img src={fav.listing_detail.main_image} alt={fav.listing_detail.title} loading="lazy" width="400" height="300" />
                 )}
                 <span className="badge-360">360°</span>
                 <span className="badge-price">${fav.listing_detail.price}</span>
