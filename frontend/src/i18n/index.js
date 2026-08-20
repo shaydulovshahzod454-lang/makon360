@@ -19,12 +19,6 @@ i18n
       caches: ['localStorage'],
       lookupLocalStorage: 'makon360_language',
     },
-    react: {
-      // Tarjima hali yuklanayotganda ilova "to'xtab qolmasligi" (Suspense
-      // xatosiga uchramasligi) uchun - o'rniga kalit nomi bir zumga
-      // ko'rinib, millisekundlar ichida to'g'ri matnga almashadi
-      useSuspense: false,
-    },
   });
 
 export default i18n;

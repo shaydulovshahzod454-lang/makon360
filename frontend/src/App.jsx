@@ -35,6 +35,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <BrowserRouter>
+        <Suspense fallback={<PageSpinner />}>
         <GlobalBackground />
         <Header />
         <main>
@@ -55,6 +56,7 @@ function App() {
         </Suspense>
         </main>
         <FeedbackForm />
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
     </ThemeProvider>
