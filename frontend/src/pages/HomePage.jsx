@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
@@ -36,15 +36,21 @@ function HomePage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState({
     search: '', category: '', minPrice: '', maxPrice: '', ordering: '',
   });
+  const isFirstRun = useRef(true);
 
   useEffect(() => {
     api.get('/categories/').then((res) => setCategories(res.data));
   }, []);
 
   useEffect(() => {
+    // Sahifa birinchi ochilganda kutish (debounce) kerak emas - faqat
+    // foydalanuvchi filtr/qidiruvni o'zgartirganda kechikish qo'shamiz
+    const delay = isFirstRun.current ? 0 : 400;
+    isFirstRun.current = false;
+
     const timer = setTimeout(() => {
       setLoading(true);
       const params = { ordering: filters.ordering || '-created_at', page_size: LATEST_COUNT };
@@ -57,7 +63,7 @@ function HomePage() {
         .then((res) => setListings(res.data.results))
         .catch((err) => console.error('Xatolik:', err))
         .finally(() => setLoading(false));
-    }, 400);
+        }, delay);
 
     return () => clearTimeout(timer);
   }, [filters, authenticated]);
