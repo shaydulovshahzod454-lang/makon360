@@ -317,6 +317,7 @@ input:focus, select:focus, textarea:focus {
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface);
+  color: var(--text-on-surface);
   cursor: pointer;
 }
 
@@ -557,7 +558,7 @@ input:focus, select:focus, textarea:focus {
 
 .listing-card .address {
   font-size: 13.5px;
-  color: var(--text-muted);
+  color: var(--text-on-surface-muted);
   margin: 0;
 }
 
@@ -2179,6 +2180,8 @@ body::before {
 .feedback-form textarea {
   width: 100%;
   padding: 12px 14px;
+  color: var(--text-on-surface);
+  background: #fff;
 }
 
 .feedback-form textarea {

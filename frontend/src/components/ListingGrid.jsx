@@ -8,9 +8,9 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
     return <p>{t('home.noResults')}</p>;
   }
 
-  return (
+    return (
     <div className={`listing-grid ${staggerAnim ? 'stagger' : ''}`}>
-      {listings.map((listing) => (
+      {listings.map((listing, index) => (
         <Link key={listing.id} to={`/listing/${listing.id}`} className="listing-card card">
           <button
             className="favorite-btn"
@@ -20,7 +20,16 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
             {listing.is_favorited ? '❤️' : '🤍'}
           </button>
           <div className="image-wrap">
-            {listing.main_image && <img src={listing.main_image} alt={listing.title} loading="lazy" width="400" height="300" />}
+            {listing.main_image && (
+              <img
+                src={listing.main_image}
+                alt={listing.title}
+                width="400"
+                height="300"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+              />
+            )}
             <span className="badge-360">360°</span>
             <span className="badge-price">${listing.price}</span>
           </div>

@@ -1,0 +1,15 @@
+# Makon360
+
+Makon360 — O'zbekiston uchun ko'chmas mulk platformasi. Foydalanuvchilar uy, kvartira va ofislarni 360° virtual tur orqali, uydan chiqmasdan ko'rishlari mumkin.
+
+## Asosiy imkoniyatlar
+
+- 360° virtual tur - xonalar orasida erkin navigatsiya
+- Ipoteka kalkulyatori - davlat subsidiyasi bilan/subsidiyasiz
+- Ko'p tillilik - o'zbek, rus, ingliz
+
+## Havolalar
+
+- [Bosh sahifa](https://www.makon360.online/)
+- [Katalog](https://www.makon360.online/catalog)
+- [Kredit kalkulyatori](https://www.makon360.online/calculator)
