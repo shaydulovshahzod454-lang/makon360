@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import 'pannellum/build/pannellum.css';
-import 'pannellum/build/pannellum.js';
+// pannellum endi bu yerda emas, effect ichida DINAMIK import() orqali
+// yuklanadi - shunda uning kodi faqat komponent haqiqatan ekranga
+// chiqqanda (masalan e'lon sahifasi ochilganda) yuklab olinadi.
 
 function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = false, onPanoramaClick, height = '500px', roomNames = {} }) {
   const viewerRef = useRef(null);
@@ -28,86 +29,104 @@ function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = fa
   useEffect(() => {
     if (!imageUrl) return;
 
-    const pannellumHotspots = hotspots.map((h) => ({
-      id: `hotspot-${h.id}`,
-      pitch: h.pitch,
-      yaw: h.yaw,
-      type: 'custom',
-      cssClass: 'custom-hotspot',
-      createTooltipFunc: (hotSpotDiv) => {
-        const displayLabel = h.label || roomNames[h.target_room] || '';
-        hotSpotDiv.style.cursor = 'pointer';
-        hotSpotDiv.style.display = 'flex';
-        hotSpotDiv.style.flexDirection = 'column';
-        hotSpotDiv.style.alignItems = 'center';
-        hotSpotDiv.innerHTML = `
-          <div class="hotspot-marker">➜</div>
-          ${displayLabel ? `<div class="hotspot-label">${displayLabel}</div>` : ''}
-        `;
-        hotSpotDiv.onclick = (e) => {
-          e.stopPropagation();
-          onHotspotClick && onHotspotClick(h.target_room);
-        };
-      },
-    }));
+    let cancelled = false;
+    let handleResize = null;
+    let handleMouseDown = null;
+    let handleMouseUp = null;
+    let container = null;
 
-    viewerRef.current = window.pannellum.viewer(containerId, {
-      type: 'equirectangular',
-      panorama: imageUrl,
-      autoLoad: true,
-      crossOrigin: 'anonymous',
-      hotSpots: pannellumHotspots,
-    });
+    async function init() {
+      // Pannellum kutubxonasi (JS + CSS) shu yerda, kerak bo'lgandagina yuklanadi
+      await Promise.all([
+        import('pannellum/build/pannellum.css'),
+        import('pannellum/build/pannellum.js'),
+      ]);
 
-    // Mobil brauzerda manzil paneli chiqib/kirib turgani sababli, ekran
-    // o'lchami o'zgarganda pannellumga o'zini qayta o'lchashni aytamiz
-    const handleResize = () => {
-      if (viewerRef.current) {
-        viewerRef.current.resize();
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
+      if (cancelled) return; // Komponent ulgurmasdan unmount bo'lib qolgan bo'lsa - to'xtatamiz
 
-    if (editMode && onPanoramaClick) {
-      let downX = 0;
-      let downY = 0;
-      let downEvent = null;
+      const pannellumHotspots = hotspots.map((h) => ({
+        id: `hotspot-${h.id}`,
+        pitch: h.pitch,
+        yaw: h.yaw,
+        type: 'custom',
+        cssClass: 'custom-hotspot',
+        createTooltipFunc: (hotSpotDiv) => {
+          const displayLabel = h.label || roomNames[h.target_room] || '';
+          hotSpotDiv.style.cursor = 'pointer';
+          hotSpotDiv.style.display = 'flex';
+          hotSpotDiv.style.flexDirection = 'column';
+          hotSpotDiv.style.alignItems = 'center';
+          hotSpotDiv.innerHTML = `
+            <div class="hotspot-marker">➜</div>
+            ${displayLabel ? `<div class="hotspot-label">${displayLabel}</div>` : ''}
+          `;
+          hotSpotDiv.onclick = (e) => {
+            e.stopPropagation();
+            onHotspotClick && onHotspotClick(h.target_room);
+          };
+        },
+      }));
 
-      const handleMouseDown = (e) => {
-        downX = e.clientX;
-        downY = e.clientY;
-        downEvent = e;
-      };
+      viewerRef.current = window.pannellum.viewer(containerId, {
+        type: 'equirectangular',
+        panorama: imageUrl,
+        autoLoad: true,
+        crossOrigin: 'anonymous',
+        hotSpots: pannellumHotspots,
+      });
 
-      const handleMouseUp = (e) => {
-        if (!downEvent) return;
-        const movedDistance = Math.hypot(e.clientX - downX, e.clientY - downY);
-        if (movedDistance < 5) {
-          const coords = viewerRef.current.mouseEventToCoords(downEvent);
-          onPanoramaClick({ pitch: coords[0], yaw: coords[1] });
+      // Mobil brauzerda manzil paneli chiqib/kirib turgani sababli, ekran
+      // o'lchami o'zgarganda pannellumga o'zini qayta o'lchashni aytamiz
+      handleResize = () => {
+        if (viewerRef.current) {
+          viewerRef.current.resize();
         }
-        downEvent = null;
       };
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('orientationchange', handleResize);
 
-      const container = document.getElementById(containerId);
-      container.addEventListener('mousedown', handleMouseDown);
-      container.addEventListener('mouseup', handleMouseUp);
+      if (editMode && onPanoramaClick) {
+        let downX = 0;
+        let downY = 0;
+        let downEvent = null;
 
-      viewerRef.current._cleanupClickHandlers = () => {
-        container.removeEventListener('mousedown', handleMouseDown);
-        container.removeEventListener('mouseup', handleMouseUp);
-      };
+        handleMouseDown = (e) => {
+          downX = e.clientX;
+          downY = e.clientY;
+          downEvent = e;
+        };
+
+        handleMouseUp = (e) => {
+          if (!downEvent) return;
+          const movedDistance = Math.hypot(e.clientX - downX, e.clientY - downY);
+          if (movedDistance < 5) {
+            const coords = viewerRef.current.mouseEventToCoords(downEvent);
+            onPanoramaClick({ pitch: coords[0], yaw: coords[1] });
+          }
+          downEvent = null;
+        };
+
+        container = document.getElementById(containerId);
+        container.addEventListener('mousedown', handleMouseDown);
+        container.addEventListener('mouseup', handleMouseUp);
+      }
     }
 
+    init();
+
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
+      cancelled = true;
+      if (handleResize) {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('orientationchange', handleResize);
+      }
+      if (container && handleMouseDown && handleMouseUp) {
+        container.removeEventListener('mousedown', handleMouseDown);
+        container.removeEventListener('mouseup', handleMouseUp);
+      }
       if (viewerRef.current) {
-        if (viewerRef.current._cleanupClickHandlers) {
-          viewerRef.current._cleanupClickHandlers();
-        }
         viewerRef.current.destroy();
+        viewerRef.current = null;
       }
     };
   }, [imageUrl, hotspots, onHotspotClick, editMode, onPanoramaClick, roomNames]);

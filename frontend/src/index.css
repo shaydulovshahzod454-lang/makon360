@@ -554,6 +554,7 @@ input:focus, select:focus, textarea:focus {
 .listing-card h3 {
   font-size: 17px;
   margin-bottom: 4px;
+  color: var(--text-on-surface);
 }
 
 .listing-card .address {

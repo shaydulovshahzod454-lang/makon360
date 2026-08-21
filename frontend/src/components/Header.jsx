@@ -34,7 +34,7 @@ return (
     <header className="site-header">
       <div className="header-inner">
         <Link to="/" className="brand" onClick={closeMenu}>
-                    <img src="/logo-header.png" alt="Makon360" width="120" height="34" />
+                    <img src="/logo-header.png" alt="Makon360" width="120" height="34" fetchpriority="high" />
         </Link>
 
         {/* Mobilda doim ko'rinadigan qism: login bo'lmasa "Kirish", bo'lsa - hech narsa (menyuda ko'rinadi) */}
