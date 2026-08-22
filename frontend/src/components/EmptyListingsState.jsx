@@ -36,22 +36,22 @@ const SOCIAL_LINKS = [
   },
   {
     name: 'Facebook',
-    url: '#',
+    url: 'https://www.facebook.com/profile.php?id=61592937963333&locale=ru_RU',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
         <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.2-1.5 1.5-1.5H16.5V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V10.5H8V13.5h2.3V21h3.2z" />
       </svg>
     ),
   },
-  {
-    name: 'LinkedIn',
-    url: '#',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.94 5a2 2 0 11-4-.002 2 2 0 014 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-3.96 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48z" />
-      </svg>
-    ),
-  },
+//   {
+//     name: 'LinkedIn',
+//     url: '#',
+//     icon: (
+//       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+//         <path d="M6.94 5a2 2 0 11-4-.002 2 2 0 014 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-3.96 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48z" />
+//       </svg>
+//     ),
+//   },
 ];
 
 function EmptyListingsState() {
