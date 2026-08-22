@@ -52,7 +52,7 @@ function EmptyListingsState() {
       <h3>{t('home.emptyTitle')}</h3>
       <p>{t('home.emptySubtitle')}</p>
       <div className="empty-social-row">
-        {SOCIAL_LINKS.map((s) => (
+                        {SOCIAL_LINKS.map((s) => (
           
             key={s.name}
             href={s.url}
