@@ -52,6 +52,12 @@ class ListingViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
+        # Standart holatda (Bosh sahifa/Katalog uchun) faqat HAQIQIY
+        # e'lonlar ko'rinadi. Namuna (test) e'lonlarni ko'rish uchun
+        # frontend aniq ?is_demo=true parametrini yuborishi kerak.
+        if self.action == 'list' and 'is_demo' not in self.request.query_params:
+            qs = qs.filter(is_demo=False)
+
         user = self.request.user
         if user and user.is_authenticated:
             qs = qs.annotate(

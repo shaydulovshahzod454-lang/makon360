@@ -73,7 +73,10 @@
     "loading": "Loading...",
     "noResults": "No listings found.",
     "addToFavorites": "Add to favorites",
-    "removeFromFavorites": "Remove from favorites"
+    "removeFromFavorites": "Remove from favorites",
+        "emptyTitle": "No listings yet",
+    "emptySubtitle": "Be the first! Get in touch with us to list your property or partner with us:",
+    "demoBanner": "🔍 These are sample listings — preview how your property will look on the site."
   },
   "listingDetail": {
     "price": "Price",

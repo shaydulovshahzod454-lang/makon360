@@ -73,7 +73,10 @@
     "loading": "Yuklanmoqda...",
     "noResults": "Hech qanday e'lon topilmadi.",
     "addToFavorites": "Sevimlilarga qo'shish",
-    "removeFromFavorites": "Sevimlilardan o'chirish"
+    "removeFromFavorites": "Sevimlilardan o'chirish",
+        "emptyTitle": "Hozircha e'lon yo'q",
+    "emptySubtitle": "Siz birinchilardan bo'ling! E'loningizni joylashtirish yoki hamkorlik bo'yicha biz bilan bog'laning:",
+    "demoBanner": "🔍 Bu — namuna e'lonlar. Sizning e'loningiz saytda qanday ko'rinishini shu yerda oldindan ko'rishingiz mumkin."
   },
   "listingDetail": {
     "price": "Narx",

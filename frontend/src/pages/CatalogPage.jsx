@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import FilterBar from '../components/FilterBar';
 import ListingGrid from '../components/ListingGrid';
 import PageSpinner from '../components/PageSpinner';
+import EmptyListingsState from '../components/EmptyListingsState';
 
 function CatalogPage() {
   const { authenticated } = useAuth();
@@ -108,8 +109,10 @@ function CatalogPage() {
         <FilterBar filters={filters} setFilters={setFilters} categories={categories} />
       </div>
 
-      {loading ? (
+            {loading ? (
         <PageSpinner />
+      ) : listings.length === 0 && !filters.search && !filters.category && !filters.minPrice && !filters.maxPrice ? (
+        <EmptyListingsState />
       ) : (
         <>
           <ListingGrid listings={listings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} />

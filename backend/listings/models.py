@@ -23,6 +23,10 @@ class Listing(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=12, decimal_places=2, db_index=True)
+    is_demo = models.BooleanField(
+        default=False,
+        help_text="Bu e'lon namuna/test uchunmi? Ha bo'lsa, u katalogda emas, faqat bosh sahifadagi 'Namuna' bo'limida ko'rinadi."
+    )
     address = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='listings')
 

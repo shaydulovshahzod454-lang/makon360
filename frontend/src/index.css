@@ -2231,3 +2231,73 @@ body::before {
   color: var(--gold) !important;
   font-weight: 700;
 }
+
+/* ==================== BO'SH HOLAT (hali e'lon yo'q) ==================== */
+
+.empty-listings {
+  text-align: center;
+  padding: 56px 24px;
+  background: var(--surface);
+  border: 1.5px solid var(--gold);
+  border-radius: var(--radius-lg);
+  color: var(--text-on-surface);
+}
+
+.empty-listings-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.empty-listings h3 {
+  color: var(--text-on-surface);
+  margin-bottom: 10px;
+}
+
+.empty-listings p {
+  color: var(--text-on-surface-muted);
+  max-width: 420px;
+  margin: 0 auto 24px;
+}
+
+.empty-social-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.empty-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--gold);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.empty-social-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+/* ==================== NAMUNA E'LONLAR BO'LIMI ==================== */
+
+.demo-section {
+  margin-top: 56px;
+}
+
+.demo-banner {
+  text-align: center;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  background: var(--accent-soft);
+  border: 1px dashed var(--gold);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}

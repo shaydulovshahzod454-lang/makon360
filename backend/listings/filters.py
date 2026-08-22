@@ -7,4 +7,4 @@ class ListingFilter(django_filters.FilterSet):
 
     class Meta:
         model = Listing
-        fields = ['category', 'min_price', 'max_price']
+        fields = ['category', 'min_price', 'max_price', 'is_demo']

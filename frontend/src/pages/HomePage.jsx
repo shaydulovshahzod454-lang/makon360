@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import FilterBar from '../components/FilterBar';
 import ListingGrid from '../components/ListingGrid';
 import PageSpinner from '../components/PageSpinner';
+import EmptyListingsState from '../components/EmptyListingsState';
 
 function AnimatedHeading({ text }) {
   const words = text.split(' ');
@@ -33,6 +34,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const [listings, setListings] = useState([]);
+  const [demoListings, setDemoListings] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,8 +43,11 @@ function HomePage() {
   });
   const isFirstRun = useRef(true);
 
-  useEffect(() => {
+    useEffect(() => {
     api.get('/categories/').then((res) => setCategories(res.data));
+    api.get('/listings/', { params: { is_demo: true, page_size: LATEST_COUNT } })
+      .then((res) => setDemoListings(res.data.results))
+      .catch(() => setDemoListings([]));
   }, []);
 
   useEffect(() => {
@@ -116,21 +121,34 @@ function HomePage() {
       <div className="page-container">
         <FilterBar filters={filters} setFilters={setFilters} categories={categories} />
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ margin: 0, fontSize: '22px' }}>{t('home.latestTitle')}</h2>
         </div>
 
         {loading ? (
           <PageSpinner />
+        ) : listings.length === 0 ? (
+          <EmptyListingsState />
         ) : (
           <ListingGrid listings={listings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} />
         )}
 
-        <div style={{ textAlign: 'center', marginTop: '36px' }}>
-          <button className="btn btn-primary" onClick={goToCatalog}>
-            {t('home.viewMore')}
-          </button>
-        </div>
+        {!loading && listings.length > 0 && (
+          <div style={{ textAlign: 'center', marginTop: '36px' }}>
+            <button className="btn btn-primary" onClick={goToCatalog}>
+              {t('home.viewMore')}
+            </button>
+          </div>
+        )}
+
+        {demoListings.length > 0 && (
+          <div className="demo-section">
+            <div className="demo-banner">
+              {t('home.demoBanner')}
+            </div>
+            <ListingGrid listings={demoListings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} staggerAnim={false} />
+          </div>
+        )}
       </div>
     </div>
   );
