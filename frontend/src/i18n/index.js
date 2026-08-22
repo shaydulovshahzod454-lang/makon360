@@ -13,6 +13,13 @@ i18n
     interpolation: {
       escapeValue: false, // React allaqachon XSS'dan himoyalaydi
     },
+    react: {
+      // MUHIM: Suspense yoqilgan bo'lsa, React butun sahifani tarjima
+      // fayllari (en.json/uz.json) TO'LIQ yuklanguncha umuman chizmaydi -
+      // bu LCP'ni sun'iy ravishda kechiktiradi. useSuspense: false bilan,
+      // sahifa darhol chiziladi, tarjimalar orqadan "peshgacha" tortiladi.
+      useSuspense: false,
+    },
     detection: {
       // Tanlangan tilni Local Storage'da saqlash, keyingi tashrifda eslab qolish uchun
       order: ['localStorage', 'navigator'],
