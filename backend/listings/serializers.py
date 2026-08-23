@@ -14,7 +14,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ['id', 'listing', 'name', 'panorama_image', 'is_entry_point', 'hotspots']
+        fields = ['id', 'listing', 'name', 'panorama_image', 'is_entry_point', 'hotspots', 'is_panorama']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

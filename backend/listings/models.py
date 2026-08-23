@@ -62,6 +62,10 @@ class Room(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='rooms')
     name = models.CharField(max_length=100)  # masalan: "Oshxona", "Yotoqxona 1"
     panorama_image = models.ImageField(upload_to='panoramas/')
+    is_panorama = models.BooleanField(
+        default=True,
+        help_text="Rasm haqiqiy 360° panoramami? Frontend tomonidan rasm o'lcham nisbati (2:1) asosida avtomatik aniqlanadi."
+    )
     
     # Agar shu xona virtual tur boshlanadigan asosiy xona bo'lsa
     is_entry_point = models.BooleanField(default=False)

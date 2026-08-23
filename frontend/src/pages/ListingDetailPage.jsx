@@ -210,7 +210,11 @@ function ListingDetailPage() {
 
       <div className="fade-up" style={{ animationDelay: '0.2s', marginTop: '20px' }}>
         {currentRoom && (
-          authenticated ? (
+          currentRoom.is_panorama === false ? (
+            <div className="panorama-preview">
+              <img src={currentRoom.panorama_image} alt={currentRoom.name} className="regular-photo" />
+            </div>
+          ) : authenticated ? (
             <div className="panorama-preview">
               <img src={currentRoom.panorama_image} alt={currentRoom.name} />
               <button className="view-360-btn" onClick={() => setShow360(true)}>

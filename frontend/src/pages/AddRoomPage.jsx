@@ -6,14 +6,39 @@ import { useTranslation } from 'react-i18next';
 function AddRoomPage() {
   const { id } = useParams();
   const { t } = useTranslation();
-  const [name, setName] = useState('');
+    const [name, setName] = useState('');
   const [image, setImage] = useState(null);
   const [isEntryPoint, setIsEntryPoint] = useState(false);
+  const [detectedPanorama, setDetectedPanorama] = useState(null); // null | true | false
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+
+  // Rasm tanlanganda, uning haqiqiy piksel o'lchamlarini o'qib,
+  // 2:1 nisbatga yaqinligini (haqiqiy 360° panorama belgisi) tekshiramiz
+  const handleImageChange = (file) => {
+    setImage(file);
+    setDetectedPanorama(null);
+
+    if (!file) return;
+
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      const ratio = img.width / img.height;
+      // Haqiqiy panoramalar deyarli har doim ~2:1 bo'ladi (masalan 4000x2000).
+      // 10% chegara qo'yamiz - 1.8 dan 2.2 gacha bo'lgan nisbatni panorama deb hisoblaymiz.
+      setDetectedPanorama(ratio >= 1.8 && ratio <= 2.2);
+      URL.revokeObjectURL(objectUrl);
+    };
+    img.onerror = () => {
+      setDetectedPanorama(null);
+      URL.revokeObjectURL(objectUrl);
+    };
+    img.src = objectUrl;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +56,7 @@ function AddRoomPage() {
     formData.append('name', name);
     formData.append('panorama_image', image);
     formData.append('is_entry_point', isEntryPoint);
+    formData.append('is_panorama', detectedPanorama !== false); // aniqlanmagan holatda ham, xavfsizlik uchun panorama deb hisoblaymiz
 
     try {
       const res = await api.post('/rooms/', formData, {
@@ -39,6 +65,7 @@ function AddRoomPage() {
       setRooms([...rooms, res.data]);
       setName('');
       setImage(null);
+      setDetectedPanorama(null);
       setIsEntryPoint(false);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -75,9 +102,15 @@ function AddRoomPage() {
               type="file"
               accept="image/*"
               ref={fileInputRef}
-              onChange={(e) => setImage(e.target.files[0])}
+              onChange={(e) => handleImageChange(e.target.files[0])}
               className="file-upload-input"
             />
+            {detectedPanorama === true && (
+              <p className="panorama-detect-badge ok">✓ {t('addRoom.detectedPanorama')}</p>
+            )}
+            {detectedPanorama === false && (
+              <p className="panorama-detect-badge warn">⚠ {t('addRoom.detectedRegularImage')}</p>
+            )}
           </div>
           <div className="form-field checkbox-row">
             <input type="checkbox" id="entry-point" checked={isEntryPoint} onChange={(e) => setIsEntryPoint(e.target.checked)} />

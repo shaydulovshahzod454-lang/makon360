@@ -654,6 +654,11 @@ input:focus, select:focus, textarea:focus {
   display: block;
 }
 
+.panorama-preview img.regular-photo {
+  object-fit: contain;
+  background: var(--bg);
+}
+
 .view-360-btn {
   position: absolute;
   bottom: 24px;
@@ -2300,4 +2305,18 @@ body::before {
   color: var(--text-muted);
   font-size: 14px;
   font-weight: 500;
+}
+
+.panorama-detect-badge {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.panorama-detect-badge.ok {
+  color: #2e7d32;
+}
+
+.panorama-detect-badge.warn {
+  color: #b8860b;
 }

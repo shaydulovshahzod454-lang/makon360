@@ -172,6 +172,8 @@
     "roomName": "Xona nomi (masalan: Oshxona)",
     "panoramaImage": "Panorama rasm",
     "chooseFile": "Rasm tanlash",
+        "detectedPanorama": "Aniqlandi: 360° panorama rasm",
+    "detectedRegularImage": "Aniqlandi: oddiy rasm (360° emas) — oddiy rasm sifatida ko'rsatiladi",
     "noFileChosen": "Fayl tanlanmagan",
     "entryPoint": "Bu xonadan tur boshlanadi (kirish nuqtasi)",
     "addRoomButton": "Xonani qo'shish",

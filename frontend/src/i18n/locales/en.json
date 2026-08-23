@@ -173,6 +173,8 @@
     "panoramaImage": "Panorama image",
     "chooseFile": "Choose image",
     "noFileChosen": "No file chosen",
+        "detectedPanorama": "Detected: 360° panorama image",
+    "detectedRegularImage": "Detected: regular image (not 360°) — will be shown as a normal photo",
     "entryPoint": "The tour starts from this room (entry point)",
     "addRoomButton": "Add room",
     "addedRooms": "Added rooms:",
