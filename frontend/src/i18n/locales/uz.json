@@ -104,7 +104,13 @@
     "sqm": "kv.m",
     "floorPlanTitle": "Xonadon rejasi",
     "floorPlanCaption": "Sxematik chizma — har bir xona maydoni umumiy maydondan mutanosib ravishda hisoblangan. Maydoni:",
-    "floorPlanPerRoom": "har bir xona"
+    "floorPlanPerRoom": "har bir xona",
+        "notFoundTitle": "E'lon topilmadi",
+    "notFoundSubtitle": "Bu e'lon o'chirilgan yoki mavjud emas.",
+    "backToCatalog": "Katalogga qaytish",
+    "serverErrorTitle": "Server xatosi",
+    "serverErrorSubtitle": "Nimadir noto'g'ri ketdi. Iltimos, keyinroq qayta urinib ko'ring.",
+    "retryButton": "Qayta urinish"
   },
   "favoritesPage": {
     "title": "Sevimli e'lonlar",

@@ -16,6 +16,7 @@ from .serializers import (
 from .filters import ListingFilter
 from django.conf import settings
 from rest_framework.permissions import AllowAny
+from rest_framework.throttling import SimpleRateThrottle
 import requests
 import threading
 
@@ -27,7 +28,40 @@ class IsAgentOrReadOnly(permissions.BasePermission):
             return False
         profile = getattr(request.user, 'profile', None)
         return bool(profile and profile.is_agent)
-    
+
+
+class IsRoomOwnerOrReadOnly(permissions.BasePermission):
+    """Xonani faqat o'sha e'lonni yaratgan agentning o'zi o'zgartira/o'chira oladi"""
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if not request.user or not request.user.is_authenticated:
+            return False
+        profile = getattr(request.user, 'profile', None)
+        return bool(profile and profile.is_agent)
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.listing.created_by == request.user
+
+
+class IsHotspotOwnerOrReadOnly(permissions.BasePermission):
+    """Hotspot'ni faqat tegishli e'lonni yaratgan agentning o'zi o'zgartira/o'chira oladi"""
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if not request.user or not request.user.is_authenticated:
+            return False
+        profile = getattr(request.user, 'profile', None)
+        return bool(profile and profile.is_agent)
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.room.listing.created_by == request.user
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -96,13 +130,13 @@ class ListingViewSet(viewsets.ModelViewSet):
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all().select_related('listing').prefetch_related('hotspots')
     serializer_class = RoomSerializer
-    permission_classes = [IsAgentOrReadOnly]
+    permission_classes = [IsRoomOwnerOrReadOnly]
 
 
 class HotspotViewSet(viewsets.ModelViewSet):
     queryset = Hotspot.objects.all().select_related('room', 'target_room')
     serializer_class = HotspotSerializer
-    permission_classes = [IsAgentOrReadOnly]
+    permission_classes = [IsHotspotOwnerOrReadOnly]
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -159,9 +193,20 @@ def _send_feedback_email(feedback_name, feedback_email, feedback_message):
         pass
 
 
+class FeedbackThrottle(SimpleRateThrottle):
+    scope = 'feedback'
+
+    def get_cache_key(self, request, view):
+        return self.cache_format % {
+            'scope': self.scope,
+            'ident': self.get_ident(request),
+        }
+
+
 class FeedbackCreateView(APIView):
     """Foydalanuvchi fikr-mulohaza yuborishi uchun - login shart emas"""
     permission_classes = [AllowAny]
+    throttle_classes = [FeedbackThrottle]
 
     def post(self, request):
         serializer = FeedbackSerializer(data=request.data)

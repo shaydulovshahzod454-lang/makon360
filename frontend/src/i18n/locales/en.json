@@ -104,7 +104,13 @@
     "sqm": "sq.m",
     "floorPlanTitle": "Floor plan",
     "floorPlanCaption": "Schematic diagram — each room's area is calculated proportionally from the total area. Area:",
-    "floorPlanPerRoom": "per room"
+    "floorPlanPerRoom": "per room",
+    "notFoundTitle": "Listing not found",
+    "notFoundSubtitle": "This listing has been removed or doesn't exist.",
+    "backToCatalog": "Back to catalog",
+    "serverErrorTitle": "Server error",
+    "serverErrorSubtitle": "Something went wrong. Please try again later.",
+    "retryButton": "Try again"
   },
   "favoritesPage": {
     "title": "Favorite listings",

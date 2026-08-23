@@ -104,7 +104,13 @@
     "sqm": "кв.м",
     "floorPlanTitle": "Планировка квартиры",
     "floorPlanCaption": "Схематичный чертёж — площадь каждой комнаты рассчитана пропорционально от общей площади. Площадь:",
-    "floorPlanPerRoom": "на комнату"
+    "floorPlanPerRoom": "на комнату",
+    "notFoundTitle": "Объявление не найдено",
+    "notFoundSubtitle": "Это объявление удалено или не существует.",
+    "backToCatalog": "Вернуться в каталог",
+    "serverErrorTitle": "Ошибка сервера",
+    "serverErrorSubtitle": "Что-то пошло не так. Попробуйте позже.",
+    "retryButton": "Повторить"
   },
   "favoritesPage": {
     "title": "Избранные объявления",

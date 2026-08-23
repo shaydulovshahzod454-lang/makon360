@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 // pannellum endi bu yerda emas, effect ichida DINAMIK import() orqali
 // yuklanadi - shunda uning kodi faqat komponent haqiqatan ekranga
@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 function PanoramaViewer({ imageUrl, hotspots = [], onHotspotClick, editMode = false, onPanoramaClick, height = '500px', roomNames = {} }) {
   const viewerRef = useRef(null);
-  const containerId = 'panorama-container';
+  const reactId = useId();
+  const containerId = `panorama-container-${reactId.replace(/:/g, '')}`;
   const { t } = useTranslation();
   const [showRotateHint, setShowRotateHint] = useState(false);
 

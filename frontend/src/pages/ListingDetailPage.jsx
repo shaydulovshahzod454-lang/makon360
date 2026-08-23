@@ -13,9 +13,10 @@ function ListingDetailPage() {
   const navigate = useNavigate();
   const { authenticated, user } = useAuth();
   const { t } = useTranslation();
-  const [listing, setListing] = useState(null);
+    const [listing, setListing] = useState(null);
   const [currentRoomId, setCurrentRoomId] = useState(null);
   const [deleteError, setDeleteError] = useState('');
+  const [fetchError, setFetchError] = useState(null); // 'not_found' | 'server_error' | null
   const [show360, setShow360] = useState(false);
   const fullscreenRef = useRef(null);
 
@@ -52,11 +53,17 @@ function ListingDetailPage() {
     };
   }, [show360]);
 
-  useEffect(() => {
+    useEffect(() => {
     api.get(`/listings/${id}/`).then((res) => {
       setListing(res.data);
       const entryRoom = res.data.rooms.find((r) => r.is_entry_point) || res.data.rooms[0];
       setCurrentRoomId(entryRoom?.id);
+    }).catch((err) => {
+      if (err.response && err.response.status === 404) {
+        setFetchError('not_found');
+      } else {
+        setFetchError('server_error');
+      }
     });
   }, [id]);
 
@@ -81,6 +88,30 @@ function ListingDetailPage() {
       console.error(err);
     }
   };
+
+  if (fetchError === 'not_found') {
+    return (
+      <div className="page-container" style={{ textAlign: 'center', padding: '80px 20px' }}>
+        <h2>{t('listingDetail.notFoundTitle')}</h2>
+        <p>{t('listingDetail.notFoundSubtitle')}</p>
+        <Link to="/catalog" className="btn btn-primary" style={{ display: 'inline-block', marginTop: '16px' }}>
+          {t('listingDetail.backToCatalog')}
+        </Link>
+      </div>
+    );
+  }
+
+  if (fetchError === 'server_error') {
+    return (
+      <div className="page-container" style={{ textAlign: 'center', padding: '80px 20px' }}>
+        <h2>{t('listingDetail.serverErrorTitle')}</h2>
+        <p>{t('listingDetail.serverErrorSubtitle')}</p>
+        <button className="btn btn-secondary" onClick={() => window.location.reload()}>
+          {t('listingDetail.retryButton')}
+        </button>
+      </div>
+    );
+  }
 
   if (!listing) return <PageSpinner />;
 

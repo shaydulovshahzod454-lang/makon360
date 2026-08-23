@@ -174,6 +174,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'listings.pagination.StandardResultsPagination',
+    'DEFAULT_THROTTLE_RATES': {
+        'feedback': '5/hour',
+    },
 }
 
 CORS_ALLOW_HEADERS = [
