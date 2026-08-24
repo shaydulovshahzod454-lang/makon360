@@ -91,6 +91,7 @@
     "deleteError": "Something went wrong while deleting. This may not be your listing.",
     "view360": "View in 360°",
     "aboutTitle": "About this property",
+    "photosTitle": "More photos",
     "amenitiesTitle": "Amenities",
     "additionalInfoTitle": "Additional information",
     "floor": "Floor",
@@ -197,7 +198,9 @@
     "done": "Done — view listing",
     "unknownRoom": "Unknown room",
     "selectPointError": "Please mark a point on the panorama and choose a target room first.",
-    "createError": "Something went wrong while creating the hotspot."
+    "createError": "Something went wrong while creating the hotspot.",
+    "noPanoramaRooms": "This listing has no 360° panorama rooms yet. Hotspots only link panorama rooms together.",
+    "regularPhotosNote": "This listing has {{count}} regular photo(s). They aren't linked via hotspots — visitors will browse them as a carousel on the listing page."
   },
   "panorama": {
     "rotateHint": "Rotate your phone for a better view"

@@ -20,7 +20,8 @@ function ManageHotspotsPage() {
     api.get(`/listings/${id}/`).then((res) => {
       setListing(res.data);
       if (!currentRoomId) {
-        const entryRoom = res.data.rooms.find((r) => r.is_entry_point) || res.data.rooms[0];
+        const panoramaRooms = res.data.rooms.filter((r) => r.is_panorama !== false);
+        const entryRoom = panoramaRooms.find((r) => r.is_entry_point) || panoramaRooms[0];
         setCurrentRoomId(entryRoom?.id);
       }
     });
@@ -38,9 +39,11 @@ function ManageHotspotsPage() {
 
   if (!listing) return <PageSpinner />;
 
-  const currentRoom = listing.rooms.find((r) => r.id === currentRoomId);
-  const otherRooms = listing.rooms.filter((r) => r.id !== currentRoomId);
+  const panoramaRooms = listing.rooms.filter((r) => r.is_panorama !== false);
+  const currentRoom = panoramaRooms.find((r) => r.id === currentRoomId);
+  const otherRooms = panoramaRooms.filter((r) => r.id !== currentRoomId);
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
+  const regularPhotoCount = listing.rooms.length - panoramaRooms.length;
 
   const handleCreateHotspot = async (e) => {
     e.preventDefault();
@@ -84,10 +87,20 @@ function ManageHotspotsPage() {
     <div className="page-container hotspots-page fade-up" style={{ paddingTop: '32px' }}>
       <h2>{listing.title} — {t('hotspots.title')}</h2>
 
+      {regularPhotoCount > 0 && (
+        <p className="hotspot-hint" style={{ marginBottom: '16px' }}>
+          ℹ️ {t('hotspots.regularPhotosNote', { count: regularPhotoCount })}
+        </p>
+      )}
+
+      {panoramaRooms.length === 0 ? (
+        <p>{t('hotspots.noPanoramaRooms')}</p>
+      ) : (
+      <>
       <div className="room-selector">
         <label className="field-label" style={{ marginBottom: 0 }}>{t('hotspots.currentRoom')}:</label>
         <select value={currentRoomId || ''} onChange={(e) => { setCurrentRoomId(Number(e.target.value)); setPendingCoords(null); }} aria-label="Room">
-          {listing.rooms.map((r) => (
+          {panoramaRooms.map((r) => (
             <option key={r.id} value={r.id}>{r.name}</option>
           ))}
         </select>
@@ -144,6 +157,8 @@ function ManageHotspotsPage() {
           ))}
         </ul>
       </div>
+      </>
+      )}
 
       <Link to={`/listing/${id}`} className="btn btn-secondary done-link">
         {t('hotspots.done')}

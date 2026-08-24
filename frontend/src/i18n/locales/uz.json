@@ -91,6 +91,7 @@
     "deleteError": "O'chirishda xatolik yuz berdi. Ehtimol bu sizning e'loningiz emas.",
     "view360": "360° da ko'rish",
     "aboutTitle": "Mulk haqida",
+    "photosTitle": "Qo'shimcha rasmlar",
     "amenitiesTitle": "Qulayliklar",
     "additionalInfoTitle": "Qo'shimcha ma'lumot",
     "floor": "Qavat",
@@ -197,7 +198,9 @@
     "done": "Tayyor — e'lonni ko'rish",
     "unknownRoom": "Noma'lum xona",
     "selectPointError": "Iltimos, avval panorama ustida joy belgilang va qaysi xonaga o'tishini tanlang.",
-    "createError": "Hotspot yaratishda xatolik yuz berdi."
+    "createError": "Hotspot yaratishda xatolik yuz berdi.",
+    "noPanoramaRooms": "Bu e'londa hali 360° panorama xona yo'q. Hotspot faqat panorama xonalar orasida bog'lanadi.",
+    "regularPhotosNote": "Bu e'londa {{count}} ta oddiy rasm bor. Ular hotspot bilan bog'lanmaydi — mehmonlar ularni sahifada karusel ko'rinishida ko'radi."
   },
   "panorama": {
     "rotateHint": "Yaxshiroq ko'rish uchun telefoningizni gorizontal qiling"

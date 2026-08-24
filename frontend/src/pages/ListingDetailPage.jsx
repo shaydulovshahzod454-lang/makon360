@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api';
 import PanoramaViewer from '../components/PanoramaViewer';
+import RoomCarousel from '../components/RoomCarousel';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import PageSpinner from '../components/PageSpinner';
@@ -56,7 +57,8 @@ function ListingDetailPage() {
     useEffect(() => {
     api.get(`/listings/${id}/`).then((res) => {
       setListing(res.data);
-      const entryRoom = res.data.rooms.find((r) => r.is_entry_point) || res.data.rooms[0];
+      const panoramaRooms = res.data.rooms.filter((r) => r.is_panorama !== false);
+      const entryRoom = panoramaRooms.find((r) => r.is_entry_point) || panoramaRooms[0];
       setCurrentRoomId(entryRoom?.id);
     }).catch((err) => {
       if (err.response && err.response.status === 404) {
@@ -115,7 +117,9 @@ function ListingDetailPage() {
 
   if (!listing) return <PageSpinner />;
 
-  const currentRoom = listing.rooms.find((r) => r.id === currentRoomId);
+  const panoramaRooms = listing.rooms.filter((r) => r.is_panorama !== false);
+  const regularRooms = listing.rooms.filter((r) => r.is_panorama === false);
+  const currentRoom = panoramaRooms.find((r) => r.id === currentRoomId);
   const canManage = user?.is_agent && listing.created_by === user?.id;
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
 
@@ -210,11 +214,7 @@ function ListingDetailPage() {
 
       <div className="fade-up" style={{ animationDelay: '0.2s', marginTop: '20px' }}>
         {currentRoom && (
-          currentRoom.is_panorama === false ? (
-            <div className="panorama-preview">
-              <img src={currentRoom.panorama_image} alt={currentRoom.name} className="regular-photo" />
-            </div>
-          ) : authenticated ? (
+          authenticated ? (
             <div className="panorama-preview">
               <img src={currentRoom.panorama_image} alt={currentRoom.name} />
               <button className="view-360-btn" onClick={() => setShow360(true)}>
@@ -234,6 +234,8 @@ function ListingDetailPage() {
           )
         )}
       </div>
+
+      <RoomCarousel rooms={regularRooms} />
 
       {listing.amenities.length > 0 && (
         <div className="detail-section fade-up">
