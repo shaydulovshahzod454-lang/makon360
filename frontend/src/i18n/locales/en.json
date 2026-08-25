@@ -110,6 +110,7 @@
     "notFoundSubtitle": "This listing has been removed or doesn't exist.",
     "backToCatalog": "Back to catalog",
     "serverErrorTitle": "Server error",
+        "pendingApproval": "Your listing is under review — it will become visible to others once approved. This usually happens quickly.",
     "serverErrorSubtitle": "Something went wrong. Please try again later.",
     "retryButton": "Try again"
   },

@@ -120,7 +120,7 @@ function ListingDetailPage() {
   const panoramaRooms = listing.rooms.filter((r) => r.is_panorama !== false);
   const regularRooms = listing.rooms.filter((r) => r.is_panorama === false);
   const currentRoom = panoramaRooms.find((r) => r.id === currentRoomId);
-  const canManage = user?.is_agent && listing.created_by === user?.id;
+  const canManage = listing.created_by === user?.id;
   const roomNames = Object.fromEntries(listing.rooms.map((r) => [r.id, r.name]));
 
   // SEO uchun: sarlavha, tavsif, va preview rasm (birinchi xona panoramasi,
@@ -166,6 +166,12 @@ function ListingDetailPage() {
         <meta name="twitter:image" content={seoImage} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
+      {listing.is_approved === false && listing.created_by === user?.id && (
+        <div className="moderation-banner fade-up">
+          ⏳ {t('listingDetail.pendingApproval')}
+        </div>
+      )}
+
       <div className="detail-header fade-up">
         <div>
           <h1>{listing.title}</h1>

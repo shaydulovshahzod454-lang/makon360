@@ -27,6 +27,10 @@ class Listing(models.Model):
         default=False,
         help_text="Bu e'lon namuna/test uchunmi? Ha bo'lsa, u katalogda emas, faqat bosh sahifadagi 'Namuna' bo'limida ko'rinadi."
     )
+    is_approved = models.BooleanField(
+        default=False,
+        help_text="E'lon admin tomonidan tasdiqlanganmi? Tasdiqlanmagan e'lonlar faqat o'z egasiga ko'rinadi, jamoatchilikka chiqmaydi."
+    )
     address = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='listings')
 

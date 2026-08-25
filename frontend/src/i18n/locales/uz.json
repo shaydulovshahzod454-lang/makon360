@@ -110,6 +110,7 @@
     "notFoundSubtitle": "Bu e'lon o'chirilgan yoki mavjud emas.",
     "backToCatalog": "Katalogga qaytish",
     "serverErrorTitle": "Server xatosi",
+        "pendingApproval": "E'loningiz hozircha moderatsiyada — admin tomonidan tasdiqlangach, boshqalarga ko'rinadi. Bu odatda tez orada bo'ladi.",
     "serverErrorSubtitle": "Nimadir noto'g'ri ketdi. Iltimos, keyinroq qayta urinib ko'ring.",
     "retryButton": "Qayta urinish"
   },

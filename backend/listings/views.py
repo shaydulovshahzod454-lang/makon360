@@ -6,6 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters as drf_filters, status
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from django.db import models
 from django.db.models import Exists, OuterRef
 from .models import Category, Listing, Room, Hotspot, Favorite, UserProfile, Amenity, Feedback
 from .serializers import (
@@ -21,13 +22,16 @@ import requests
 import threading
 
 class IsAgentOrReadOnly(permissions.BasePermission):
+    """
+    E'lon yaratish uchun endi 'agent' bo'lish shart emas - istalgan
+    ro'yxatdan o'tgan foydalanuvchi e'lon qo'sha oladi. Yangi e'lon
+    avtomatik ravishda moderatsiyaga (is_approved=False) tushadi,
+    faqat ishonchli agentlarniki avtomatik tasdiqlanadi (pastda, perform_create'da).
+    """
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        if not request.user or not request.user.is_authenticated:
-            return False
-        profile = getattr(request.user, 'profile', None)
-        return bool(profile and profile.is_agent)
+        return bool(request.user and request.user.is_authenticated)
 
 
 class IsRoomOwnerOrReadOnly(permissions.BasePermission):
@@ -85,19 +89,29 @@ class ListingViewSet(viewsets.ModelViewSet):
     ordering_fields = ['price', 'created_at']
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        # Standart holatda (Bosh sahifa/Katalog uchun) faqat HAQIQIY
-        # e'lonlar ko'rinadi. Namuna (test) e'lonlarni ko'rish uchun
-        # frontend aniq ?is_demo=true parametrini yuborishi kerak.
-        if self.action == 'list' and 'is_demo' not in self.request.query_params:
-            qs = qs.filter(is_demo=False)
+            qs = super().get_queryset()
+            # Standart holatda (Bosh sahifa/Katalog uchun) faqat HAQIQIY
+            # e'lonlar ko'rinadi. Namuna (test) e'lonlarni ko'rish uchun
+            # frontend aniq ?is_demo=true parametrini yuborishi kerak.
+            if self.action == 'list' and 'is_demo' not in self.request.query_params:
+                qs = qs.filter(is_demo=False)
 
-        user = self.request.user
-        if user and user.is_authenticated:
-            qs = qs.annotate(
-                is_favorited_db=Exists(Favorite.objects.filter(user=user, listing=OuterRef('pk')))
-            )
-        return qs
+            user = self.request.user
+
+            # Tasdiqlanmagan (moderatsiyadagi) e'lonlar faqat ularning egasiga
+            # yoki xodim (staff)ga ko'rinadi - boshqalarga umuman ko'rinmaydi
+            if user and user.is_authenticated and user.is_staff:
+                pass  # xodim hammasini ko'radi
+            elif user and user.is_authenticated:
+                qs = qs.filter(models.Q(is_approved=True) | models.Q(created_by=user))
+            else:
+                qs = qs.filter(is_approved=True)
+
+            if user and user.is_authenticated:
+                qs = qs.annotate(
+                    is_favorited_db=Exists(Favorite.objects.filter(user=user, listing=OuterRef('pk')))
+                )
+            return qs
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -105,7 +119,16 @@ class ListingViewSet(viewsets.ModelViewSet):
         return ListingDetailSerializer
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        profile = getattr(self.request.user, 'profile', None)
+        is_trusted = bool(self.request.user.is_staff or (profile and profile.is_agent))
+        listing = serializer.save(created_by=self.request.user, is_approved=is_trusted)
+
+        if not is_trusted:
+            threading.Thread(
+                target=_send_new_listing_email,
+                args=(listing.id, listing.title, self.request.user.username),
+                daemon=True,
+            ).start()
 
     def perform_update(self, serializer):
         if serializer.instance.created_by != self.request.user:
@@ -202,6 +225,26 @@ class FeedbackThrottle(SimpleRateThrottle):
             'ident': self.get_ident(request),
         }
 
+def _send_new_listing_email(listing_id, listing_title, username):
+    """Yangi (moderatsiya kutayotgan) e'lon haqida adminga email yuboradi"""
+    try:
+        requests.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {settings.RESEND_API_KEY}"},
+            json={
+                "from": "Makon360 <onboarding@resend.dev>",
+                "to": [settings.FEEDBACK_RECEIVER_EMAIL],
+                "subject": f"Makon360 - Yangi e'lon tasdiqlanishi kutmoqda: {listing_title}",
+                "text": (
+                    f"Foydalanuvchi '{username}' yangi e'lon qo'shdi: {listing_title}\n\n"
+                    f"Admin panelda ko'rib chiqing va tasdiqlang:\n"
+                    f"https://makon360-backend-1.onrender.com/admin/listings/listing/{listing_id}/change/"
+                ),
+            },
+            timeout=5,
+        )
+    except Exception:
+        pass
 
 class FeedbackCreateView(APIView):
     """Foydalanuvchi fikr-mulohaza yuborishi uchun - login shart emas"""

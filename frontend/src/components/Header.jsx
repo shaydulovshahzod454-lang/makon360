@@ -96,7 +96,7 @@ return (
           <NavLink to="/catalog" onClick={closeMenu} style={{ '--i': 0 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.catalog')}</NavLink>
           <NavLink to="/calculator" onClick={closeMenu} style={{ '--i': 1 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.calculator')}</NavLink>
           <NavLink to="/favorites" onClick={closeMenu} style={{ '--i': 2 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.favorites')}</NavLink>
-          {user?.is_agent && <NavLink to="/create-listing" onClick={closeMenu} style={{ '--i': 3 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.addListing')}</NavLink>}
+          {authenticated && <NavLink to="/create-listing" onClick={closeMenu} style={{ '--i': 3 }} className={({ isActive }) => isActive ? 'nav-link-active' : ''}>{t('header.addListing')}</NavLink>}
 
           {/* Desktopda shu yerda ko'rinadi (mobilda CSS orqali yashiriladi,
               chunki mobil versiyasi mobile-header-actions ichida, pastda) */}
