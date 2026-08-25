@@ -99,13 +99,14 @@ class ListingViewSet(viewsets.ModelViewSet):
             user = self.request.user
 
             # Tasdiqlanmagan (moderatsiyadagi) e'lonlar faqat ularning egasiga
-            # yoki xodim (staff)ga ko'rinadi - boshqalarga umuman ko'rinmaydi
+            # yoki xodim (staff)ga ko'rinadi. Namuna (is_demo) e'lonlar esa
+            # moderatsiyadan mustasno - ular har doim ko'rinadi.
             if user and user.is_authenticated and user.is_staff:
                 pass  # xodim hammasini ko'radi
             elif user and user.is_authenticated:
-                qs = qs.filter(models.Q(is_approved=True) | models.Q(created_by=user))
+                qs = qs.filter(models.Q(is_approved=True) | models.Q(created_by=user) | models.Q(is_demo=True))
             else:
-                qs = qs.filter(is_approved=True)
+                qs = qs.filter(models.Q(is_approved=True) | models.Q(is_demo=True))
 
             if user and user.is_authenticated:
                 qs = qs.annotate(
