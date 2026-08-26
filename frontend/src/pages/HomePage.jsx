@@ -128,8 +128,6 @@ function HomePage() {
 
       <FeaturesSection />
 
-      <FilterBar filters={filters} categories={categories} onChange={handleFilterChange} />
-
         {loading ? (
           <PageSpinner />
                 ) : listings.length === 0 ? (
