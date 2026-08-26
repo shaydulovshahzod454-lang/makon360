@@ -78,6 +78,29 @@
     "emptySubtitle": "Be the first! Get in touch with us to list your property or partner with us:",
     "demoBanner": "🔍 These are sample listings — preview how your property will look on the site."
   },
+    "features": {
+    "introTitle": "Why Makon360?",
+    "introText": "We digitize the property search and sale process, saving time and money for both buyers and sellers.",
+    "f1Title": "360° virtual tour",
+    "f1Text": "Buyers explore every room as if they were there in person.",
+    "f2Title": "Mortgage calculator",
+    "f2Text": "Instantly calculates monthly payments with or without government subsidy.",
+    "f3Title": "Multi-language",
+    "f3Text": "Uzbek, Russian, and English — reach a wider audience.",
+    "f4Title": "Verified listings",
+    "f4Text": "Every new listing is reviewed by our team to ensure trust.",
+    "f5Title": "Mobile-friendly",
+    "f5Text": "Phone, tablet, or computer — smooth on any device.",
+    "f6Title": "Fast and free",
+    "f6Text": "Posting a listing takes minutes, at no cost.",
+    "stepsTitle": "How it works",
+    "step1Title": "Sign up",
+    "step1Text": "Create a free account in seconds.",
+    "step2Title": "Post your listing",
+    "step2Text": "Add details and photos, include a 360° tour.",
+    "step3Title": "Connect with buyers",
+    "step3Text": "Interested buyers reach out to you directly."
+  },
   "listingDetail": {
     "price": "Price",
     "address": "Address",
@@ -164,6 +187,16 @@
     "hasElectricity": "Electricity",
     "hasInternet": "Internet",
     "optional": "optional",
+    "titlePlaceholder": "e.g. 3-room apartment, Yunusobod",
+    "titleHint": "A short, clear title catches buyers' attention.",
+    "descriptionPlaceholder": "Describe the property in detail: renovation state, nearby infrastructure, why it's a great choice...",
+    "descriptionHint": "The more detail you provide, the faster buyers decide.",
+    "pricePlaceholder": "85000",
+    "priceHint": "Enter the price in US dollars (e.g. 85000).",
+    "addressPlaceholder": "Tashkent, Yunusabad district, block 12",
+    "contactPhonePlaceholder": "+998 90 123 45 67",
+    "contactPhoneHint": "Buyers will contact you at this number.",
+    "areaHint": "In square meters (m²).",
     "currentFile": "Current image on file",
     "floorPlanImage": "Floor plan (image)",
     "floorPlanImageHint": "You can upload a photo of the property's layout. This is optional."
@@ -205,5 +238,18 @@
   },
   "panorama": {
     "rotateHint": "Rotate your phone for a better view"
+  },
+    "getStarted": {
+    "slide1Title": "360° virtual tour",
+    "slide1Text": "Buyers can explore your property from their phone, like walking through it in person.",
+    "slide2Title": "Mortgage calculator",
+    "slide2Text": "Buyers instantly calculate their monthly payment with government subsidy.",
+    "slide3Title": "Multi-language",
+    "slide3Text": "Your listing appears in Uzbek, Russian, and English — reaching a wider audience.",
+    "slide4Title": "Fast and easy",
+    "slide4Text": "Posting a listing takes just a few minutes.",
+    "ctaTitle": "List your first property",
+    "ctaSubtitle": "Sign up and showcase your property to thousands of potential buyers in minutes.",
+    "ctaButton": "Get Started"
   }
 }

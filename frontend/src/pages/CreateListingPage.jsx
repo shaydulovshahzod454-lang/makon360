@@ -136,34 +136,39 @@ function CreateListingPage() {
       <div className="form-card">
         <h2>{isEditMode ? t('createListing.editTitle') : t('createListing.createTitle')}</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-field">
+                    <div className="form-field">
             <label className="field-label">{t('createListing.listingTitle')}</label>
-            <input name="title" value={form.title} onChange={handleChange} required />
+            <input name="title" value={form.title} onChange={handleChange} placeholder={t('createListing.titlePlaceholder')} required />
+            <p className="field-hint">{t('createListing.titleHint')}</p>
           </div>
           <div className="form-field">
             <label className="field-label">{t('createListing.description')}</label>
-            <textarea name="description" value={form.description} onChange={handleChange} required />
+            <textarea name="description" value={form.description} onChange={handleChange} placeholder={t('createListing.descriptionPlaceholder')} required />
+            <p className="field-hint">{t('createListing.descriptionHint')}</p>
           </div>
           <div className="form-field">
             <label className="field-label">{t('createListing.price')}</label>
-            <input type="number" name="price" value={form.price} onChange={handleChange} required />
+            <input type="number" name="price" value={form.price} onChange={handleChange} placeholder={t('createListing.pricePlaceholder')} required />
+            <p className="field-hint">{t('createListing.priceHint')}</p>
           </div>
           <div className="form-field">
             <label className="field-label">{t('createListing.address')}</label>
-            <input name="address" value={form.address} onChange={handleChange} required />
+            <input name="address" value={form.address} onChange={handleChange} placeholder={t('createListing.addressPlaceholder')} required />
           </div>
           <div className="form-field">
             <label className="field-label">{t('createListing.contactPhone')}</label>
-            <input name="contact_phone" value={form.contact_phone} onChange={handleChange} required />
+            <input name="contact_phone" value={form.contact_phone} onChange={handleChange} placeholder={t('createListing.contactPhonePlaceholder')} required />
+            <p className="field-hint">{t('createListing.contactPhoneHint')}</p>
           </div>
           <div className="form-row">
             <div className="form-field">
               <label className="field-label">{t('createListing.roomCount')}</label>
-              <input type="number" name="room_count" value={form.room_count} onChange={handleChange} />
+              <input type="number" name="room_count" value={form.room_count} onChange={handleChange} placeholder="3" />
             </div>
             <div className="form-field">
               <label className="field-label">{t('createListing.area')}</label>
-              <input type="number" step="0.1" name="area" value={form.area} onChange={handleChange} />
+              <input type="number" step="0.1" name="area" value={form.area} onChange={handleChange} placeholder="65.5" />
+              <p className="field-hint">{t('createListing.areaHint')}</p>
             </div>
           </div>
 
@@ -196,18 +201,18 @@ function CreateListingPage() {
 
           {/* Qo'shimcha ma'lumot */}
           <label className="field-label">{t('createListing.additionalInfo')}</label>
-          <div className="form-row">
+                    <div className="form-row">
             <div className="form-field">
               <label className="field-label">{t('createListing.floor')}</label>
-              <input type="number" name="floor" value={form.floor} onChange={handleChange} />
+              <input type="number" name="floor" value={form.floor} onChange={handleChange} placeholder="2" />
             </div>
             <div className="form-field">
               <label className="field-label">{t('createListing.totalFloors')}</label>
-              <input type="number" name="total_floors" value={form.total_floors} onChange={handleChange} />
+              <input type="number" name="total_floors" value={form.total_floors} onChange={handleChange} placeholder="9" />
             </div>
             <div className="form-field">
               <label className="field-label">{t('createListing.yearBuilt')}</label>
-              <input type="number" name="year_built" value={form.year_built} onChange={handleChange} />
+              <input type="number" name="year_built" value={form.year_built} onChange={handleChange} placeholder="2020" />
             </div>
           </div>
 

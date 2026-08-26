@@ -78,6 +78,29 @@
     "emptySubtitle": "Siz birinchilardan bo'ling! E'loningizni joylashtirish yoki hamkorlik bo'yicha biz bilan bog'laning:",
     "demoBanner": "🔍 Bu — namuna e'lonlar. Sizning e'loningiz saytda qanday ko'rinishini shu yerda oldindan ko'rishingiz mumkin."
   },
+    "features": {
+    "introTitle": "Nega aynan Makon360?",
+    "introText": "Ko'chmas mulk qidirish va sotish jarayonini raqamlashtirish orqali, xaridor va sotuvchi uchun ham vaqtni va xarajatlarni tejaymiz.",
+    "f1Title": "360° virtual tur",
+    "f1Text": "Xaridor uyni xonama-xona, xuddi ichida yurgandek ko'radi.",
+    "f2Title": "Ipoteka kalkulyatori",
+    "f2Text": "Davlat subsidiyasi bilan/subsidiyasiz oylik to'lovni bir zumda hisoblaydi.",
+    "f3Title": "Ko'p tillilik",
+    "f3Text": "O'zbek, rus va ingliz tillarida — kengroq auditoriyaga yeting.",
+    "f4Title": "Tekshirilgan e'lonlar",
+    "f4Text": "Har bir yangi e'lon jamoamiz tomonidan ko'rib chiqiladi, ishonchni ta'minlaymiz.",
+    "f5Title": "Mobil-do'stona",
+    "f5Text": "Telefon, planshet yoki kompyuter — qayerdan bo'lsa ham qulay.",
+    "f6Title": "Tez va bepul",
+    "f6Text": "E'lon joylashtirish bir necha daqiqa vaqt oladi, to'lovsiz.",
+    "stepsTitle": "Qanday ishlaydi",
+    "step1Title": "Ro'yxatdan o'ting",
+    "step1Text": "Bir necha soniyada, bepul hisob oching.",
+    "step2Title": "E'lon joylashtiring",
+    "step2Text": "Ma'lumot va rasmlarni yuklang, 360° tur qo'shing.",
+    "step3Title": "Xaridorlar bilan bog'laning",
+    "step3Text": "Qiziqqan xaridorlar to'g'ridan-to'g'ri siz bilan aloqaga chiqadi."
+  },
   "listingDetail": {
     "price": "Narx",
     "address": "Manzil",
@@ -164,6 +187,16 @@
     "hasElectricity": "Svet",
     "hasInternet": "Internet",
     "optional": "ixtiyoriy",
+    "titlePlaceholder": "Masalan: 3 xonali kvartira, Yunusobod",
+    "titleHint": "Qisqa va aniq nom xaridorning e'tiborini tortadi.",
+    "descriptionPlaceholder": "Uy haqida batafsil yozing: ta'mir holati, atrofdagi infratuzilma, nega bu uy yaxshi tanlov ekanini tushuntiring...",
+    "descriptionHint": "Qanchalik batafsil yozsangiz, xaridor shunchalik tez qaror qabul qiladi.",
+    "pricePlaceholder": "85000",
+    "priceHint": "Narxni AQSH dollarida kiriting (masalan: 85000).",
+    "addressPlaceholder": "Toshkent, Yunusobod tumani, 12-mavze",
+    "contactPhonePlaceholder": "+998 90 123 45 67",
+    "contactPhoneHint": "Xaridorlar shu raqam orqali siz bilan bog'lanadi.",
+    "areaHint": "Kvadrat metrda (m²).",
     "currentFile": "Joriy rasm mavjud",
     "floorPlanImage": "Xonadon sxemasi (rasm)",
     "floorPlanImageHint": "Uy yoki xonadon rejasini rasm ko'rinishida yuklashingiz mumkin. Bu ixtiyoriy."
@@ -205,5 +238,18 @@
   },
   "panorama": {
     "rotateHint": "Yaxshiroq ko'rish uchun telefoningizni gorizontal qiling"
+  },
+    "getStarted": {
+    "slide1Title": "360° virtual tur",
+    "slide1Text": "Xaridorlar uyingizni telefondan turib, xuddi ichida yurgandek ko'radi.",
+    "slide2Title": "Ipoteka kalkulyatori",
+    "slide2Text": "Xaridorlar subsidiya bilan oylik to'lovni bir zumda hisoblab ko'radi.",
+    "slide3Title": "Ko'p tillilik",
+    "slide3Text": "E'loningiz o'zbek, rus va ingliz tillarida ko'rinadi — auditoriyangiz kengayadi.",
+    "slide4Title": "Tez va oson",
+    "slide4Text": "E'lon joylashtirish atigi bir necha daqiqa vaqt oladi.",
+    "ctaTitle": "Birinchi e'loningizni joylashtiring",
+    "ctaSubtitle": "Ro'yxatdan o'ting va bir necha daqiqada uyingizni minglab potensial xaridorga ko'rsating.",
+    "ctaButton": "Boshlash"
   }
 }

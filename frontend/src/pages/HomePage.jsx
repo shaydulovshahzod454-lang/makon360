@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import FilterBar from '../components/FilterBar';
 import ListingGrid from '../components/ListingGrid';
 import PageSpinner from '../components/PageSpinner';
-import EmptyListingsState from '../components/EmptyListingsState';
+import GetStartedCarousel from '../components/GetStartedCarousel';
+import FeaturesSection from '../components/FeaturesSection';
 
 function AnimatedHeading({ text }) {
   const words = text.split(' ');
@@ -123,12 +124,16 @@ function HomePage() {
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ margin: 0, fontSize: '22px' }}>{t('home.latestTitle')}</h2>
-        </div>
+              </div>
+
+      <FeaturesSection />
+
+      <FilterBar filters={filters} categories={categories} onChange={handleFilterChange} />
 
         {loading ? (
           <PageSpinner />
-        ) : listings.length === 0 ? (
-          <EmptyListingsState />
+                ) : listings.length === 0 ? (
+          <GetStartedCarousel />
         ) : (
           <ListingGrid listings={listings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} />
         )}
