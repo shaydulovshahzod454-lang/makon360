@@ -1,28 +1,30 @@
 :root {
-  --bg: #161616;
-  --surface: #FFFFFF;
-  --text: #D4AF37;
-  --text-muted: #A89968;
-  --border: rgba(192, 192, 192, 0.22);
-  --nav-link: #FFFFFF;
+  --bg: #081411;
+  --surface: #0E211C;
+  --text: #F5F7F5;
+  --text-muted: #A7B3AE;
+  --border: rgba(255, 255, 255, 0.10);
+  --nav-link: #F5F7F5;
 
-    --accent: #D4AF37;
-  --accent-dark: #B8952C;
-  --gold-text-safe: #8F6F22;
-  --accent-soft: rgba(212, 175, 55, 0.10);
+  --primary: #163F37;
+  --primary-dark: #0F2B26;
 
-  --gold: #D4AF37;
-  --gold-soft: rgba(212, 175, 55, 0.12);
+  --accent: #D0A64A;
+  --accent-dark: #B88F3E;
+  --gold-text-safe: #E8C878;
+  --accent-soft: rgba(208, 166, 74, 0.12);
 
-  --silver: #FFFFFF;
-  --silver-dark: #E4E4E4;
+  --gold: #D0A64A;
+  --gold-soft: rgba(208, 166, 74, 0.12);
 
-  /* Kumush boxlar ichida matn uchun - tilla ustidan o'qish qiyin
-     bo'lgani sababli, box ichida to'q rang ishlatamiz (kontrast uchun) */
-  --text-on-surface: #1A1A1A;
-  --text-on-surface-muted: #4A4A4A;
+  --silver: #F5F7F5;
+  --silver-dark: #D8DEDA;
 
-  --danger: #C0392B;
+  /* Karta fonlari endi to'q yashil (--surface) bo'lgani uchun, matn ham och rangda */
+  --text-on-surface: #F5F7F5;
+  --text-on-surface-muted: #A7B3AE;
+
+  --danger: #E0554B;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
@@ -46,24 +48,29 @@
 
 /* ==================== KUNDUZGI REJIM ==================== */
 [data-theme="light"] {
-  --bg: #FAF7F0;
+  --bg: #F7F8F6;
   --surface: #FFFFFF;
-  --text: #241F14;
-  --text-muted: #7A7364;
-  --border: rgba(184, 149, 44, 0.35);
+  --text: #17201D;
+  --text-muted: #6B756F;
+  --border: #E4E9E5;
+  --nav-link: #17201D;
 
-  --accent: #B8952C;
-  --accent-dark: #94781F;
-  --accent-soft: rgba(184, 149, 44, 0.10);
+  --primary: #123C35;
+  --primary-dark: #0B2924;
 
-  --gold: #B8952C;
-  --gold-soft: rgba(184, 149, 44, 0.12);
+  --accent: #C89B3C;
+  --accent-dark: #A67F2F;
+  --gold-text-safe: #8F6F22;
+  --accent-soft: rgba(200, 155, 60, 0.10);
+
+  --gold: #C89B3C;
+  --gold-soft: rgba(200, 155, 60, 0.12);
 
   --silver: #FFFFFF;
-  --silver-dark: #E4E4E4;
+  --silver-dark: #E4E9E5;
 
-  --text-on-surface: #241F14;
-  --text-on-surface-muted: #6B6455;
+  --text-on-surface: #17201D;
+  --text-on-surface-muted: #6B756F;
 
   --danger: #C0392B;
 
@@ -120,7 +127,7 @@ button {
 input, select, textarea {
   font-family: var(--sans);
   font-size: 15px;
-  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  border: 1.5px solid rgba(208, 166, 74, 0.55);
   border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--text);
@@ -130,7 +137,7 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18), 0 0 16px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 0 4px rgba(208, 166, 74, 0.18), 0 0 16px rgba(208, 166, 74, 0.15);
 }
 
 /* ---------- Reusable primitives ---------- */
@@ -163,32 +170,29 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-primary {
-  background: var(--silver);
-  color: var(--gold-text-safe);
-  border: 1px solid var(--silver-dark);
+  background: var(--primary);
+  color: #FFFFFF;
+  border: 1px solid var(--primary);
   font-weight: 600;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .btn-primary:hover {
-  background: var(--gold);
-  color: var(--silver);
-  border-color: var(--accent-dark);
+  background: var(--primary-dark);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: var(--silver);
-  color: var(--gold-text-safe);
-  border: 1px solid var(--silver-dark);
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
   font-weight: 600;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: var(--gold);
-  color: var(--silver);
-  border-color: var(--accent-dark);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .btn-danger {
@@ -265,7 +269,7 @@ input:focus, select:focus, textarea:focus {
   z-index: 100;
   background: var(--bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid rgba(208, 166, 74, 0.25);
 }
 
 .header-inner {
@@ -842,7 +846,7 @@ input:focus, select:focus, textarea:focus {
   background: var(--surface);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-lg);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(208, 166, 74, 0.08);
   padding: 40px 36px;
 }
 
@@ -1310,9 +1314,9 @@ input:focus, select:focus, textarea:focus {
 
   [data-theme="dark"] .site-header nav.nav-open.mobile-nav-overlay {
     --overlay-bg:
-      radial-gradient(480px circle at 15% 15%, rgba(212, 175, 55, 0.35), transparent 60%),
+      radial-gradient(480px circle at 15% 15%, rgba(208, 166, 74, 0.35), transparent 60%),
       radial-gradient(420px circle at 90% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
-      radial-gradient(520px circle at 20% 90%, rgba(212, 175, 55, 0.22), transparent 60%),
+      radial-gradient(520px circle at 20% 90%, rgba(208, 166, 74, 0.22), transparent 60%),
       radial-gradient(400px circle at 85% 85%, rgba(255, 255, 255, 0.08), transparent 60%),
       #0d0d0d;
   }
@@ -1763,13 +1767,13 @@ body::before {
 
 .btn-primary,
 .btn-secondary {
-  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  border: 1px solid rgba(208, 166, 74, 0.55) !important;
 }
 
 /* Kartalar/tugmalar ustiga sichqoncha kelganda, chegara biroz yorqinlashadi */
 .listing-card:hover,
 .form-card:hover {
-  border-color: rgba(212, 175, 55, 0.6) !important;
+  border-color: rgba(208, 166, 74, 0.6) !important;
 }
 
 .btn-primary:hover,
@@ -1778,13 +1782,7 @@ body::before {
 }
 
 /* Navbardagi "Ro'yxatdan o'tish" tugmasi - .btn-primary rangi ustunlik qilishi kerak */
-.site-header nav a.btn-primary {
-  color: var(--gold-text-safe) !important;
-}
 
-.site-header nav a.btn-primary:hover {
-  color: var(--silver) !important;
-}
 
 .theme-toggle-btn {
   display: flex;
@@ -1793,7 +1791,7 @@ body::before {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   background: transparent;
   color: var(--nav-link);
   cursor: pointer;
@@ -1967,7 +1965,7 @@ body::before {
 .calc-range::-moz-range-track {
   height: 4px;
   border-radius: 2px;
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(208, 166, 74, 0.3);
 }
 
 .calc-subrow {
@@ -1982,7 +1980,7 @@ body::before {
 .calc-hero-number {
   padding-bottom: 24px;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 1px solid rgba(208, 166, 74, 0.3);
 }
 
 .calc-label {
@@ -2070,7 +2068,7 @@ body::before {
   justify-content: space-between;
   align-items: center;
   padding: 13px 0;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+  border-bottom: 1px solid rgba(208, 166, 74, 0.18);
   font-size: 14.5px;
 }
 
@@ -2125,7 +2123,7 @@ body::before {
 .calc-ai-textarea {
   width: 100%;
   background: #fff;
-  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  border: 1.5px solid rgba(208, 166, 74, 0.55);
   border-radius: 14px;
   padding: 14px 16px;
   font-family: inherit;
@@ -2140,7 +2138,7 @@ body::before {
 
 .calc-ai-textarea:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
+  box-shadow: 0 0 0 4px rgba(208, 166, 74, 0.18);
 }
 
 .calc-ai-controls {
@@ -2167,7 +2165,7 @@ body::before {
 
 .calc-ai-feedback.ok {
   background: var(--accent-soft);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   color: var(--text-on-surface);
 }
 
@@ -2186,7 +2184,7 @@ body::before {
 
 .calc-pill {
   background: #fff;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   border-radius: 999px;
   padding: 5px 12px;
   font-size: 12.5px;
@@ -2239,7 +2237,7 @@ body::before {
 .feedback-badge {
   display: inline-block;
   padding: 5px 14px;
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  border: 1px solid rgba(208, 166, 74, 0.5);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
@@ -2297,7 +2295,7 @@ body::before {
 
 .feedback-success {
   background: var(--accent-soft);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   color: var(--text);
   padding: 18px;
   border-radius: var(--radius-md);
@@ -2368,7 +2366,7 @@ body::before {
   border-radius: 50%;
   background: var(--bg);
   color: var(--gold);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   transition: transform 0.15s ease, background 0.2s ease;
 }
 
@@ -2411,8 +2409,8 @@ body::before {
 }
 
 .moderation-banner {
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(208, 166, 74, 0.12);
+  border: 1px solid rgba(208, 166, 74, 0.4);
   color: var(--gold);
   padding: 14px 18px;
   border-radius: var(--radius-md);
@@ -2476,7 +2474,7 @@ body::before {
   height: 8px;
   border-radius: 50%;
   border: none;
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(208, 166, 74, 0.3);
   cursor: pointer;
   padding: 0;
   transition: background 0.2s ease, transform 0.2s ease;
