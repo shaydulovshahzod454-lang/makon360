@@ -74,7 +74,8 @@
     "noResults": "No listings found.",
     "addToFavorites": "Add to favorites",
     "removeFromFavorites": "Remove from favorites",
-        "emptyTitle": "No listings yet",
+    "emptyTitle": "No listings yet",
+    "explore360": "Explore rooms",
     "emptySubtitle": "Be the first! Get in touch with us to list your property or partner with us:",
     "demoBanner": "🔍 These are sample listings — preview how your property will look on the site."
   },
@@ -133,6 +134,7 @@
     "notFoundSubtitle": "This listing has been removed or doesn't exist.",
     "backToCatalog": "Back to catalog",
     "serverErrorTitle": "Server error",
+    "roomsShort": "rooms",
         "pendingApproval": "Your listing is under review — it will become visible to others once approved. This usually happens quickly.",
     "serverErrorSubtitle": "Something went wrong. Please try again later.",
     "retryButton": "Try again"

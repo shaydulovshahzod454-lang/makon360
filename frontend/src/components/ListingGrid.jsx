@@ -8,7 +8,7 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
     return <p>{t('home.noResults')}</p>;
   }
 
-    return (
+  return (
     <div className={`listing-grid ${staggerAnim ? 'stagger' : ''}`}>
       {listings.map((listing, index) => (
         <Link key={listing.id} to={`/listing/${listing.id}`} className="listing-card card">
@@ -30,12 +30,22 @@ function ListingGrid({ listings, authenticated, onToggleFavorite, staggerAnim = 
                 fetchPriority={index === 0 ? 'high' : 'auto'}
               />
             )}
-            <span className="badge-360">360°</span>
+            <span className="badge-360">◉ 360°</span>
             <span className="badge-price">${listing.price}</span>
+            <div className="card-hover-overlay">
+              <span>{t('home.explore360')} →</span>
+            </div>
           </div>
           <div className="card-body">
             <h3>{listing.title}</h3>
-            <p className="address">{listing.address}</p>
+            <p className="address">📍 {listing.address}</p>
+            {(listing.room_count || listing.area) && (
+              <div className="card-meta-row">
+                {listing.room_count && <span>{listing.room_count} {t('listingDetail.roomsShort')}</span>}
+                {listing.room_count && listing.area && <span className="dot-sep">•</span>}
+                {listing.area && <span>{listing.area} m²</span>}
+              </div>
+            )}
           </div>
         </Link>
       ))}

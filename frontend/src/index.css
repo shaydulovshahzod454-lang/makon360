@@ -2646,3 +2646,47 @@ body::before {
     font-size: 12.5px;
   }
 }
+
+/* ==================== KARTOCHKA — YANGILANGAN KO'RINISH ==================== */
+
+.card-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 20, 17, 0) 40%, rgba(8, 20, 17, 0.75) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.card-hover-overlay span {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  transform: translateY(6px);
+  transition: transform 0.25s ease;
+}
+
+.listing-card:hover .card-hover-overlay {
+  opacity: 1;
+}
+
+.listing-card:hover .card-hover-overlay span {
+  transform: translateY(0);
+}
+
+.card-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-on-surface-muted);
+  margin-top: 4px;
+}
+
+.dot-sep {
+  opacity: 0.5;
+}
