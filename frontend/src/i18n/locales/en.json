@@ -253,5 +253,11 @@
     "ctaTitle": "List your first property",
     "ctaSubtitle": "Sign up and showcase your property to thousands of potential buyers in minutes.",
     "ctaButton": "Get Started"
+  },
+    "tour": {
+    "title": "Step inside before you visit",
+    "subtitle": "Makon360's virtual tours let you walk through properties from anywhere.",
+    "cta": "Explore virtual tours",
+    "dragHint": "Click to explore"
   }
 }

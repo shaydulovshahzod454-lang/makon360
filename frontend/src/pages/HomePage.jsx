@@ -9,6 +9,7 @@ import ListingGrid from '../components/ListingGrid';
 import PageSpinner from '../components/PageSpinner';
 import GetStartedCarousel from '../components/GetStartedCarousel';
 import FeaturesSection from '../components/FeaturesSection';
+import VirtualTourSection from '../components/VirtualTourSection';
 
 function AnimatedHeading({ text }) {
   const words = text.split(' ');
@@ -129,7 +130,9 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="page-container">
+            <div className="page-container">
+        <VirtualTourSection previewListing={demoListings[0]} />
+
         <FeaturesSection />
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>

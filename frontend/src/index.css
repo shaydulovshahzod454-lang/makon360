@@ -2690,3 +2690,103 @@ body::before {
 .dot-sep {
   opacity: 0.5;
 }
+
+/* ==================== 360° TAJRIBA BO'LIMI ==================== */
+
+.tour-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0;
+}
+
+.tour-eyebrow {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.tour-text h2 {
+  font-size: 32px;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.tour-text p {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 24px;
+  max-width: 440px;
+}
+
+.tour-preview {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
+}
+
+.tour-preview-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.tour-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tour-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--display);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: 0.4;
+}
+
+.tour-drag-hint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 20, 17, 0.75);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 999px;
+}
+
+@media (max-width: 860px) {
+  .tour-section {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .tour-text {
+    text-align: center;
+  }
+
+  .tour-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -253,5 +253,11 @@
     "ctaTitle": "Birinchi e'loningizni joylashtiring",
     "ctaSubtitle": "Ro'yxatdan o'ting va bir necha daqiqada uyingizni minglab potensial xaridorga ko'rsating.",
     "ctaButton": "Boshlash"
+  },
+    "tour": {
+    "title": "Uyga bormasdan oldin, ichiga kiring",
+    "subtitle": "Makon360'dagi virtual turlar orqali, xohlagan joyingizdan turib, uyni xonama-xona ko'rib chiqing.",
+    "cta": "Virtual turlarni ko'rish",
+    "dragHint": "Batafsil ko'rish uchun bosing"
   }
 }
