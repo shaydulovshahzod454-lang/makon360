@@ -1,30 +1,28 @@
 :root {
-  --bg: #081411;
-  --surface: #0E211C;
-  --text: #F5F7F5;
-  --text-muted: #A7B3AE;
-  --border: rgba(255, 255, 255, 0.10);
-  --nav-link: #F5F7F5;
+  --bg: #161616;
+  --surface: #FFFFFF;
+  --text: #D4AF37;
+  --text-muted: #A89968;
+  --border: rgba(192, 192, 192, 0.22);
+  --nav-link: #FFFFFF;
 
-  --primary: #163F37;
-  --primary-dark: #0F2B26;
+    --accent: #D4AF37;
+  --accent-dark: #B8952C;
+  --gold-text-safe: #8F6F22;
+  --accent-soft: rgba(212, 175, 55, 0.10);
 
-  --accent: #D0A64A;
-  --accent-dark: #B88F3E;
-  --gold-text-safe: #E8C878;
-  --accent-soft: rgba(208, 166, 74, 0.12);
+  --gold: #D4AF37;
+  --gold-soft: rgba(212, 175, 55, 0.12);
 
-  --gold: #D0A64A;
-  --gold-soft: rgba(208, 166, 74, 0.12);
+  --silver: #FFFFFF;
+  --silver-dark: #E4E4E4;
 
-  --silver: #F5F7F5;
-  --silver-dark: #D8DEDA;
+  /* Kumush boxlar ichida matn uchun - tilla ustidan o'qish qiyin
+     bo'lgani sababli, box ichida to'q rang ishlatamiz (kontrast uchun) */
+  --text-on-surface: #1A1A1A;
+  --text-on-surface-muted: #4A4A4A;
 
-  /* Karta fonlari endi to'q yashil (--surface) bo'lgani uchun, matn ham och rangda */
-  --text-on-surface: #F5F7F5;
-  --text-on-surface-muted: #A7B3AE;
-
-  --danger: #E0554B;
+  --danger: #C0392B;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
@@ -48,29 +46,24 @@
 
 /* ==================== KUNDUZGI REJIM ==================== */
 [data-theme="light"] {
-  --bg: #F7F8F6;
+  --bg: #FAF7F0;
   --surface: #FFFFFF;
-  --text: #17201D;
-  --text-muted: #6B756F;
-  --border: #E4E9E5;
-  --nav-link: #17201D;
+  --text: #241F14;
+  --text-muted: #7A7364;
+  --border: rgba(184, 149, 44, 0.35);
 
-  --primary: #123C35;
-  --primary-dark: #0B2924;
+  --accent: #B8952C;
+  --accent-dark: #94781F;
+  --accent-soft: rgba(184, 149, 44, 0.10);
 
-  --accent: #C89B3C;
-  --accent-dark: #A67F2F;
-  --gold-text-safe: #8F6F22;
-  --accent-soft: rgba(200, 155, 60, 0.10);
-
-  --gold: #C89B3C;
-  --gold-soft: rgba(200, 155, 60, 0.12);
+  --gold: #B8952C;
+  --gold-soft: rgba(184, 149, 44, 0.12);
 
   --silver: #FFFFFF;
-  --silver-dark: #E4E9E5;
+  --silver-dark: #E4E4E4;
 
-  --text-on-surface: #17201D;
-  --text-on-surface-muted: #6B756F;
+  --text-on-surface: #241F14;
+  --text-on-surface-muted: #6B6455;
 
   --danger: #C0392B;
 
@@ -127,7 +120,7 @@ button {
 input, select, textarea {
   font-family: var(--sans);
   font-size: 15px;
-  border: 1.5px solid rgba(208, 166, 74, 0.55);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
   border-radius: var(--radius-sm);
   background: var(--surface);
   color: var(--text);
@@ -137,7 +130,7 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(208, 166, 74, 0.18), 0 0 16px rgba(208, 166, 74, 0.15);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18), 0 0 16px rgba(212, 175, 55, 0.15);
 }
 
 /* ---------- Reusable primitives ---------- */
@@ -170,29 +163,32 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: #FFFFFF;
-  border: 1px solid var(--primary);
+  background: var(--silver);
+  color: var(--gold-text-safe);
+  border: 1px solid var(--silver-dark);
   font-weight: 600;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
+  background: var(--gold);
+  color: var(--silver);
+  border-color: var(--accent-dark);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: var(--silver);
+  color: var(--gold-text-safe);
+  border: 1px solid var(--silver-dark);
   font-weight: 600;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--gold);
+  color: var(--silver);
+  border-color: var(--accent-dark);
 }
 
 .btn-danger {
@@ -269,7 +265,7 @@ input:focus, select:focus, textarea:focus {
   z-index: 100;
   background: var(--bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(208, 166, 74, 0.25);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
 }
 
 .header-inner {
@@ -730,13 +726,13 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-on-surface);
 }
 
-.room-carousel-dots {
+.carousel-dots {
   display: flex;
   gap: 6px;
   margin-top: 8px;
 }
 
-.room-carousel-dot {
+.carousel-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -747,7 +743,7 @@ input:focus, select:focus, textarea:focus {
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
-.room-carousel-dot.active {
+.carousel-dot.active {
   background: var(--gold);
   transform: scale(1.25);
 }
@@ -846,7 +842,7 @@ input:focus, select:focus, textarea:focus {
   background: var(--surface);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-lg);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(208, 166, 74, 0.08);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.08);
   padding: 40px 36px;
 }
 
@@ -1314,9 +1310,9 @@ input:focus, select:focus, textarea:focus {
 
   [data-theme="dark"] .site-header nav.nav-open.mobile-nav-overlay {
     --overlay-bg:
-      radial-gradient(480px circle at 15% 15%, rgba(208, 166, 74, 0.35), transparent 60%),
+      radial-gradient(480px circle at 15% 15%, rgba(212, 175, 55, 0.35), transparent 60%),
       radial-gradient(420px circle at 90% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
-      radial-gradient(520px circle at 20% 90%, rgba(208, 166, 74, 0.22), transparent 60%),
+      radial-gradient(520px circle at 20% 90%, rgba(212, 175, 55, 0.22), transparent 60%),
       radial-gradient(400px circle at 85% 85%, rgba(255, 255, 255, 0.08), transparent 60%),
       #0d0d0d;
   }
@@ -1767,13 +1763,13 @@ body::before {
 
 .btn-primary,
 .btn-secondary {
-  border: 1px solid rgba(208, 166, 74, 0.55) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
 }
 
 /* Kartalar/tugmalar ustiga sichqoncha kelganda, chegara biroz yorqinlashadi */
 .listing-card:hover,
 .form-card:hover {
-  border-color: rgba(208, 166, 74, 0.6) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
 }
 
 .btn-primary:hover,
@@ -1782,7 +1778,13 @@ body::before {
 }
 
 /* Navbardagi "Ro'yxatdan o'tish" tugmasi - .btn-primary rangi ustunlik qilishi kerak */
+.site-header nav a.btn-primary {
+  color: var(--gold-text-safe) !important;
+}
 
+.site-header nav a.btn-primary:hover {
+  color: var(--silver) !important;
+}
 
 .theme-toggle-btn {
   display: flex;
@@ -1791,7 +1793,7 @@ body::before {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   background: transparent;
   color: var(--nav-link);
   cursor: pointer;
@@ -1965,7 +1967,7 @@ body::before {
 .calc-range::-moz-range-track {
   height: 4px;
   border-radius: 2px;
-  background: rgba(208, 166, 74, 0.3);
+  background: rgba(212, 175, 55, 0.3);
 }
 
 .calc-subrow {
@@ -1980,7 +1982,7 @@ body::before {
 .calc-hero-number {
   padding-bottom: 24px;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(208, 166, 74, 0.3);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .calc-label {
@@ -2068,7 +2070,7 @@ body::before {
   justify-content: space-between;
   align-items: center;
   padding: 13px 0;
-  border-bottom: 1px solid rgba(208, 166, 74, 0.18);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
   font-size: 14.5px;
 }
 
@@ -2123,7 +2125,7 @@ body::before {
 .calc-ai-textarea {
   width: 100%;
   background: #fff;
-  border: 1.5px solid rgba(208, 166, 74, 0.55);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
   border-radius: 14px;
   padding: 14px 16px;
   font-family: inherit;
@@ -2138,7 +2140,7 @@ body::before {
 
 .calc-ai-textarea:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(208, 166, 74, 0.18);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.18);
 }
 
 .calc-ai-controls {
@@ -2165,7 +2167,7 @@ body::before {
 
 .calc-ai-feedback.ok {
   background: var(--accent-soft);
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   color: var(--text-on-surface);
 }
 
@@ -2184,7 +2186,7 @@ body::before {
 
 .calc-pill {
   background: #fff;
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 999px;
   padding: 5px 12px;
   font-size: 12.5px;
@@ -2237,7 +2239,7 @@ body::before {
 .feedback-badge {
   display: inline-block;
   padding: 5px 14px;
-  border: 1px solid rgba(208, 166, 74, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
@@ -2295,7 +2297,7 @@ body::before {
 
 .feedback-success {
   background: var(--accent-soft);
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   color: var(--text);
   padding: 18px;
   border-radius: var(--radius-md);
@@ -2366,7 +2368,7 @@ body::before {
   border-radius: 50%;
   background: var(--bg);
   color: var(--gold);
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   transition: transform 0.15s ease, background 0.2s ease;
 }
 
@@ -2409,384 +2411,12 @@ body::before {
 }
 
 .moderation-banner {
-  background: rgba(208, 166, 74, 0.12);
-  border: 1px solid rgba(208, 166, 74, 0.4);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   color: var(--gold);
   padding: 14px 18px;
   border-radius: var(--radius-md);
   margin-bottom: 20px;
   font-size: 14.5px;
   font-weight: 500;
-}
-
-.get-started-block {
-  text-align: center;
-  padding: 20px 0 10px;
-}
-
-.get-started-carousel {
-  max-width: 640px;
-  margin: 0 auto 40px;
-  overflow: hidden;
-  border: 1.5px solid var(--gold);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
-
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.carousel-slide {
-  flex: 0 0 100%;
-  padding: 48px 32px 28px;
-  text-align: center;
-  color: var(--text-on-surface);
-}
-
-.carousel-slide-icon {
-  font-size: 44px;
-  margin-bottom: 16px;
-}
-
-.carousel-slide h3 {
-  color: var(--text-on-surface);
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.carousel-slide p {
-  color: var(--text-on-surface-muted);
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding-bottom: 20px;
-}
-
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(208, 166, 74, 0.3);
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.carousel-dot.active {
-  background: var(--gold);
-  transform: scale(1.3);
-}
-
-.get-started-cta h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.get-started-cta p {
-  color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 auto 24px;
-}
-
-.get-started-btn {
-  font-size: 16px;
-  padding: 14px 32px;
-}
-
-/* ==================== SAYT HAQIDA / IMKONIYATLAR ==================== */
-
-.features-section {
-  padding: 40px 0 56px;
-}
-
-.features-intro {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 40px;
-}
-
-.features-intro h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.features-intro p {
-  color: var(--text-muted);
-  font-size: 15.5px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  margin-bottom: 56px;
-}
-
-.feature-card {
-  background: var(--surface);
-  border: 1.5px solid var(--gold);
-  border-radius: var(--radius-lg);
-  padding: 28px 22px;
-  color: var(--text-on-surface);
-  text-align: center;
-  transition: transform 0.2s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-}
-
-.feature-icon {
-  font-size: 32px;
-  margin-bottom: 14px;
-}
-
-.feature-card h3 {
-  color: var(--text-on-surface);
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.feature-card p {
-  color: var(--text-on-surface-muted);
-  font-size: 13.5px;
-  margin: 0;
-}
-
-.features-steps h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 32px;
-}
-
-.steps-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 28px;
-}
-
-.step-item {
-  text-align: center;
-}
-
-.step-num {
-  font-family: var(--display);
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--gold);
-  opacity: 0.5;
-  margin-bottom: 8px;
-}
-
-.step-item h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.step-item p {
-  color: var(--text-muted);
-  font-size: 13.5px;
-  max-width: 260px;
-  margin: 0 auto;
-}
-
-@media (max-width: 720px) {
-  .features-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* ==================== HERO — QIDIRUV VA ISHONCH QATORI ==================== */
-
-.hero-search-card {
-  max-width: 760px;
-  margin: 36px auto 0;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: 18px;
-}
-
-.hero-search-card .filter-bar {
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  margin-bottom: 0;
-}
-
-.hero-trust-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 28px;
-  margin-top: 24px;
-  font-size: 13.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-@media (max-width: 720px) {
-  .hero-search-card {
-    margin-top: 24px;
-    padding: 14px;
-  }
-
-  .hero-trust-row {
-    gap: 14px 20px;
-    font-size: 12.5px;
-  }
-}
-
-/* ==================== KARTOCHKA — YANGILANGAN KO'RINISH ==================== */
-
-.card-hover-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(8, 20, 17, 0) 40%, rgba(8, 20, 17, 0.75) 100%);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 16px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-
-.card-hover-overlay span {
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  transform: translateY(6px);
-  transition: transform 0.25s ease;
-}
-
-.listing-card:hover .card-hover-overlay {
-  opacity: 1;
-}
-
-.listing-card:hover .card-hover-overlay span {
-  transform: translateY(0);
-}
-
-.card-meta-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  color: var(--text-on-surface-muted);
-  margin-top: 4px;
-}
-
-.dot-sep {
-  opacity: 0.5;
-}
-
-/* ==================== 360° TAJRIBA BO'LIMI ==================== */
-
-.tour-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  padding: 56px 0;
-}
-
-.tour-eyebrow {
-  display: inline-block;
-  font-family: var(--display);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.tour-text h2 {
-  font-size: 32px;
-  margin-bottom: 14px;
-  line-height: 1.15;
-}
-
-.tour-text p {
-  color: var(--text-muted);
-  font-size: 16px;
-  margin-bottom: 24px;
-  max-width: 440px;
-}
-
-.tour-preview {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  aspect-ratio: 4 / 3;
-}
-
-.tour-preview-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.tour-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.tour-preview-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-family: var(--display);
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.4;
-}
-
-.tour-drag-hint {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(8, 20, 17, 0.75);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  font-size: 13.5px;
-  font-weight: 600;
-  padding: 8px 18px;
-  border-radius: 999px;
-}
-
-@media (max-width: 860px) {
-  .tour-section {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .tour-text {
-    text-align: center;
-  }
-
-  .tour-text p {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }

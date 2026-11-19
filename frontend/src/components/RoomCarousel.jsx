@@ -29,11 +29,11 @@ function RoomCarousel({ rooms }) {
         </div>
         <p className="room-carousel-name">{room.name}</p>
         {rooms.length > 1 && (
-          <div className="room-carousel-dots">
+          <div className="carousel-dots">
             {rooms.map((r, i) => (
               <button
                 key={r.id}
-                className={`room-carousel-dot ${i === index ? 'active' : ''}`}
+                className={`carousel-dot ${i === index ? 'active' : ''}`}
                 onClick={() => setIndex(i)}
                 aria-label={`Go to photo ${i + 1}`}
               />

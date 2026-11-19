@@ -41,7 +41,7 @@ class ListingListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Listing
-        fields = ['id', 'title', 'price', 'address', 'category', 'main_image', 'is_favorited', 'room_count', 'area']
+        fields = ['id', 'title', 'price', 'address', 'category', 'main_image', 'is_favorited']
 
     def get_main_image(self, obj):
         first_room = obj.rooms.first()

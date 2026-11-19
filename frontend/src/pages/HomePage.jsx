@@ -7,9 +7,7 @@ import { useTranslation } from 'react-i18next';
 import FilterBar from '../components/FilterBar';
 import ListingGrid from '../components/ListingGrid';
 import PageSpinner from '../components/PageSpinner';
-import GetStartedCarousel from '../components/GetStartedCarousel';
-import FeaturesSection from '../components/FeaturesSection';
-import VirtualTourSection from '../components/VirtualTourSection';
+import EmptyListingsState from '../components/EmptyListingsState';
 
 function AnimatedHeading({ text }) {
   const words = text.split(' ');
@@ -113,36 +111,24 @@ function HomePage() {
         <meta name="description" content="O'zbekistondagi uy, kvartira va ofislarni 360° virtual tur orqali uydan chiqmasdan ko'ring. Ishonchli agentliklar tomonidan joylashtirilgan e'lonlar." />
         <link rel="canonical" href="https://makon360.online/" />
       </Helmet>
-            <div className="hero">
+      <div className="hero">
         <AnimatedHeading text={t('home.title')} />
         <p className="fade-up" style={{ animationDelay: '0.5s' }}>
           {t('home.heroSubtitle')}
         </p>
-
-        <div className="hero-search-card fade-up" style={{ animationDelay: '0.65s' }}>
-          <FilterBar filters={filters} setFilters={setFilters} categories={categories} />
-        </div>
-
-        <div className="hero-trust-row fade-up" style={{ animationDelay: '0.8s' }}>
-          <span>🔭 {t('features.f1Title')}</span>
-          <span>✅ {t('features.f4Title')}</span>
-          <span>🌐 {t('features.f3Title')}</span>
-        </div>
       </div>
 
-            <div className="page-container">
-        <VirtualTourSection previewListing={demoListings[0]} />
+      <div className="page-container">
+        <FilterBar filters={filters} setFilters={setFilters} categories={categories} />
 
-        <FeaturesSection />
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ margin: 0, fontSize: '22px' }}>{t('home.latestTitle')}</h2>
         </div>
 
         {loading ? (
           <PageSpinner />
         ) : listings.length === 0 ? (
-          <GetStartedCarousel />
+          <EmptyListingsState />
         ) : (
           <ListingGrid listings={listings} authenticated={authenticated} onToggleFavorite={handleToggleFavorite} />
         )}
